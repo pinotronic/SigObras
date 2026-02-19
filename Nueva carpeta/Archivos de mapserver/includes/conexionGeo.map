@@ -1,1 +1,0 @@
-CONNECTION "user=admingeo password=admingeo dbname=Geo host=srvbdsig port=5432"
