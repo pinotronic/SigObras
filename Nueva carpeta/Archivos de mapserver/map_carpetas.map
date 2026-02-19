@@ -1,0 +1,101 @@
+MAP
+    NAME "SS_MAP_LECT_CARPETAS"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_carpetas.log"
+    DEBUG 0
+    LAYER
+        NAME "SS_MAP_LECT_CARPETAS_SENTIDO"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        CONNECTIONTYPE POSTGIS
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from carpetas using unique gid using srid=32614"
+        STATUS DEFAULT
+        TYPE line
+        LABELITEM "rutycarp"
+        CLASS
+            NAME "Carpetas"
+            STYLE
+                COLOR 100 100 100
+                GAP -60
+                SIZE 15
+                SYMBOL "flechas"
+            END #STYLE
+            LABEL
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 15
+                COLOR 100 100 100
+                OUTLINECOLOR 254 254 254
+            END #LABEL
+        END #CLASS
+    END #LAYER
+    LAYER
+        NAME "SS_MAP_LECT_CARPETAS_RANGOS"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        CONNECTIONTYPE POSTGIS
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from carpetas using unique gid using srid=32614"
+        STATUS DEFAULT
+        TYPE line
+        CLASSITEM "rango"
+        CLASS
+            NAME "0 m3"
+            EXPRESSION "1"
+            STYLE
+                WIDTH 2
+                COLOR 200 200 200
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "1-5 m3"
+            EXPRESSION "2"
+            STYLE
+                WIDTH 2
+                COLOR 250 125 125
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "6-10 m3"
+            EXPRESSION "3"
+            STYLE
+                WIDTH 2
+                COLOR 245 134 52
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "11-15 m3"
+            EXPRESSION "4"
+            STYLE
+                WIDTH 2
+                COLOR 255 242 18
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "16-30 m3"
+            EXPRESSION "5"
+            STYLE
+                WIDTH 2
+                COLOR 0 168 89
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "mayor a 30 m3"
+            EXPRESSION "6"
+            STYLE
+                WIDTH 2
+                COLOR 0 0 200
+            END #STYLE
+        END #CLASS
+    END #LAYER
+END #MAP
+

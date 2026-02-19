@@ -1,0 +1,35 @@
+MAP
+    NAME "SS_MAP_TOMAS_CLANDESTINAS"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB 
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_tomas_clandestinas.log"
+    DEBUG 0
+	SYMBOL
+        NAME "advertencia"
+        TYPE pixmap
+        IMAGE "includes/symbols/advertencia.png"
+    END #SYMBOL
+    LAYER
+        NAME "SS_MAP_TOMAS_CLANDESTINAS"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        STATUS DEFAULT
+        CONNECTIONTYPE POSTGIS
+        INCLUDE 'includes/conexion_gestion_infra.map'
+        TYPE POINT
+		DATA "geometry from op.mv_cuenta_sanciones using unique no_cuenta using srid=32614"
+        LABELCACHE OFF
+        CLASS
+            NAME "Toma clandestina"
+            STYLE
+                SYMBOL "advertencia"
+            END #STYLE
+        END #CLASS#
+    END #LAYER#
+END #MAP#

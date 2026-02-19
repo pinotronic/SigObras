@@ -1,0 +1,430 @@
+MAP
+	NAME "SS_MAP_AGUA_TUBERIA_AGUA"
+	INCLUDE 'includes/globals.map'
+	WEB
+		INCLUDE "includes/temp_directory.map"
+		METADATA      
+			INCLUDE 'includes/common_metadata.map'
+		END #METADATA
+	END #WEB
+	CONFIG "MS_ERRORFILE" "/srv/mapserver/err_tuberia_agua.log"
+	DEBUG 0
+	LAYER
+		NAME "SS_MAP_AGUA_TUBERIA_INFO"
+		PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+		CONNECTIONTYPE POSTGIS
+		STATUS DEFAULT
+		INCLUDE 'includes/conexion.map'    
+		DATA "geometry from (select ts.gid, ts.diametro as diametro, ts.geometry as geometry from tuberiassec ts WHERE ts.cl_responsable_mantenimiento=1) as tmp using unique gid using srid=32614"
+		PROCESSING "CLOSE_CONNECTION=DEFER"  # Reutiliza conexiones para múltiples consultas
+        PROCESSING "POSTGIS_FILTER=YES"      # Filtra geometrías en el lado del servidor
+        TYPE line
+		MINSCALE 1
+		MAXSCALE 15000
+		LABELITEM "diametro"
+		CLASS
+			NAME "tuberia de agua"
+			LABEL
+				TYPE TRUETYPE
+				FONT "arial"
+				SIZE 20
+				COLOR 0 0 255
+			END #LABEL
+		END #CLASS
+	END #LAYER
+	LAYER
+		NAME "SS_MAP_AGUA_TUBERIA"
+		PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+		CONNECTIONTYPE POSTGIS
+		STATUS DEFAULT
+		INCLUDE 'includes/conexion.map'
+		DATA "geometry from (select ts.gid, ts.diametro as diametro, ts.geometry as geometry from tuberiassec ts WHERE ts.cl_responsable_mantenimiento=1) as tmp using unique gid using srid=32614"
+		TYPE line
+		MINSCALE 1
+		MAXSCALE 15000
+		CLASSITEM "diametro"
+		CLASS
+				NAME "1 pulgada"
+				EXPRESSION "1"
+				STYLE
+					COLOR 0 0 0
+					PATTERN
+					40.00 17.00 0.00 17.00
+					END #PATTERN
+					WIDTH 2
+				END #STYLE
+		END #CLASS
+		CLASS
+			NAME "1.5 pulgadas"
+			EXPRESSION "1.5"
+			STYLE
+				COLOR 0 0 0
+				PATTERN
+				40.00 17.00 0.00 17.00
+				END #PATTERN
+				WIDTH 2
+			END #STYLE
+			STYLE
+				ANGLE 30
+				COLOR 0 0 0
+				GAP -74
+				INITIALGAP 20
+				SIZE 10
+				SYMBOL "l"
+			END #STYLE
+		END #CLASS
+		CLASS
+			NAME "2 pulgadas"
+			EXPRESSION "2"
+			STYLE
+				COLOR 0 0 0
+				PATTERN
+					50.00 17.00 0.00 17.00 0.00 17.00
+				END #PATTERN
+				WIDTH 2
+			END #STYLE
+		END #CLASS
+		CLASS
+			NAME "2.5 pulgadas"
+			EXPRESSION "2.5"
+			STYLE
+				ANGLE 30
+				COLOR 0 0 0
+				GAP -91
+				INITIALGAP 20
+				SIZE 10
+				SYMBOL "l"
+			END #STYLE
+			STYLE
+				COLOR 0 0 0
+				PATTERN
+					40.00 17.00 0.00 17.00 0.00 17.00
+				END #PATTERN
+				WIDTH 2
+			END #STYLE
+		END #CLASS
+		CLASS
+			NAME "3 pulgadas"
+			EXPRESSION "3"
+			STYLE
+				COLOR 0 0 0
+				PATTERN
+					70.00 17.00 0.00 17.00 0.00 17.00 0.00 17.00
+				END #PATTERN
+				WIDTH 2
+			END #STYLE
+		END #CLASS
+		CLASS
+			NAME "4 pulgadas"
+			EXPRESSION "4"
+			STYLE
+				COLOR 0 0 0
+			END #STYLE
+		END
+		CLASS #CLASS
+			NAME "6 pulgadas"
+			EXPRESSION "6"
+			STYLE
+				COLOR 0 0 0
+			END #STYLE
+			STYLE
+				ANGLE 70
+				COLOR 0 0 0
+				GAP -91
+				INITIALGAP 20
+				SIZE 10
+				SYMBOL "l"
+			END #STYLE
+		END #CLASS
+		CLASS
+			NAME "8 pulgadas"
+			EXPRESSION "8"
+			STYLE
+				COLOR 0 0 0
+			END #STYLE
+			STYLE
+				ANGLE -30
+				COLOR 0 0 0
+				GAP 30
+				INITIALGAP 20
+				SIZE 15
+				SYMBOL "+"
+			END #STYLE
+		END #CLASS
+		CLASS
+			NAME "10 pulgadas"
+			EXPRESSION "10"
+			STYLE
+				COLOR 0 0 0
+				PATTERN
+					50.00 17.00 10.00 17.00
+				END #PATTERN
+				WIDTH 2
+			END #STYLE
+		END #CLASS
+		CLASS
+			NAME "12 pulgadas"
+			EXPRESSION "12"
+			STYLE
+				COLOR 0 0 0
+				PATTERN
+					60.00 40.00
+				END #PATTERN
+				WIDTH 2
+			END #STYLE
+			STYLE
+				ANGLE -20
+				COLOR 0 0 0
+				GAP -100
+				INITIALGAP 80
+				SIZE 10
+				SYMBOL "l"
+			END #STYLE
+		END #CLASS
+		CLASS
+			NAME "14 pulgadas"
+			EXPRESSION "14"
+			STYLE
+				COLOR 0 0 0
+				PATTERN
+					50.00 40.00
+				END #PATTERN
+				WIDTH 2
+			END #STYLE
+			STYLE
+				COLOR 0 0 0
+				GAP 90
+				INITIALGAP 65
+				SIZE 15
+				SYMBOL "+"
+			END #STYLE
+		END #CLASS
+		CLASS
+			NAME "16 pulgadas"
+			EXPRESSION "16"
+			STYLE
+				COLOR 0 0 0
+				PATTERN
+					60.00 20.00
+				END #PATTERN
+				WIDTH 2
+			END #STYLE
+			STYLE
+				COLOR 0 0 0
+				GAP 80
+				INITIALGAP 74
+				SIZE 10
+				SYMBOL "+"
+			END #STYLE
+			STYLE
+				COLOR 0 0 0
+				GAP 80
+				INITIALGAP 79
+				SIZE 10
+				SYMBOL "l"
+			END # STYLE
+		END # CLASS
+		CLASS
+			NAME "18 pulgadas"
+			EXPRESSION "18"
+			STYLE
+				COLOR 0 0 0
+				PATTERN
+					60.00 10.00 15.00 10.00 15.00 10.00 15.00
+				END #PATTERN
+				WIDTH 2
+			END #STYLE
+		END #CLASS
+		CLASS
+			NAME "20 pulgadas"
+			EXPRESSION "20"
+			STYLE
+				COLOR 0 0 0
+				PATTERN
+					40.00 10.00 15.00 10.00
+				END #PATTERN
+				WIDTH 2
+			END #STYLE
+		END #CLASS
+		CLASS
+			NAME "24 pulgadas"
+			EXPRESSION "24"
+			STYLE
+				COLOR 0 0 0
+				PATTERN
+					40.00 10.00 40.00 40.00
+				END #PATTERN
+				WIDTH 2
+			END #STYLE
+			STYLE
+				COLOR 0 0 0
+				GAP 130
+				INITIALGAP 115
+				SIZE 10
+				SYMBOL "+"
+			END #STYLE
+		END #CLASS
+		CLASS
+			NAME "30 pulgadas"
+			EXPRESSION "30"
+			STYLE
+				COLOR 0 0 0
+				PATTERN
+					55.00 35.00
+				END #PATTERN
+				WIDTH 2
+			END #STYLE
+			STYLE
+				COLOR 0 0 0
+				GAP -90
+				INITIALGAP 76
+				SIZE 10
+				SYMBOL "+"
+			END #STYLE
+		END #CLASS
+		CLASS
+			NAME "34 pulgadas"
+			EXPRESSION "34"
+			STYLE
+				COLOR 0 0 0
+				PATTERN
+				60.00 40.00
+				END #PATTERN
+				WIDTH 2
+			END #STYLE
+			STYLE
+				ANGLE -50
+				COLOR 0 0 0
+				GAP 100
+				INITIALGAP 80
+				SIZE 12
+				SYMBOL "+"
+			END #STYLE
+			STYLE
+				COLOR 0 0 0
+				GAP 100
+				INITIALGAP 90
+				SIZE 12
+				SYMBOL "+"
+			END #STYLE
+		END #CLASS
+		CLASS
+			NAME "36 pulgadas"
+			EXPRESSION "36"
+			STYLE
+				COLOR 0 0 0
+				GAP 80
+				INITIALGAP 63
+				SIZE 10
+				SYMBOL "l"
+			END #STYLE
+			STYLE
+				COLOR 0 0 0
+				PATTERN
+				55.00 25.00
+				END #PATTERN
+				WIDTH 2
+			END #STYLE
+			STYLE
+				COLOR 0 0 0
+				GAP 80
+				INITIALGAP 75
+				SIZE 10
+				SYMBOL "+"
+			END #STYLE
+		END #CLASS
+		CLASS
+			NAME "42 pulgadas"
+			EXPRESSION "42"
+			STYLE
+				ANGLE -20
+				COLOR 0 0 0
+				GAP 80
+				INITIALGAP 70
+				SIZE 10
+				SYMBOL "+"
+			END #STYLE
+			STYLE
+				COLOR 0 0 0
+				PATTERN
+				55.00 25.00
+				END #PATTERN
+				WIDTH 2
+			END #STYLE
+			STYLE
+				ANGLE -20
+				COLOR 0 0 0
+				GAP 80
+				INITIALGAP 79
+				SIZE 10
+				SYMBOL "+"
+			END #STYLE
+		END #CLASS
+		CLASS
+			NAME "48 pulgadas"
+			EXPRESSION "48"
+			STYLE
+				ANGLE -35
+				COLOR 0 0 0
+				GAP 80
+				INITIALGAP 70
+				SIZE 10
+				SYMBOL "+"
+			END #STYLE
+			STYLE
+				COLOR 0 0 0
+				PATTERN
+				55.00 25.00
+				END #PATTERN
+				WIDTH 2
+			END #STYLE
+			STYLE
+				ANGLE -35
+				COLOR 0 0 0
+				GAP 80
+				INITIALGAP 79
+				SIZE 10
+				SYMBOL "+"
+			END #STYLE
+		END #CLASS
+		CLASS
+			NAME "54 pulgadas"
+			EXPRESSION "54"
+			STYLE
+				COLOR 0 0 0
+				PATTERN
+				60.00 60.00
+				END #PATTERN
+				WIDTH 2
+			END #STYLE
+			STYLE
+				ANGLE -50
+				COLOR 0 0 0
+				GAP 120
+				INITIALGAP 80
+				SIZE 12
+				SYMBOL "+"
+			END # STYLE
+			STYLE
+				ANGLE -50
+				COLOR 0 0 0
+				GAP 120
+				INITIALGAP 90
+				SIZE 12
+				SYMBOL "+"
+			END # STYLE
+			STYLE
+				ANGLE -50
+				COLOR 0 0 0
+				GAP 120
+				INITIALGAP 100
+				SIZE 12
+				SYMBOL "+"
+			END # STYLE
+		END # CLASS
+	END #LAYER
+END #MAP

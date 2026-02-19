@@ -1,0 +1,70 @@
+MAP
+    NAME "SS_MAP_DREN_TUBERIA_DRENAJE"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_tuberia_drenaje.log"
+    DEBUG 0
+    LAYER
+        NAME "SS_MAP_DREN_TUBERIA"
+        PROJECTION
+            'init=epsg:32614'
+        END #PROJECION
+        STATUS DEFAULT
+        METADATA
+            'ows_title' 'Tuberia Drenaje'
+            'ows_include_items' 'all'
+            'gml_include_items' 'all'
+        END #METADATA
+        CONNECTIONTYPE POSTGIS
+        INCLUDE 'includes/conexion.map'
+        TYPE LINE
+        DATA "geometry from (select ls.gid, ls.diametro as diametro, ls.geometry as geometry from lineassec ls WHERE ls.cl_responsable_mantenimiento=1) as tmp using unique gid using srid=32614"
+        PROCESSING "CLOSE_CONNECTION=DEFER"  # Reutiliza conexiones para múltiples consultas
+        PROCESSING "POSTGIS_FILTER=YES"      # Filtra geometrías en el lado del servidor
+        LABELITEM "diametro"
+        MINSCALE 1
+        MAXSCALE 15000
+        CLASS
+            NAME "SS_MAP_DREN_TUBERIA_DIAMETRO_FLUJO"
+            STYLE
+                SYMBOL 0
+                COLOR 161 102 50
+            END #STYLE
+            LABEL
+                TYPE TRUETYPE
+                FONT 'arial'
+                SIZE 19
+                COLOR 0 0 0
+                OUTLINECOLOR 254 254 254
+            END #LABEL
+        END #CLASS
+    END #LAYER
+    LAYER
+        NAME "Flujo"
+        PROJECTION
+            'init=epsg:32614'
+        END #PROJECION
+        STATUS DEFAULT
+        CONNECTIONTYPE POSTGIS
+        INCLUDE 'includes/conexion.map'
+        TYPE LINE
+        DATA "geometry from (select ls.gid, ls.geometry as geometry from lineassec ls WHERE ls.cl_responsable_mantenimiento=1) as tmp using unique gid using srid=32614"
+        PROCESSING "CLOSE_CONNECTION=DEFER"  # Reutiliza conexiones para múltiples consultas
+        PROCESSING "POSTGIS_FILTER=YES"      # Filtra geometrías en el lado del servidor
+        MINSCALE 1
+        MAXSCALE 15000
+        CLASS
+            NAME "Flujo"
+            STYLE
+                COLOR 161 102 50
+                SYMBOL 'flechas'
+                SIZE 10
+            END #STYLE
+        END #CLASS
+    END #LAYER
+END #MAP

@@ -1,0 +1,36 @@
+MAP
+    INCLUDE 'includes/globals.map'
+    NAME 'SS_MAP_DREN_REHABILITACIONES'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+        INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_rehabilitaciones.log"
+    DEBUG 0
+    LAYER
+        NAME "SS_MAP_DREN_REHABILITACIONES"
+        PROJECTION
+            'init=epsg:32614'
+        END #PROJECION
+        CONNECTIONTYPE POSTGIS      
+        METADATA
+            'ows_title' 'Rehabilitaciones'
+            'ows_include_items' 'all'
+            'gml_include_items' 'all'
+        END #METADATA
+        INCLUDE 'includes/conexionInfraestructura.map'
+        DATA "geometry from l_tuberia_alcantarillado using unique gid using srid=32614"
+        STATUS DEFAULT
+        TYPE LINE
+        CLASS
+            NAME "Rehabilitaciones"
+            STYLE
+                SYMBOL 'plainline'
+                size 3
+                COLOR 38 87 180
+            END #STYLE
+        END #CLASS
+    END #LAYER
+END #MAP

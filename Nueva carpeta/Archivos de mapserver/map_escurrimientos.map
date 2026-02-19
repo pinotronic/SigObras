@@ -1,0 +1,31 @@
+MAP
+    NAME "SS_MAP_HIDR_ESCURRIMIENTOS"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'  
+        END #METADATA 
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_escurrimientos.log"
+    DEBUG 0
+    LAYER 	      
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_HIDR_ESCURRIMIENTOS"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        INCLUDE 'includes/conexionGeo.map'  
+        DATA "geometry from escurrimientos_2019 using unique gid using srid=32614"
+        STATUS DEFAULT
+        TYPE line
+        CLASS
+            NAME "Escurrimientos"
+            STYLE
+                SYMBOL 'plainline'
+                SIZE 3
+                COLOR 0 128 200
+            END #STYLE
+        END #CLASS
+    END #LAYER
+END #MAP

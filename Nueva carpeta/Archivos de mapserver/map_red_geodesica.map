@@ -1,0 +1,42 @@
+MAP
+    INCLUDE 'includes/globals.map'
+    NAME "SS_MAP_GRAL_RED_GEODESICA"
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_red_geodesica.log"
+    DEBUG 0
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_GRAL_RED_GEODESICA"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        STATUS DEFAULT
+            INCLUDE 'includes/conexion.map'
+        DATA "geometry from (select gid,geometry,('X=' || x || ' Y=' || y || ' Z=' || z) as coordenada from red_geodesica) as tmp using unique gid using srid=32614"
+        TYPE POINT
+        LABELITEM "coordenada"
+        LABELCACHE ON
+        CLASS
+            NAME "red_geodesica"
+            STYLE
+                SYMBOL "puntos"
+                SIZE 8
+                COLOR 0 0 255
+                OUTLINECOLOR 0 0 0
+            END #STYLE
+            LABEL
+                TYPE TRUETYPE
+                FONT "arial"
+                OFFSET 0 22
+                SIZE 19
+                COLOR 0 0 255
+                OUTLINECOLOR 254 254 254
+            END #LABEL
+        END #CLASS
+    END #LAYER
+END #MAP

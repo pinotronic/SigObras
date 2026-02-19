@@ -1,0 +1,168 @@
+MAP
+  NAME "SIG_PREDIOS_WMS"
+  INCLUDE "includes/globals.map"
+
+  PROJECTION
+    "init=epsg:32614"
+  END
+
+  # EXTENT en METROS (UTM 32614). AJÚSTALO A TU ZONA REAL
+  EXTENT 182916.955339 2309262.755359 254143.488068 2360276.552781
+
+  WEB
+    INCLUDE "includes/temp_directory.map"
+    METADATA
+      INCLUDE "includes/common_metadata.map"
+      "wms_title" "SIG Predios WMS"
+
+
+      "wms_include_items" "all"
+      "gml_include_items" "all"
+
+      # GetFeatureInfo: soportar JSON y GeoJSON
+      "wms_feature_info_mime_type" "application/geo+json"
+      "wms_getfeatureinfo_formatlist" "application/geo+json application/json text/plain application/vnd.ogc.gml"
+    END
+  END
+
+  CONFIG "MS_ERRORFILE" "/srv/mapserver/err_predios.log"
+  DEBUG 5
+
+  OUTPUTFORMAT
+    NAME "geojson"
+    MIMETYPE "application/geo+json; charset=utf-8"
+    DRIVER "OGR/GEOJSON"
+    FORMATOPTION "FORM=SIMPLE"
+    FORMATOPTION "STORAGE=memory"
+    FORMATOPTION "LCO:NATIVE_MEDIA_TYPE=application/geo+json"
+  END
+
+  LAYER
+    NAME "SS_MAP_INFO_PREDIOS"
+    CONNECTIONTYPE POSTGIS
+    STATUS DEFAULT
+    TYPE POLYGON
+
+    PROJECTION
+      "init=epsg:32614"
+    END
+
+    METADATA
+      "ows_title" "SS_MAP_INFO_PREDIOS"
+      "gml_include_items" "all"
+      "wms_include_items" "all"
+      "wms_srs" "EPSG:32614 EPSG:3857"
+      "wms_title" "Predios"
+      "ows_include_items" "all"
+    END
+
+    TEMPLATE "EMPTY"
+    MAXSCALEDENOM 15900
+
+    INCLUDE "includes/conexion_gestion_infra.map"
+
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    PROCESSING "POSTGIS_FILTER=YES"
+
+    DATA "gm_predio FROM (SELECT id_predio AS id_elemento_geografico, gm_predio, cl_estado, cl_tipo_predio, cl_niple_supresor FROM op.mv_gm_predio_cuenta) AS data USING UNIQUE id_elemento_geografico USING SRID=32614"
+
+    CLASS
+      NAME "Niple Supresor"
+      EXPRESSION ("[cl_niple_supresor]" = "R")
+
+      STYLE
+        COLOR -1 -1 -1
+        OUTLINECOLOR 255 214 176
+        WIDTH 5
+      END
+
+      STYLE
+        COLOR -1 -1 -1
+        OUTLINECOLOR 236 16 16
+        WIDTH 3
+        PATTERN 30 10 END
+      END
+    END
+
+    CLASS
+      NAME "area verde"
+      EXPRESSION ([cl_tipo_predio] = 22)
+      STYLE
+        COLOR 42 184 30
+        OUTLINECOLOR 0 255 0
+      END
+    END
+
+    CLASS
+      NAME "area de donacion"
+      EXPRESSION ([cl_tipo_predio] = 1)
+      STYLE
+        COLOR 42 184 30
+        OUTLINECOLOR 0 255 0
+      END
+    END
+
+    CLASS
+      NAME "no capturado"
+      EXPRESSION ([cl_estado] = 0)
+      STYLE
+        COLOR 240 240 240
+        OUTLINECOLOR 150 150 150
+      END
+    END
+
+    CLASS
+      NAME "con cuenta"
+      EXPRESSION ([cl_estado] = 1)
+      STYLE
+        COLOR 255 214 176
+        OUTLINECOLOR 255 128 0
+      END
+    END
+
+    CLASS
+      NAME "sin cuenta"
+      EXPRESSION ([cl_estado] = 2)
+      STYLE
+        COLOR 255 255 200
+        OUTLINECOLOR 255 128 0
+      END
+    END
+  END
+
+  LAYER
+    NAME "SS_MAP_INFO_POLIGONOS_MANZANAS"
+    CONNECTIONTYPE POSTGIS
+    STATUS DEFAULT
+    TYPE POLYGON
+
+    PROJECTION
+      "init=epsg:32614"
+    END
+
+    METADATA
+      "ows_title" "Poliman"
+      "ows_include_items" "all"
+      "gml_include_items" "all"
+      "labelMinScale" "17000"
+      "wms_srs" "EPSG:32614 EPSG:3857"
+    END
+
+    MINSCALEDENOM 15901
+
+    INCLUDE "includes/conexion.map"
+    DATA "geometry FROM poliman USING UNIQUE gid USING SRID=32614"
+
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+    PROCESSING "POSTGIS_FILTER=YES"
+
+    CLASS
+      NAME "Poligonos de manzanas"
+      STYLE
+        COLOR 215 215 215
+        OUTLINECOLOR 156 156 156
+      END
+    END
+  END
+
+END

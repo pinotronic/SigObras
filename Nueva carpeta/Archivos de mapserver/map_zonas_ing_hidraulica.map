@@ -1,0 +1,39 @@
+MAP
+    NAME "SS_MAP_MCIR_ZONAS_HIDRAULICA"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_zonas_ing_hidraulica.log"
+    DEBUG 0
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_MCIR_ZONAS_HIDRAULICA"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from (select gid,geometry,('Zona: ' || zona || ' Supervisor: ' || supervisor) as txt from zonas_inghca) as tmp using unique gid using srid=32614"
+        STATUS DEFAULT
+        TYPE POLYGON
+        LABELITEM "txt"
+        CLASS
+            NAME "Zonas de Ing. Hca."
+            STYLE
+                OUTLINECOLOR 64 84 44
+                WIDTH 4.0
+            END #STYLE
+            LABEL
+                TYPE TRUETYPE
+                FONT "ARIAL"
+                SIZE 19
+                PARTIALS FALSE
+                COLOR 64 84 44
+                OUTLINECOLOR 254 254 254
+            END #LABEL
+        END #CLASS
+    END #LAYER
+END #MAP

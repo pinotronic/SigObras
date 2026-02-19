@@ -1,0 +1,31 @@
+MAP
+	NAME "SS_MAP_AGUA_PRESAS_RIOS"
+	INCLUDE 'includes/globals.map'
+	WEB
+		INCLUDE "includes/temp_directory.map"
+		METADATA
+			INCLUDE 'includes/common_metadata.map'
+		END #METADATA
+	END #WEB
+	CONFIG "MS_ERRORFILE" "/srv/mapserver/err_rios_presas.log"
+    DEBUG 0
+	LAYER
+		CONNECTIONTYPE POSTGIS
+		NAME "SS_MAP_AGUA_PRESAS_RIOS"
+		PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+		STATUS DEFAULT
+		MINSCALE 1
+		INCLUDE 'includes/conexionGeo.map'
+		TYPE POLYGON
+		DATA "geometry from cuerpos_agua_2021_base_orto_18s using unique gid using srid=32614"
+		CLASS
+			NAME 'Cuerpos de Agua 2021'
+			STYLE
+				COLOR 55 180 255
+				OUTLINECOLOR 63 51 255
+			END #STYLE
+		END #CLASS
+	END #LAYER
+END #MAP

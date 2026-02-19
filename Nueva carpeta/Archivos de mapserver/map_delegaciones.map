@@ -1,0 +1,191 @@
+MAP
+    NAME "SS_MAP_GRAL_DELEGACIONES"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_delegaciones.log"
+    DEBUG 0
+    LAYER
+        PROJECTION
+            'init=epsg:32614'
+        END #PROJECTION
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_GRAL_DELEGACIONES"
+        METADATA
+            'ows_title' 'Delegaciones'
+            'ows_include_items' 'all'
+            'gml_include_items' 'all'
+        END #METADATA
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from delegacion using unique gid using srid=32614"
+        STATUS DEFAULT
+        TYPE POLYGON
+        CLASSITEM  'gid'
+        #INICIA POLIGONO CERRITO DE JEREZ		    
+        CLASS
+            NAME 'CERRITO DE JEREZ'
+            EXPRESSION '1'
+            TEXT 'CERRITO DE JEREZ'
+            MINSCALE 1000
+            MAXSCALE 150000
+            LABEL	
+                TYPE TRUETYPE 
+                FONT 'arial'
+                SIZE 16
+                PARTIALS FALSE
+                MINDISTANCE 800
+                BUFFER  300
+                POSITION CC
+                COLOR 000 000 000
+            END	#LABEL
+            STYLE
+                WIDTH 8
+                COLOR 246 239 090
+                OUTLINECOLOR 246 239 090
+            END #STYLE
+        END #CLASS  
+        #INICIA POLIGONO LAS JOYAS			 
+        CLASS
+            NAME 'LAS JOYAS' 										
+            EXPRESSION '2'
+            TEXT 'LAS JOYAS'
+            MINSCALE 100
+            MAXSCALE 150000
+            LABEL													
+                TYPE TRUETYPE   
+                FONT ARIAL
+                SIZE 16
+                PARTIALS FALSE
+                MINDISTANCE 500
+                BUFFER  300
+                POSITION CC
+                COLOR 000 000 000
+            END	#LABEL
+            STYLE
+                WIDTH 8
+                COLOR 189 038 254 							
+                OUTLINECOLOR 189 038 254					
+            END #STYLE
+        END #CLASS
+        #INICIA POLIGONO DEL CARMEN
+        CLASS
+            NAME 'DEL CARMEN' 										
+            EXPRESSION '3'											
+            TEXT 'DEL CARMEN' 
+            MINSCALE 1000
+            MAXSCALE 150000
+            LABEL													
+                TYPE TRUETYPE   
+                FONT ARIAL
+                SIZE 16
+                PARTIALS FALSE
+                MINDISTANCE 1000
+                BUFFER  500
+                POSITION UL
+                COLOR 000 000 000
+            END	#LABEL
+            STYLE
+                WIDTH 8
+                COLOR 127 140 179 							
+                OUTLINECOLOR 127 140 179 					
+            END #STYLE
+        END #CLASS
+        #INICIA POLIGONO SAN MIGUEL			
+        CLASS
+            NAME 'SAN MIGUEL' 										
+            EXPRESSION '4'											
+            TEXT 'SAN MIGUEL'
+            MINSCALE 1300
+            MAXSCALE 150000
+            LABEL												
+                TYPE TRUETYPE   
+                FONT ARIAL
+                SIZE 16
+                PARTIALS FALSE
+                MINDISTANCE 800
+                BUFFER  300
+                POSITION LR
+                COLOR 0 0 0
+            END	#LABEL
+            STYLE
+                WIDTH 8
+                COLOR 145 120 178 							
+                OUTLINECOLOR 145 120 178 					
+            END #STYLE
+        END #CLASS
+        #INICIA POLIGONO SAN JUAN BOSCO
+        CLASS
+            NAME 'SAN JUAN BOSCO' 										
+            EXPRESSION '5'											
+            TEXT 'SAN JUAN BOSCO'
+            MINSCALE 1300
+            MAXSCALE 150000
+            LABEL													
+                TYPE TRUETYPE   
+                FONT ARIAL
+                SIZE 16
+                PARTIALS FALSE
+                MINDISTANCE 800
+                BUFFER  300
+                POSITION LR
+                COLOR 000 000 000
+                #FORCE FALSE
+            END	#LABEL
+            STYLE
+                WIDTH 8
+                COLOR 054 211 213 							
+                OUTLINECOLOR 054 211 213					
+            END #STYLE
+        END #CLASS
+        #INICIA POLIGONO CERRO GORDO
+        CLASS
+            NAME 'CERRO GORDO' 										
+            EXPRESSION '6'											
+            TEXT 'CERRO GORDO'
+            MINSCALE 1000
+            MAXSCALE 150000
+            LABEL													
+                TYPE TRUETYPE   
+                FONT ARIAL
+                SIZE 16
+                PARTIALS FALSE
+                MINDISTANCE 800
+                BUFFER  300
+                POSITION UR
+                COLOR 000 000 000
+            END	#LABEL
+            STYLE
+                WIDTH 8
+                COLOR 154 209 017 							
+                OUTLINECOLOR 154 209 017
+            END #STYLE
+        END	#CLASS
+        # #INICIA POLIGONO COECILLO
+        CLASS
+            NAME 'COECILLO' 										
+            EXPRESSION '7'											
+            TEXT 'COECILLO'
+            MINSCALE 1000
+            MAXSCALE 150000
+            LABEL													
+                TYPE TRUETYPE   
+                FONT ARIAL
+                SIZE 16
+                PARTIALS FALSE
+                MINDISTANCE 500
+                BUFFER  200
+                POSITION CC        
+                COLOR 000 000 000
+            END #LABEL
+            STYLE
+                WIDTH 8
+                COLOR 074 181 94
+                OUTLINECOLOR 074 181 94					
+            END #STYLE
+        END #CLASS					
+    END #LAYER
+END #MAP

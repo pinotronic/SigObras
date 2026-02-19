@@ -1,0 +1,177 @@
+MAP
+    NAME "SS_MAP_LECT_MEDIDORES_SARRO"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_sarro_medidores.log"
+    DEBUG 0
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_LECT_MEDIDORES_SARRO"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        STATUS DEFAULT
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from (select m.gid,st_pointonsurface(m.geometry) as geometry,c.no_cuenta,c.ds_categoria_concepto from medidores m ,k_medidor_marca c where m.cuenta=c.no_cuenta) as tmp using unique gid using srid=32614"
+        TYPE POINT
+        LABELCACHE OFF
+        CLASSITEM "ds_categoria_concepto"
+        CLASS
+            NAME "SE DIO MANTENIMIENTO POR PEGADO POR SARRO"
+            EXPRESSION "178"
+            STYLE
+                SYMBOL "puntos"
+                SIZE 10
+                COLOR 51 233 255
+                OUTLINECOLOR 0 0 0
+            END#STYLE
+            #TEXT ([catego_concepto])
+            LABEL
+                ANGLE AUTO
+                SIZE 7
+                COLOR 0 0 0
+                OUTLINECOLOR 254 254 254
+                TYPE TRUETYPE
+                FONT "arial"
+            END #LABEL
+        END #CLASS
+        CLASS
+            NAME "MEDIDOR PEGADO CON ARENA "
+            EXPRESSION "179"
+            STYLE
+                SYMBOL "puntos"
+                SIZE 10
+                COLOR 200 157 21
+                OUTLINECOLOR 0 0 0
+            END #STYLE
+            #TEXT ([catego_concepto])
+            LABEL
+                ANGLE AUTO
+                SIZE 7
+                COLOR 0 0 0
+                OUTLINECOLOR 254 254 254
+                TYPE TRUETYPE
+                FONT "arial"
+            END #LABEL
+        END #CLASS
+        CLASS
+            NAME "SE DIO MANTENIMIENTO POR PEGADO POR ARENA "
+            EXPRESSION "180"
+            STYLE
+                SYMBOL "puntos"
+                SIZE 10
+                COLOR 200 157 21
+                OUTLINECOLOR 0 0 0
+            END #STYLE
+            #TEXT ([catego_concepto])
+            LABEL
+                ANGLE AUTO
+                SIZE 7
+                COLOR 0 0 0
+                OUTLINECOLOR 254 254 254
+                TYPE TRUETYPE
+                FONT "arial"
+            END #LABEL
+        END #CLASS
+        CLASS
+            NAME "SE CAMBIO CAMARA DEL MEDIDOR POR SARRO"
+            EXPRESSION "183"
+            STYLE
+                SYMBOL "puntos"
+                SIZE 10
+                COLOR 51 233 255
+                OUTLINECOLOR 0 0 0
+            END #STYLE
+            #TEXT ([catego_concepto])
+            LABEL
+                ANGLE AUTO
+                SIZE 7
+                COLOR 0 0 0
+                OUTLINECOLOR 254 254 254
+                TYPE TRUETYPE
+                FONT "arial"
+            END #LABEL
+        END #CLASS
+        CLASS
+            NAME "SE CAMBIO CAMARA DEL MEDIDOR POR ARENA"
+            EXPRESSION "186"
+            STYLE
+                SYMBOL "puntos"
+                SIZE 10
+                COLOR 200 157 21
+                OUTLINECOLOR 0 0 0
+            END #STYLE
+            #TEXT ([catego_concepto])
+            LABEL
+                ANGLE AUTO
+                SIZE 7
+                COLOR 0 0 0
+                OUTLINECOLOR 254 254 254
+                TYPE TRUETYPE
+                FONT "arial"
+            END #LABEL
+        END #CLASS
+        CLASS
+            NAME "SE CAMBIO CAMARA DEL MEDIDOR POR PIEZAS SUELTAS"
+            EXPRESSION "187"
+            STYLE
+                SYMBOL "puntos"
+                SIZE 10
+                COLOR 250 100 21
+                OUTLINECOLOR 0 0 0
+            END #STYLE
+            #TEXT ([catego_concepto])
+            LABEL
+                ANGLE AUTO
+                SIZE 7
+                COLOR 0 0 0
+                OUTLINECOLOR 254 254 254
+                TYPE TRUETYPE
+                FONT "arial"
+            END #LABEL
+        END #CLASS
+        CLASS
+            NAME "MEDIDOR PEGADO POR SARRO"
+            EXPRESSION "205"
+            STYLE
+                SYMBOL "puntos"
+                SIZE 10
+                COLOR 62 130 189
+                OUTLINECOLOR 0 0 0
+            END #STYLE
+            #TEXT ([catego_concepto])
+            LABEL
+                ANGLE AUTO
+                SIZE 7
+                COLOR 0 0 0
+                OUTLINECOLOR 254 254 254
+                TYPE TRUETYPE
+                FONT "arial"
+            END #label
+        END #CLASS
+        CLASS
+            NAME "SE CAMBIO MEDIDOR POR PEGADO"
+            EXPRESSION "4"
+            STYLE
+                SYMBOL "puntos"
+                SIZE 10
+                COLOR 62 130 189
+                OUTLINECOLOR 0 0 0
+            END
+            #TEXT ([catego_concepto])
+            LABEL
+                ANGLE AUTO
+                SIZE 7
+                COLOR 0 0 0
+                OUTLINECOLOR 254 254 254
+                TYPE TRUETYPE
+                FONT "arial"
+            END #LABEL
+        END #CLASS
+    END #LAYER
+END #MAP

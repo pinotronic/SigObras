@@ -1,0 +1,107 @@
+MAP
+    NAME "SS_MAP_RURAL_ZONA_INFLUENCIA_POZO"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_pozo_rural.log"
+    DEBUG 5
+    LAYER
+        PROJECTION
+		 'init=epsg:32614'
+		END #PROJECTION
+        NAME "SS_MAP_RURAL_ZONA_INFLUENCIA_POZO"
+        CONNECTIONTYPE POSTGIS
+        STATUS DEFAULT
+        INCLUDE 'includes/conexion.map'
+        DATA "gm_zona_influencia from (select lzipz.nb_zona_influencia,
+                lzipz.id_elemento_geografico,
+                lzipz.cl_estatus as estatus,
+                lzipz.ds_color_elemento as color,
+                lzipz.ds_color_texto as color_texto, 
+                lzipz.ds_color_sombra_texto as color_sombra, 
+                lzipz.gm_zona_influencia as gm_zona_influencia 
+            from l_zona_influencia_pozo_rural lzipz) as tmp using unique id_elemento_geografico using srid=32614"       
+        TYPE POLYGON
+        LABELITEM "nb_zona_influencia"
+     CLASS
+            NAME "Sin problema de abatimiento"
+            EXPRESSION ([estatus] = 1)
+            LABEL
+                TYPE TRUETYPE
+                FONT "arial"
+                POSITION UC
+                # OFFSET 0 35
+                SIZE 12
+                COLOR 0 0 0
+                OUTLINECOLOR 255 255 255
+            END #LABEL
+            STYLE
+                COLOR 30 255 0
+            END #STYLE
+            STYLE
+                COLOR [color]
+            END #STYLE
+        END #CLASS   
+        CLASS
+            NAME "Entrando a peligro de abatimiento"
+            EXPRESSION ([estatus] = 2)
+            LABEL
+                TYPE TRUETYPE
+                FONT "arial"
+                POSITION UC
+                # OFFSET 0 35
+                SIZE 12
+                COLOR 0 0 0
+                OUTLINECOLOR 255 255 255
+            END #LABEL
+            STYLE
+                COLOR 255 234 0
+            END #STYLE
+            STYLE
+                COLOR [color]
+            END #STYLE
+        END #CLASS   
+        CLASS
+            NAME "En peligro de abatimiento"
+            EXPRESSION ([estatus] = 3)
+            LABEL
+                TYPE TRUETYPE
+                FONT "arial"
+                POSITION UC
+                # OFFSET 0 35
+                SIZE 12
+                COLOR 0 0 0
+                OUTLINECOLOR 255 255 255
+            END #LABEL
+            STYLE
+                COLOR 255 140 0
+            END #STYLE
+            STYLE
+                COLOR [color]
+            END #STYLE
+        END #CLASS 
+        CLASS
+            NAME "Abatido"
+            EXPRESSION ([estatus] = 4)
+            LABEL
+                TYPE TRUETYPE
+                FONT "arial"
+                POSITION UC
+                # OFFSET 0 35
+                SIZE 12
+                COLOR 0 0 0
+                OUTLINECOLOR 255 255 255
+            END #LABEL
+            STYLE
+                COLOR 245 15 15
+            END #STYLE
+            STYLE
+                COLOR [color]
+            END #STYLE
+        END #CLASS 
+    END #LAYER
+END #MAP

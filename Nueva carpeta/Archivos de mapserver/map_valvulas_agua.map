@@ -1,0 +1,312 @@
+MAP
+    INCLUDE 'includes/globals.map'
+    NAME "SS_MAP_AGUA_VALVULAS_AGUA"
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_valvulas_agua.log"
+	DEBUG 0
+    LAYER
+        NAME "SS_MAP_AGUA_VALVULAS"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        STATUS DEFAULT
+        CONNECTIONTYPE POSTGIS
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from valvulassec using unique gid using srid=32614"
+        PROCESSING "CLOSE_CONNECTION=DEFER"  # Reutiliza conexiones para múltiples consultas
+        PROCESSING "POSTGIS_FILTER=YES"      # Filtra geometrías en el lado del servidor
+        TYPE POINT
+        MINSCALE 1
+        MAXSCALE 15000
+        CLASSITEM 'tipo'
+        CLASS
+            NAME 'Tapa Ciega'
+            EXPRESSION '2'
+            STYLE
+                SYMBOL 'aguaA'
+                SIZE 13
+                COLOR 0 130 255
+                OUTLINECOLOR -1 -1 -1
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME 'Reducción'
+            EXPRESSION '3'
+            STYLE
+                SYMBOL 'aguaB'
+                SIZE 13
+                COLOR 0 130 255
+                OUTLINECOLOR -1 -1 -1
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME 'Medidor'
+            EXPRESSION '4'
+            STYLE
+                SYMBOL 'aguaC'
+                SIZE 13
+                COLOR 0 130 255
+                OUTLINECOLOR -1 -1 -1
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME 'Bomba'
+            EXPRESSION '5'
+            STYLE
+                SYMBOL 'aguaJ'
+                SIZE 13
+                COLOR 0 130 255
+                OUTLINECOLOR -1 -1 -1
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME 'No Definido'
+            EXPRESSION '20'
+            STYLE
+                SYMBOL 'X'
+                SIZE 13
+                COLOR 0 130 255
+                OUTLINECOLOR -1 -1 -1
+            END #STYLE
+        END #CLASS
+    END #LAYER
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME 'SS_MAP_AGUA_VALVULAS_COMPUERTA_CERRADA'
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from (select gid, geometry from valvulassec WHERE tipo = 1 and descripcio = 1 and cerrada = 'S') as tmp using unique gid using srid=32614"
+        PROCESSING "CLOSE_CONNECTION=DEFER"  # Reutiliza conexiones para múltiples consultas
+        PROCESSING "POSTGIS_FILTER=YES"      # Filtra geometrías en el lado del servidor
+        STATUS DEFAULT
+        TYPE POINT
+        MINSCALE 1
+        MAXSCALE 15000
+        CLASS
+            NAME "Compuerta Cerrada"
+            STYLE
+                SYMBOL 'aguaD'
+                SIZE 15
+                COLOR 255 0 0
+                OUTLINECOLOR -1 -1 -1
+            END #STYLE
+        END #CLASS
+    END #LAYER
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME 'SS_MAP_AGUA_VALVULAS_MARIPOSA_CERRADA_01'
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from (select gid, geometry from valvulassec WHERE tipo = 1 and descripcio = 2 and cerrada = 'S') as tmp using unique gid using srid=32614"
+        PROCESSING "CLOSE_CONNECTION=DEFER"  # Reutiliza conexiones para múltiples consultas
+        PROCESSING "POSTGIS_FILTER=YES"      # Filtra geometrías en el lado del servidor
+        STATUS DEFAULT
+        TYPE POINT
+        MINSCALE 1
+        MAXSCALE 15000
+        CLASS
+            NAME "Mariposa Cerrada"
+            STYLE
+                SYMBOL 'aguaE'  
+                #SYMBOL 'prueba'
+                SIZE 15
+                COLOR 255 0 0
+                OUTLINECOLOR -1 -1 -1
+            END #STYLE
+        END #CLASS
+    END #LAYER
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME 'SS_MAP_AGUA_VALVULAS_COMPUERTA_REGULADA'
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from (select gid, geometry from valvulassec WHERE tipo = 1 and descripcio = 1 and cerrada = 'R') as tmp using unique gid using srid=32614"
+        PROCESSING "CLOSE_CONNECTION=DEFER"  # Reutiliza conexiones para múltiples consultas
+        PROCESSING "POSTGIS_FILTER=YES"      # Filtra geometrías en el lado del servidor
+        STATUS DEFAULT
+        TYPE POINT
+        MINSCALE 1
+        MAXSCALE 15000
+        CLASS
+            NAME "Compuerta Regulada"
+            STYLE
+                SYMBOL 'aguaD'
+                SIZE 10
+                COLOR 255 160 0
+                OUTLINECOLOR -1 -1 -1
+            END #STYLE
+        END #CLASS
+    END #LAYER
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME 'SS_MAP_AGUA_VALVULAS_MARIPOSA_CERRADA_02'
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from (select gid, geometry from valvulassec WHERE tipo = 1 and descripcio = 2 and cerrada = 'R') as tmp using unique gid using srid=32614"
+        PROCESSING "CLOSE_CONNECTION=DEFER"  # Reutiliza conexiones para múltiples consultas
+        PROCESSING "POSTGIS_FILTER=YES"      # Filtra geometrías en el lado del servidor
+        STATUS DEFAULT
+        TYPE POINT
+        MINSCALE 1
+        MAXSCALE 15000
+        CLASS
+            STYLE
+                SYMBOL 'aguaE'
+                SIZE 10
+                COLOR 255 160 0
+                OUTLINECOLOR -1 -1 -1
+            END #STYLE
+        END #CLASS
+    END #LAYER
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME 'SS_MAP_AGUA_VALVULAS_COMPUERTAS'
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from (select gid, geometry from valvulassec WHERE tipo = 1 and descripcio = 1 and cerrada = 'N') as tmp using unique gid using srid=32614"
+        PROCESSING "CLOSE_CONNECTION=DEFER"  # Reutiliza conexiones para múltiples consultas
+        PROCESSING "POSTGIS_FILTER=YES"      # Filtra geometrías en el lado del servidor
+        STATUS DEFAULT
+        TYPE POINT
+        MINSCALE 1
+        MAXSCALE 15000
+        CLASS
+            STYLE
+                SYMBOL 'aguaD'
+                SIZE 10
+                COLOR 0 130 255
+                OUTLINECOLOR -1 -1 -1
+            END #STYLE
+        END #CLASS
+    END #LAYER
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME 'SS_MAP_AGUA_VALVULAS_MARIPOSAS'
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from (select gid, geometry from valvulassec WHERE tipo = 1 and descripcio = 2 and cerrada = 'N') as tmp using unique gid using srid=32614"
+        PROCESSING "CLOSE_CONNECTION=DEFER"  # Reutiliza conexiones para múltiples consultas
+        PROCESSING "POSTGIS_FILTER=YES"      # Filtra geometrías en el lado del servidor
+        STATUS DEFAULT
+        TYPE POINT
+        MINSCALE 1
+        MAXSCALE 30000
+        CLASS
+            STYLE
+                SYMBOL 'aguaE'
+                SIZE 10
+                COLOR 0 130 255
+                OUTLINECOLOR -1 -1 -1
+            END #STYLE
+        END #CLASS
+    END #LAYER
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME 'SS_MAP_AGUA_VALVULAS_CONTROLES'
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from (select gid, geometry from valvulassec WHERE tipo = 1 and descripcio = 3 and cerrada = 'N') as tmp using unique gid using srid=32614"
+        PROCESSING "CLOSE_CONNECTION=DEFER"  # Reutiliza conexiones para múltiples consultas
+        PROCESSING "POSTGIS_FILTER=YES"      # Filtra geometrías en el lado del servidor
+        STATUS DEFAULT
+        TYPE POINT
+        MINSCALE 1
+        MAXSCALE 15000
+        CLASS
+            STYLE
+                SYMBOL 'aguaF'
+                SIZE 10
+                COLOR 0 130 255
+                OUTLINECOLOR -1 -1 -1
+            END#END STYLE
+        END #CLASS
+    END #LAYER
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME 'SS_MAP_AGUA_VALVULAS_EXPULSORES_AIRE'
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from (select gid, geometry from valvulassec WHERE tipo = 1 and descripcio = 4 and cerrada = 'N') as tmp using unique gid using srid=32614"
+        PROCESSING "CLOSE_CONNECTION=DEFER"  # Reutiliza conexiones para múltiples consultas
+        PROCESSING "POSTGIS_FILTER=YES"      # Filtra geometrías en el lado del servidor
+        STATUS DEFAULT
+        TYPE POINT
+        MINSCALE 1
+        MAXSCALE 15000
+        CLASS
+            STYLE
+                SYMBOL 'aguaG'
+                SIZE 10
+                COLOR 0 130 255
+                OUTLINECOLOR -1 -1 -1
+            END #STYLE
+        END #CLASS
+    END #LAYER
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME 'SS_MAP_AGUA_VALVULAS_VALFLEX'
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from (select gid, geometry from valvulassec WHERE tipo = 1 and descripcio = 5 and cerrada = 'N') as tmp using unique gid using srid=32614"
+        PROCESSING "CLOSE_CONNECTION=DEFER"  # Reutiliza conexiones para múltiples consultas
+        PROCESSING "POSTGIS_FILTER=YES"      # Filtra geometrías en el lado del servidor
+        STATUS DEFAULT
+        TYPE POINT
+        MINSCALE 1
+        MAXSCALE 15000
+        CLASS
+            STYLE
+                SYMBOL 'aguaH'
+                SIZE 10
+                COLOR 0 130 255
+                OUTLINECOLOR -1 -1 -1
+            END #STYLE
+        END #CLASS
+    END #LAYER
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME 'SS_MAP_AGUA_VALVULAS_CHECKS'
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from (select gid, geometry from valvulassec WHERE tipo = 1 and descripcio = 6 and cerrada = 'N') as tmp using unique gid using srid=32614"
+        PROCESSING "CLOSE_CONNECTION=DEFER"  # Reutiliza conexiones para múltiples consultas
+        PROCESSING "POSTGIS_FILTER=YES"      # Filtra geometrías en el lado del servidor
+        STATUS DEFAULT
+        TYPE POINT
+        MINSCALE 1
+        MAXSCALE 15000
+        CLASS
+            STYLE
+                SYMBOL 'aguaI'
+                SIZE 10
+                COLOR 0 130 255
+                OUTLINECOLOR -1 -1 -1
+            END #STYLE
+        END #CLASS
+    END #LAYE
+END #MAP

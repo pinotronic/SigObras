@@ -1,0 +1,45 @@
+MAP
+    NAME "SS_MAP_GRAL_NUMERO_EXTERIOR" 
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_exteriores.log"
+    DEBUG 0
+    CONFIG "LABELCACHE" "ON"
+    LAYER
+        NAME "SS_MAP_GRAL_NUMERO_EXTERIOR_AT" 
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        CONNECTIONTYPE POSTGIS
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from predios using unique gid using srid=32614"
+        PROCESSING "CLOSE_CONNECTION=DEFER"  # Reutiliza conexiones para múltiples consultas
+        PROCESSING "POSTGIS_FILTER=YES"      # Filtra geometrías en el lado del servidor
+        LABELCACHE ON
+        STATUS DEFAULT
+        MINSCALE 100
+        MAXSCALE 4000
+        TYPE POLYGON
+        LABELITEM "exterior"
+        CLASS
+            NAME "numero exterior"
+            LABEL
+                WRAP ","
+                ANGLE AUTO
+                POSITION AUTO
+                PARTIALS FALSE
+                MINFEATURESIZE AUTO
+                PRIORITY 5
+                SIZE 14
+                COLOR 0 0 0
+                TYPE TRUETYPE
+                FONT 'ARIAL'          
+            END #LABEL
+        END #CLASS
+    END #LAYER        
+END #MAP

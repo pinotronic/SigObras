@@ -1,0 +1,41 @@
+MAP
+	NAME "SS_MAP_AGUA_RIOS"
+	INCLUDE 'includes/globals.map'
+	WEB
+		INCLUDE "includes/temp_directory.map"
+		METADATA
+			INCLUDE 'includes/common_metadata.map'
+		END #METADATA
+	END #WEB
+	CONFIG "MS_ERRORFILE" "/srv/mapserver/err_rios.log"
+	DEBUG 0
+	LAYER
+		CONNECTIONTYPE POSTGIS
+		NAME "SS_MAP_AGUA_RIOS"
+		PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+		STATUS DEFAULT
+		MINSCALE 1
+		INCLUDE 'includes/conexion.map'
+		DATA "geometry from rios_municipio using unique gid using srid=32614"
+		TYPE line
+		LABELITEM "nombre"
+		CLASS
+			NAME "Rios"
+			STYLE
+				SYMBOL 0
+				COLOR 55 180 255
+				WIDTH 2
+			END #STYLE
+			LABEL
+				ANGLE AUTO
+				SIZE 19
+				COLOR 0 0 255
+				OUTLINECOLOR 254 254 254
+				TYPE TRUETYPE
+				FONT 'arial'
+			END #LABEL
+		END #CLASS
+	END #LAYER
+END #MAP

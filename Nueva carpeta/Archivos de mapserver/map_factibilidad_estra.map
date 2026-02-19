@@ -1,0 +1,45 @@
+MAP
+    NAME "SS_MAP_JURI_FACTIBILIDADES"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_factibilidad_estra.log"
+    DEBUG 0
+    LAYER
+        NAME "SS_MAP_JURI_FACTIBILIDADES"
+        PROJECTION
+            'init=epsg:32614'
+        END #PROJECTION
+        CONNECTIONTYPE POSTGIS
+        METADATA
+            'ows_title' 'Factibilidades'
+            'ows_include_items' 'all'
+            'gml_include_items' 'all'
+        END #METADATA
+        STATUS DEFAULT
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from pol_fac using unique gid using srid=32614 where estatus_version = 0"
+        TYPE polygon
+        CLASSITEM "estatus"
+        CLASS
+            NAME "Vencido"
+            EXPRESSION "2"
+            STYLE
+                COLOR 240 0 0
+                OUTLINECOLOR 150 150 150
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Activo"
+            EXPRESSION "1"
+            STYLE
+                COLOR 50 120 241
+                OUTLINECOLOR 255 128 0
+            END #STYLE
+        END #CLASS
+    END #LAYER
+END #MAP

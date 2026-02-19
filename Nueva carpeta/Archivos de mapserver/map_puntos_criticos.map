@@ -1,0 +1,62 @@
+MAP
+    NAME "SS_MAP_MCIR_PUNTOS_CRITICOS"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_pontos_criticos.log"
+    DEBUG 0
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_MCIR_PUNTOS_CRITICOS"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        STATUS DEFAULT
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from (select gid,geometry,min1max2,(sector || ' MSNM = ' || altura ) as punto from puntos_criticos) as tmp using unique gid using srid=32614"
+        TYPE POINT
+        MINSCALE 1
+        MAXSCALE 30000
+        LABELCACHE OFF
+        LABELITEM "punto"
+        CLASSITEM "min1max2"
+        CLASS
+            NAME "altura Baja"
+            EXPRESSION "1"
+            STYLE
+                SYMBOL "puntos"
+                SIZE 10
+                COLOR 211 84 0
+                OUTLINECOLOR 0 0 0
+            END #STYLE
+            LABEL
+                TYPE TRUETYPE
+                FONT "arial"
+                OFFSET 0 22
+                SIZE 16
+                COLOR 0 0 0
+            END #LABEL
+        END #CLASS
+        CLASS
+            NAME "altura Alta"
+            EXPRESSION "2"
+            STYLE
+                SYMBOL "puntos"
+                SIZE 10
+                COLOR 40 180 99
+                OUTLINECOLOR 0 0 0
+            END #STYLE
+            LABEL
+                TYPE TRUETYPE
+                FONT "arial"
+                OFFSET 0 22
+                SIZE 16
+                COLOR 0 0 0
+            END #LABEL
+        END #CLASS
+    END #LAYER
+END #MAP

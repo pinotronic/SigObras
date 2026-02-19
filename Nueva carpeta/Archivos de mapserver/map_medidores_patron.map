@@ -1,0 +1,42 @@
+MAP
+    NAME "SS_MAP_LECT_MEDIDORES_PATRON"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_medidores_patron.log"
+    DEBUG 0
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_LECT_MEDIDORES_PATRON"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        STATUS DEFAULT
+        INCLUDE 'includes/conexion_gestion_infra.map'
+        DATA "gm_predio from ( select gm_predio, nb_medidor_patron, id_predio from op.mv_gm_cuenta_control ) as pc using unique id_predio using srid=32614" 
+        TYPE POINT
+        LABELITEM "nb_medidor_patron"
+        LABELCACHE on
+        CLASS
+            NAME "Medidores Patron"
+            STYLE
+                SYMBOL "puntos"
+                SIZE 10
+                COLOR 0 0 255
+                OUTLINECOLOR 0 0 0
+            END #STYLE
+            LABEL
+                TYPE TRUETYPE
+                FONT "arial"
+                OFFSET 0 12
+                SIZE 19
+                COLOR 0 0 255
+                OUTLINECOLOR 254 254 254
+            END #LABEL
+        END #CLASS
+    END #LAYER
+END #MAP

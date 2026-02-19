@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+
+
+# Build outputs
+dist/
+build/
+.vite/
+.parcel-cache/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Testing
+coverage/
+.nyc_output/
+
+# PWA
+dev-dist/
+sw.js
+workbox-*.js

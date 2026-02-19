@@ -1,0 +1,641 @@
+SYMBOLSET
+    SYMBOL
+        NAME 'railway'
+        TYPE TRUETYPE
+        FONT 'Tahoma'
+        CHARACTER '|'
+    END #SYMBOL
+    SYMBOL
+        NAME 'flechas'
+        TYPE TRUETYPE
+        FONT 'arial'
+        CHARACTER '>'
+    END #SYMBOL
+    SYMBOL
+        NAME 'flechas2'
+        TYPE TRUETYPE
+        FONT 'arial'
+        CHARACTER '>'
+    END #SYMBOL
+    SYMBOL
+        NAME 'flechas3'
+        TYPE TRUETYPE
+        FONT 'arial'
+        CHARACTER '<'
+    END #SYMBOL
+    SYMBOL
+        NAME 'flechas4'
+        TYPE TRUETYPE
+        FONT 'arial'
+        CHARACTER '<>'
+    END #SYMBOL
+    #INICIAN SIMBOLOS DE LA CAPA DE POZOS
+    SYMBOL
+        NAME 'aguaA'
+        TYPE TRUETYPE
+        FONT 'agua'
+        CHARACTER "A"
+    END #SYMBOL
+    SYMBOL
+        NAME 'aguaB'
+        TYPE TRUETYPE
+        FONT 'agua'
+        CHARACTER "B"
+    END #SYMBOL
+    SYMBOL
+        NAME 'aguaC'
+        TYPE TRUETYPE
+        FONT 'agua'
+        CHARACTER "C"
+    END #SYMBOL
+    SYMBOL
+        NAME 'aguaD'
+        TYPE TRUETYPE
+        FONT 'agua'
+        CHARACTER "D"
+    END #SYMBOL
+    SYMBOL
+        NAME 'prueba'
+        TYPE TRUETYPE
+        FONT 'arial'
+        CHARACTER "*"
+    END #SYMBOL
+    SYMBOL
+        NAME 'pruebaa'
+        TYPE TRUETYPE
+        FONT 'arial'
+        CHARACTER "+"
+    END #SYMBOL
+    SYMBOL
+        NAME 'aguaE'
+        TYPE TRUETYPE
+        FONT 'agua'
+        CHARACTER "E"
+    END #SYMBOL
+    SYMBOL
+        NAME 'aguaF'
+        TYPE TRUETYPE
+        FONT 'agua'
+        CHARACTER "F"
+    END #SYMBOL
+    SYMBOL
+        NAME 'aguaG'
+        TYPE TRUETYPE
+        FONT 'agua'
+        CHARACTER "G"
+    END #SYMBOL
+    SYMBOL
+        NAME 'aguaH'
+        TYPE TRUETYPE
+        FONT 'agua'
+        CHARACTER "H"
+    END #SYMBOL
+    SYMBOL
+        NAME 'aguaI'
+        TYPE TRUETYPE
+        FONT "agua"
+        CHARACTER "I"
+    END #SYMBOL
+    SYMBOL
+        NAME 'aguaJ'
+        TYPE TRUETYPE
+        FONT 'agua'
+        CHARACTER "J"
+    END #SYMBOL
+    SYMBOL
+        NAME 'aguaK'
+        TYPE TRUETYPE
+        FONT 'agua'
+        CHARACTER "K"
+    END #SYMBOL
+    SYMBOL
+        NAME 'aguaL'
+        TYPE TRUETYPE
+        FONT 'agua'
+        CHARACTER "L"
+    END #SYMBOL
+    SYMBOL
+        NAME 'aguaM'
+        TYPE TRUETYPE
+        FONT 'agua'
+        CHARACTER "M"
+    END #SYMBOL
+    SYMBOL
+        NAME 'aguaN'
+        TYPE TRUETYPE
+        FONT 'agua'
+        CHARACTER "N"
+    END #SYMBOL
+    SYMBOL
+        NAME 'aguaO'
+        TYPE TRUETYPE
+        FONT 'agua'
+        CHARACTER "O"
+    END #SYMBOL
+    SYMBOL
+        NAME 'X'
+        TYPE TRUETYPE
+        FONT 'arial'
+        CHARACTER "X"
+    END #SYMBOL
+    #TERMINAN LOS SIMBOLOS DE LA CAPA DE POZOS
+    SYMBOL
+        NAME 'tent'
+        TYPE VECTOR
+        FILLED TRUE
+        POINTS
+            0 1
+            .5 0
+            1 1
+            .75 1
+            .5 .5
+            .25 1
+            0 1
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME 'tentt'
+        TYPE VECTOR
+        FILLED TRUE
+        POINTS
+            1 0
+            .5 0
+            1 1
+            .75 1
+            .5 .5
+            .25 1
+            0 1
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME 'star'
+        TYPE VECTOR
+        FILLED TRUE
+        POINTS
+            0 .375
+            .35 .375
+            .5 0
+            .65 .375
+            1 .375
+            .75 .625
+            .875 1
+            .5 .75
+            .125 1
+            .25 .625
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME 'triangle'
+        TYPE VECTOR
+        FILLED TRUE
+        POINTS
+            0 1
+            .5 0
+            1 1
+            0 1
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME 'square'
+        TYPE VECTOR
+        FILLED TRUE
+        POINTS
+            0 1
+            0 0
+            1 0
+            1 1
+            0 1
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME 'plus'
+        TYPE VECTOR
+        POINTS
+            .5 0
+            .5 1
+            -99 -99
+            0 .5
+            1 .5
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME 'cross'
+        TYPE VECTOR
+        POINTS
+            0 0
+            1 1
+            -99 -99
+            0 1
+            1 0
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME 'circle'
+        TYPE ELLIPSE
+        FILLED TRUE
+        POINTS
+            1 1
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME 'circle-dashed'
+        TYPE ELLIPSE
+        FILLED TRUE
+        POINTS
+            1 1
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME 'dashed1'
+        TYPE ELLIPSE
+        POINTS
+            1 1
+        END #POINTS
+        FILLED TRUE
+    END #SYMBOL
+    SYMBOL
+        NAME 'dashed2'
+        TYPE ELLIPSE
+        POINTS
+            1 1
+        END #POINTS
+        FILLED TRUE
+    END #SYMBOL
+    SYMBOL
+        NAME 'countydashed'
+        TYPE ELLIPSE
+        POINTS
+            1 1
+        END #POINTS
+        FILLED TRUE
+    END #SYMBOL
+    SYMBOL
+        NAME 'ditch'
+        TYPE ELLIPSE
+        POINTS
+            1 1
+        END #POINTS
+        FILLED TRUE
+    END #SYMBOL
+    SYMBOL
+        NAME 'dcircle'
+        TYPE ELLIPSE
+        FILLED TRUE
+        POINTS
+            1 1
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME 'railroad'
+        TYPE VECTOR
+        POINTS
+            0 5 5 0
+        END #POINTS
+        FILLED TRUE
+    END #SYMBOL
+    SYMBOL
+        NAME 'plainline'
+        TYPE ELLIPSE
+        FILLED TRUE
+        POINTS
+            1 1
+        END #POINTS
+    END #SYMBOL
+    #SHADESET
+    SYMBOL
+        NAME 'shade1'
+        TYPE VECTOR
+        TRANSPARENT 0
+        POINTS
+            0 1
+            1 1
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME 'shade2'
+        TYPE VECTOR
+        TRANSPARENT 0
+        POINTS
+            1 0
+            1 1
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME 'shade3'
+        TYPE VECTOR
+        TRANSPARENT 0
+        POINTS
+            0 0
+            1 1
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME 'shade4'
+        TYPE VECTOR
+        TRANSPARENT 0
+        POINTS
+            0 1
+            1 0
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME 'shade5'
+        TYPE VECTOR
+        POINTS
+            0 1
+            1 0
+            -99 -99
+            0 0
+            1 1
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME 'shade6'
+        TYPE ELLIPSE
+        FILLED TRUE
+        POINTS
+            1 1
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME "bomba"
+        TYPE PIXMAP
+        IMAGE "bombas.png"
+        TRANSPARENT 2
+    END #SYMBOL
+    SYMBOL
+        NAME "valvula"
+        TYPE PIXMAP
+        IMAGE "valvulas.png"
+        TRANSPARENT 2
+    END #SYMBOL
+    SYMBOL
+        NAME 'diam1'
+        TYPE ELLIPSE
+        FILLED TRUE
+        POINTS
+            1 1
+        END #POINTS
+    END
+    SYMBOL
+        NAME "diam2"
+        TYPE ELLIPSE
+        POINTS
+            1 1
+        END #POINTS
+        FILLED TRUE
+    END #SYMBOL
+    SYMBOL
+        NAME "diam3"
+        TYPE ELLIPSE
+        POINTS
+            40 4
+        END #POINTS
+        FILLED TRUE
+    END #SYMBOL
+    SYMBOL
+        NAME "diam4"
+        TYPE VECTOR
+        POINTS
+            0 0
+        END #POINTS
+        FILLED TRUE
+    END #SYMBOL
+    SYMBOL
+        NAME "diam6"
+        TYPE VECTOR
+        POINTS
+            1 0
+            0 1
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME "diam8"
+        TYPE VECTOR
+        POINTS
+            0   0
+            1   1
+            -99 -99
+            0   1
+            1   0
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME "diam10"
+        TYPE ELLIPSE
+        POINTS
+            1 1
+        END #POINTS
+        FILLED TRUE
+    END #SYMBOL
+    SYMBOL
+        NAME "diam12a"
+        TYPE VECTOR
+        POINTS
+            0.5 0
+            0.5 1
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME "diam12b"
+        TYPE ELLIPSE
+        POINTS
+            1 1
+        END #POINTS
+        FILLED TRUE
+    END #SYMBOL
+    SYMBOL
+        NAME "diam16"
+        TYPE TRUETYPE
+        FONT "arial"
+        CHARACTER "+|"
+    END #SYMBOL
+    SYMBOL
+        NAME "diam18"
+        TYPE ELLIPSE
+        POINTS
+            1 1
+        END #POINTS
+        FILLED TRUE
+    END #SYMBOL
+    SYMBOL
+        NAME "diam20"
+        TYPE ELLIPSE
+        POINTS
+            1 1
+        END #POINTS
+        FILLED TRUE
+    END #SYMBOL
+    SYMBOL
+        NAME "diam24"
+        TYPE ELLIPSE
+        POINTS
+            1 1
+        END #POINTS
+        FILLED TRUE
+    END #SYMBOL
+    SYMBOL
+        NAME "diam24b"
+        TYPE VECTOR
+        POINTS
+            0.5 0
+            0.5 1
+            0.5 0.5
+            0 0.5
+            1 0.5
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME "diam30"
+        TYPE ELLIPSE
+        POINTS
+            1 1
+        END #POINTS
+        FILLED TRUE
+    END #SYMBOL
+    SYMBOL
+        NAME "diam30b"
+        TYPE VECTOR
+        POINTS
+            0 0
+            1 1
+            0.5 0.5
+            0 1
+            1 0
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME "diam34"
+        TYPE VECTOR
+        POINTS
+            0.5 0
+            0.5 1
+            0.5 0.5
+            0 0.5
+            1 0.5
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME "diam36"
+        TYPE VECTOR
+        POINTS
+            0.5 0
+            0.5 1
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME "diam42"
+        TYPE VECTOR
+        POINTS
+            0 0
+            1 1
+            0.5 0.5
+            0 1
+            1 0
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME "diam48"
+        TYPE VECTOR
+        POINTS
+            0.5 0
+            0.5 1
+            0.5 0.5
+            0 0.5
+            1 0.5
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME "diam48b"
+        TYPE VECTOR
+        POINTS
+            0.5 0
+            0.5 1
+            0.5 0.5
+            0 0.5
+            1 0.5
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME "diam54"
+        TYPE ELLIPSE
+        POINTS
+            1 1
+        END #POINTS
+        FILLED TRUE
+    END #SYMBOL
+    SYMBOL
+        NAME "diam54b"
+        TYPE VECTOR
+        POINTS
+            0 0
+            1 1
+            0.5 0.5
+            0 1
+            1 0
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME "diam54c"
+        TYPE VECTOR
+        POINTS
+            0 0
+            1 1
+            0.5 0.5
+            0 1
+            1 0
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME "diam54d"
+        TYPE VECTOR
+        POINTS
+            0 0
+            1 1
+            0.5 0.5
+            0 1
+            1 0
+        END #POINTS
+    END #SYMBOL
+    SYMBOL
+        NAME "puntos"
+        TYPE ELLIPSE
+        POINTS
+            1 1
+        END #POINTS
+        FILLED TRUE
+    END #SYMBOL
+    SYMBOL
+        NAME "reservorio"
+        TYPE PIXMAP
+        IMAGE "reservorios.png"
+        TRANSPARENT 2
+    END #SYMBOL
+    SYMBOL
+        NAME "tanque"
+        TYPE PIXMAP
+        IMAGE "tanques.png"
+        TRANSPARENT 2
+    END #SYMBOL
+    SYMBOL
+        NAME "dash"
+        TYPE ELLIPSE
+        POINTS
+            40 4
+        END #POINTS
+        FILLED TRUE
+    END #SYMBOL
+    #SIMBOLOS PARA TUBERIAS (Agua, agua tratada, drenaje etc) #JTAVARES L+VRG
+    SYMBOL
+        NAME "l"
+        TYPE truetype
+        FONT "arial"
+        CHARACTER "l"
+    END #SYMBOL
+    SYMBOL
+        NAME "+"
+        TYPE truetype
+        FONT "arial"
+        CHARACTER "+"
+    END #SYMBOL
+END #SYMBOLSET

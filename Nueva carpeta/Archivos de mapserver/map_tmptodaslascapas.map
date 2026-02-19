@@ -1,0 +1,821 @@
+MAP
+	NAME 'todas_las_capas'
+    INCLUDE 'includes/globals.map'
+	WEB
+		INCLUDE "includes/temp_directory.map"
+      METADATA
+			 'ows_title' 'Todas las capas'
+			 INCLUDE 'includes/common_metadata.map'
+	    END
+	END
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_tmpcapas.log"
+    DEBUG 0
+  ##Inicia TmpCuentas, se usa en Capas Dinamicas
+  ## -Cortes y reconexiones
+  ## -Predios a visitar por padron de usuarios
+  ## -Adeudan en documentos
+  ## -Cartera vencida
+  
+  ## -------------------------------------------Layers-----------------------------------------------------
+  LAYER #IniciaTmpAntenas
+    INCLUDE 'includes/conexion.map'
+    CONNECTIONTYPE POSTGIS
+    NAME "antenas_tmp"
+    STATUS DEFAULT
+    METADATA
+			'ows_include_items' 'all'
+			'gml_include_items' 'all'
+    END
+    PROJECTION
+      'init=epsg:32614'
+    END
+    VALIDATION
+      "clusuario" "^[0-9A-Za-z]{1,20}$"
+    END
+    DATA "geometry from (select a.gid, a.geometry, b.color from predios a join vw_tmpantenas b on a.gid = b.npredio join vw_usuarios u on b.sid = u.id WHERE u.nombre = '%clusuario%') as tmp using unique gid using srid=32614"
+    TYPE polygon
+    CLASS
+      STYLE
+        SYMBOL 'plainline'
+        SIZE 3
+        COLOR -1 -1 -1
+        OUTLINECOLOR [color]
+      END
+    END
+  END
+  LAYER #Ubicacion Antenas
+    CONNECTIONTYPE POSTGIS
+    INCLUDE 'includes/conexion.map'
+    NAME "ubicacion_antenas"
+    STATUS DEFAULT
+    METADATA
+			'ows_include_items' 'all'
+			'gml_include_items' 'all'
+    END
+    PROJECTION
+      'init=epsg:32614'
+    END
+    VALIDATION
+      "clusuario" "^[0-9A-Za-z]{1,20}$"
+    END
+    TYPE POINT
+    DATA "geometry from (select b.gid, st_geomfromtext(st_astext(b.geometry), 32614) AS geometry, b.nombre from vw_tmpantenas2 b join vw_usuarios u on b.sid = u.id WHERE u.nombre = '%clusuario%')  as tmp using unique gid using srid=32614"
+    LABELITEM "nombre"
+    CLASS
+      STYLE
+        SYMBOL 'puntos'
+        SIZE 12
+        COLOR 254 254 254
+        OUTLINECOLOR 0 0 0
+      END
+      LABEL
+        TYPE TRUETYPE
+        FONT "arial"
+        OFFSET 0 15
+        SIZE 13
+        COLOR 0 0 0
+        OUTLINECOLOR 255 255 255
+      END
+    END
+  END
+  LAYER #CortesLimitaciones 
+    INCLUDE 'includes/conexion.map'
+    CONNECTIONTYPE POSTGIS
+    NAME "cd_cortes_y_reconexiones"
+    STATUS DEFAULT
+      VALIDATION
+        "clusuario" "^[0-9A-Za-z]{1,20}$"
+      END
+      PROJECTION
+        'init=epsg:32614'
+      END
+      METADATA
+        'ows_include_items' 'all'
+        'gml_include_items' 'all'
+      END
+    DATA "geometry from (select a.gid, a.geometry,b.etiquetar from predios a join vw_tmpcuentas b on a.gid = b.gid join vw_usuarios u on b.sid = u.id WHERE u.nombre = '%clusuario%') as tmp using unique gid using srid=32614"
+    TYPE polygon
+    LABELITEM "etiquetar"
+    CLASS
+        STYLE
+          SYMBOL 'plainline'
+          SIZE 3
+          COLOR -1 -1 -1
+          OUTLINECOLOR 0 0 255
+        END
+        LABEL
+          TYPE TRUETYPE
+          FONT ARIAL
+          SIZE 15
+          COLOR 0 0 255
+          OUTLINECOLOR 254 254 254
+        END
+    END
+  END
+  LAYER #MedidoresColor
+    INCLUDE 'includes/conexion.map'
+    CONNECTIONTYPE POSTGIS
+    NAME "colores_tmp"
+    STATUS DEFAULT
+    METADATA
+			'ows_include_items' 'all'
+			'gml_include_items' 'all'
+    END
+    PROJECTION
+      'init=epsg:32614'
+    END
+    VALIDATION
+      "clusuario" "^[0-9A-Za-z]{1,20}$"
+    END
+    DATA "geometry from (select a.gid, a.geometry, b.color from predios a join vw_tmpcolores b on a.gid = b.npredio join vw_usuarios u on b.sid = u.id WHERE u.nombre ='%clusuario%') as tmp using unique gid using srid=32614"
+    TYPE polygon
+    CLASS
+      STYLE
+        SYMBOL 'plainline'
+        SIZE 3
+        COLOR -1 -1 -1
+        OUTLINECOLOR [color]
+      END
+    END
+  END
+  LAYER #IniciaSectores
+    INCLUDE 'includes/conexion.map'
+    NAME "tmp_sectores"
+    STATUS DEFAULT
+      METADATA
+        'ows_title' 'Sectores'
+        'ows_include_items' 'all'
+        'gml_include_items' 'all'
+      END
+      PROJECTION
+        'init=epsg:32614'
+      END
+      VALIDATION
+        "clusuario" "^[0-9A-Za-z]{1,20}$"
+      END
+    CONNECTIONTYPE POSTGIS 
+    TYPE POLYGON
+    DATA "geometry from (select a.gid, a.geometry, a.etapa, a.nombre from subcircuitos a join vw_tmpsectores b on a.gid = b.gid join vw_usuarios u on b.sid = u.id WHERE u.nombre = '%clusuario%') as tmp using unique gid using srid=32614"
+    LABELITEM "nombre"
+    LABELCACHE OFF
+    CLASSITEM "etapa"
+    CLASS
+      EXPRESSION "1.1"
+      STYLE
+        SYMBOL 'plainline'
+        SIZE 3
+        OUTLINECOLOR 255 0 0
+      END ## STYLE   
+      LABEL
+        SIZE 14
+        COLOR 0 0 0
+        OUTLINECOLOR 254 254 254
+        TYPE TRUETYPE
+        FONT ARIAL
+      END ## LABEL
+    END
+    CLASS
+      EXPRESSION "2.1"
+      STYLE
+        SYMBOL 'plainline'
+        SIZE 3
+        OUTLINECOLOR 100 100 100
+      END ##STYLE
+      LABEL
+        SIZE 14
+        COLOR 0 0 0
+        OUTLINECOLOR 254 254 254
+        TYPE TRUETYPE
+        FONT ARIAL
+      END #LABEL
+    END # CLASS
+    CLASS
+      EXPRESSION "2.2"
+      STYLE
+        SYMBOL 'plainline'
+        SIZE 3
+        OUTLINECOLOR 100 100 100
+      END ## STYLE
+      LABEL
+        SIZE 14
+        COLOR 0 0 0
+        OUTLINECOLOR 254 254 254
+        TYPE TRUETYPE
+        FONT ARIAL
+      END ## LABEL
+    END ## CLASS
+    CLASS
+      EXPRESSION "2.3"
+      STYLE
+        SYMBOL 'plainline'
+        SIZE 3
+        OUTLINECOLOR 100 100 100
+      END ## STYLE
+      LABEL
+        SIZE 14
+        COLOR 0 0 0
+        OUTLINECOLOR 254 254 254
+        TYPE TRUETYPE
+        FONT ARIAL
+      END## LABEL
+    END ##CLASS
+    CLASS
+      EXPRESSION "2.4"
+      STYLE 
+        SYMBOL 'plainline'
+        SIZE 3
+        OUTLINECOLOR 100 100 100
+      END  ## STYLE
+      LABEL
+        SIZE 14
+        COLOR 0 0 0
+        OUTLINECOLOR 254 254 254
+        TYPE TRUETYPE
+        FONT ARIAL
+      END ## LABEL
+    END #CLASS
+    CLASS
+      EXPRESSION "2.5"
+      STYLE
+        SYMBOL 'plainline'
+        SIZE 3
+        OUTLINECOLOR 100 100 100
+      END ## STYLE
+      LABEL
+        SIZE 14
+        COLOR 0 0 0
+        OUTLINECOLOR 254 254 254
+        TYPE TRUETYPE
+        FONT ARIAL
+      END ## LABEL
+    END ## CLASS
+    CLASS
+      EXPRESSION "3.1"
+      STYLE
+        SYMBOL 'plainline'
+        SIZE 3
+        OUTLINECOLOR 7 105 30
+      END ## STYLE
+      LABEL
+        SIZE 14
+        COLOR 0 0 0
+        OUTLINECOLOR 254 254 254
+        TYPE TRUETYPE
+        FONT ARIAL
+      END  ## LABEL
+    END ## CLASS
+    CLASS
+      EXPRESSION "3.2"
+      STYLE
+        SYMBOL 'plainline'
+        SIZE 3
+        OUTLINECOLOR 7 105 30
+      END ## STYLE
+      LABEL
+        SIZE 14
+        COLOR 0 0 0
+        OUTLINECOLOR 254 254 254
+        TYPE TRUETYPE
+        FONT ARIAL
+      END ## LABEL
+    END ## CLASS
+    CLASS
+      EXPRESSION "4.1"
+      STYLE
+        SYMBOL 'plainline'
+        SIZE 3
+        OUTLINECOLOR 105 0 88
+      END ## STYLE
+      LABEL
+        SIZE 14
+        COLOR 0 0 0
+        OUTLINECOLOR 254 254 254
+        TYPE TRUETYPE
+        FONT ARIAL
+      END ## LABEL
+    END ## CLASS
+    CLASS
+      EXPRESSION "4.2"
+      STYLE 
+        SYMBOL 'plainline'
+        SIZE 3
+        OUTLINECOLOR 105 0 88
+      END ## STYLE
+      LABEL
+        SIZE 14
+        COLOR 0 0 0
+        OUTLINECOLOR 254 254 254
+        TYPE TRUETYPE
+        FONT ARIAL
+      END ## LABEL
+    END ## CLASS
+    CLASS
+      EXPRESSION "4.3"
+      STYLE 
+        SYMBOL 'plainline'
+        SIZE 3
+        OUTLINECOLOR 105 0 88
+      END ## STYLE
+      LABEL
+        SIZE 14
+        COLOR 0 0 0
+        OUTLINECOLOR 254 254 254
+        TYPE TRUETYPE
+        FONT ARIAL
+      END## LABEL
+    END ## CLASS
+  END ## LAYER 
+  ## -------------------------------------------SecciónBuscar----------------------------------------------
+  LAYER #ResaltarAmarilloInstalaciones 
+    CONNECTIONTYPE POSTGIS
+    INCLUDE 'includes/conexion.map'
+    NAME "SS_MAP_GRAL_INSTALACIONES"
+    STATUS DEFAULT
+    METADATA
+      'ows_title' 'SS_MAP_GRAL_INSTALACIONES'
+      'ows_include_items' 'all'
+      'gml_include_items' 'all'
+    END
+    PROJECTION
+      'init=epsg:32614'
+    END
+    VALIDATION
+      "clusuario" "^[0-9A-Za-z]{1,20}$"
+    END
+    TYPE POINT
+    DATA "geometry from (select ins.geometry, ins.gid from k_busqueda b join bn_inst_sapal ins on ins.gid = b.id_elemento_geografico where b.nb_tabla = 'bn_inst_sapal' and b.cl_usuario = '%clusuario%') as tmp using unique gid using srid=32614"
+    CLASS
+      TEMPLATE 'x.html'
+      STYLE
+        SYMBOL "puntos"
+        COLOR 255 255 0
+        SIZE 10
+        OUTLINECOLOR 0 0 0
+      END ## STYLE
+    END ## CLASS
+  END ## LAYER
+  LAYER #ResaltarAmarilloNúmerosPoligono 
+    CONNECTIONTYPE POSTGIS
+    INCLUDE 'includes/conexion.map'
+    NAME "SS_MAP_INFO_PREDIOS"
+    STATUS DEFAULT
+    METADATA
+      'ows_title' 'SS_MAP_INFO_PREDIOS'
+      'ows_include_items' 'all'
+      'gml_include_items' 'all'
+    END
+    PROJECTION
+      'init=epsg:32614'
+    END
+    VALIDATION
+      "clusuario" "^[0-9A-Za-z]{1,20}$"
+    END
+    TYPE polygon
+    DATA "geometry from (select p.geometry, p.gid from k_busqueda b join predios p on p.gid = b.id_elemento_geografico where b.nb_tabla = 'predios' and b.cl_usuario = '%clusuario%') as tmp using unique gid using srid=32614"
+    CLASS
+      TEMPLATE 'itemquery_predios.html'
+      STYLE
+        SYMBOL 'plainline'
+        SIZE 7
+        WIDTH 6
+        OUTLINECOLOR 255 255 0
+      END
+    END
+  END
+  LAYER #ResaltarAmarilloCalles 
+    CONNECTIONTYPE POSTGIS
+    INCLUDE 'includes/conexion.map'
+    NAME "SS_MAP_GRAL_CALLES"
+    STATUS DEFAULT
+    METADATA
+      'ows_title' 'SS_MAP_GRAL_CALLES'
+      'ows_include_items' 'all'
+      'gml_include_items' 'all'
+    END
+    PROJECTION
+      'init=epsg:32614'
+    END
+    VALIDATION
+      "clusuario" "^[0-9A-Za-z]{1,20}$"
+    END
+    TYPE LINE
+    DATA "geometry from (select p.geometry, p.gid from k_busqueda b join calles p on p.gid = b.id_elemento_geografico where b.nb_tabla = 'calles' and b.cl_usuario = '%clusuario%') as tmp using unique gid using srid=32614"
+    CLASS
+      TEMPLATE 'itemquery_predios.html'
+      STYLE
+        SYMBOL 'plainline'
+        SIZE 7
+        WIDTH 6
+        OUTLINECOLOR 255 255 0
+      END
+    END
+  END
+  LAYER #ResaltarAmarilloColonias 
+    CONNECTIONTYPE POSTGIS
+    INCLUDE 'includes/conexion.map'
+    NAME "SS_MAP_GRAL_COLONIAS"
+    STATUS DEFAULT
+    METADATA
+      'ows_title' 'SS_MAP_GRAL_COLONIAS'
+      'ows_include_items' 'all'
+      'gml_include_items' 'all'
+    END
+    PROJECTION
+		 'init=epsg:32614'
+	  END #PROJECTION
+    VALIDATION
+        "clusuario" "^[0-9A-Za-z]{1,20}$"
+    END
+    TYPE polygon
+    DATA "geometry from (select p.geometry, p.gid from k_busqueda b join colonias p on p.gid = b.id_elemento_geografico where b.nb_tabla = 'colonias' and b.cl_usuario = '%clusuario%') as tmp using unique gid using srid=32614" #%clusuario%
+    CLASS
+      TEMPLATE 'itemquery_predios.html'
+      STYLE
+        SYMBOL 'plainline'
+        SIZE 7
+        WIDTH 6
+        #COLOR -1 -1 -1
+        OUTLINECOLOR 255 255 0
+      END
+    END
+  END
+  LAYER #ResaltarAmarilloMacrocircuitos
+    CONNECTIONTYPE POSTGIS
+    NAME "SS_MAP_MCIR_MACROCIRCUITOS_GENERAL"
+    STATUS DEFAULT
+    INCLUDE 'includes/conexion.map'
+    METADATA
+      'ows_title' 'SS_MAP_MCIR_MACROCIRCUITOS_GENERAL'
+      'ows_include_items' 'all'
+      'gml_include_items' 'all'
+    END
+    VALIDATION
+      "clusuario" "^[0-9A-Za-z]{1,20}$"
+    END
+    PROJECTION
+      'init=epsg:32614'
+    END
+    DATA "geometry from (select mc.gid, mc.geometry from k_busqueda b join macrocircuitos mc on mc.gid = b.id_elemento_geografico where b.nb_tabla = 'macrocircuitos'and b.cl_usuario = '%clusuario%') as tmp using unique gid using srid=32614"
+    TYPE polygon
+    CLASS
+      # TEMPLATE 'itemquery_predios.html'
+      STYLE
+        SYMBOL 'plainline'
+        SIZE 7
+        WIDTH 6
+        OUTLINECOLOR 255 255 0
+      END
+    END
+  END
+  LAYER #ResaltarAmarilloSubcircuitosAgua 
+    CONNECTIONTYPE POSTGIS
+    INCLUDE 'includes/conexion.map'
+    NAME "SS_MAP_MCIR_SUBCIRCUITOS_AGUA"
+    STATUS DEFAULT
+    METADATA
+      'ows_title' 'SS_MAP_MCIR_SUBCIRCUITOS_AGUA'
+      'ows_include_items' 'all'
+      'gml_include_items' 'all'
+    END
+    PROJECTION
+		  'init=epsg:32614'
+	  END #PROJECTION
+    VALIDATION
+      "clusuario" "^[0-9A-Za-z]{1,20}$"
+    END
+    TYPE polygon
+    DATA "geometry from (select mc.gid, mc.geometry from k_busqueda b join subcircuitos mc on mc.gid = b.id_elemento_geografico where b.nb_tabla = 'subcircuitos' and b.cl_usuario = '%clusuario%') as tmp using unique gid using srid=32614"
+    CLASS
+      TEMPLATE 'itemquery_predios.html'
+      STYLE
+        SYMBOL 'plainline'
+        SIZE 7
+        WIDTH 6
+        OUTLINECOLOR 255 255 0
+      END
+    END
+  END
+  LAYER #ResaltarAmarilloSectoresMedidores 
+    CONNECTIONTYPE POSTGIS
+    INCLUDE 'includes/conexion.map'
+    NAME "SS_MAP_MCIR_MEDIDORES_SECTORES"
+    STATUS DEFAULT
+    METADATA
+      'ows_title' 'SS_MAP_MCIR_MEDIDORES_SECTORES'
+      'ows_include_items' 'all'
+      'gml_include_items' 'all'
+    END
+    VALIDATION
+      "clusuario" "^[0-9A-Za-z]{1,20}$"
+    END
+    PROJECTION
+      'init=epsg:32614'
+    END
+    TYPE POINT
+    DATA "geometry from (select mc.gid, mc.geometry from k_busqueda b join sectores_medidores mc on mc.gid = b.id_elemento_geografico where b.nb_tabla = 'sectores_medidores' and b.cl_usuario = '%clusuario%') as tmp using unique gid using srid=32614"
+    CLASS
+      TEMPLATE 'x.html'
+      STYLE
+        SYMBOL "puntos"
+        SIZE 14
+        COLOR 255 255 0
+        OUTLINECOLOR 0 0 0
+      END
+    END
+  END
+  LAYER #ResaltarAmarilloPrediosIrregulares 
+    CONNECTIONTYPE POSTGIS
+    INCLUDE 'includes/conexion.map'
+    NAME "SS_MAP_JURI_PREDIOS_IRREGULARES"
+    STATUS DEFAULT
+    METADATA
+      'ows_title' 'SS_MAP_JURI_PREDIOS_IRREGULARES'
+      'ows_include_items' 'all'
+      'gml_include_items' 'all'
+    END
+    PROJECTION
+		'init=epsg:32614'
+	  END #PROJECTION
+    VALIDATION
+      "clusuario" "^[0-9A-Za-z]{1,20}$"
+    END
+    TYPE polygon
+    DATA "geometry from (select mc.gid, mc.geometry from k_busqueda b join predios_irregulares mc on mc.gid = b.id_elemento_geografico where b.nb_tabla = 'predios_irregulares' and b.cl_usuario = '%clusuario%') as tmp using unique gid using srid=32614"
+    CLASS
+      TEMPLATE 'x.html'
+      STYLE
+        SYMBOL 'plainline'
+        SIZE 7
+        WIDTH 6
+        OUTLINECOLOR 255 255 0
+      END
+    END
+  END
+  LAYER #ResaltarAmariloFactibilidad
+    CONNECTIONTYPE POSTGIS
+    INCLUDE 'includes/conexion.map'
+    NAME "SS_MAP_JURI_FACTIBILIDADES"
+    STATUS DEFAULT
+    METADATA
+      'ows_title' 'SS_MAP_JURI_FACTIBILIDADES'
+      'ows_include_items' 'all'
+      'gml_include_items' 'all'
+    END
+    PROJECTION
+		 'init=epsg:32614'
+	  END #PROJECTION
+    VALIDATION
+      "clusuario" "^[0-9A-Za-z]{1,20}$"
+    END
+    TYPE polygon
+    DATA "geometry from (select pf.gid, pf.geometry from k_busqueda b join  pol_fac pf on pf.gid = b.id_elemento_geografico where b.nb_tabla = 'pol_fac' and b.cl_usuario = '%clusuario%') as tmp using unique gid using srid=32614"
+    CLASS
+      TEMPLATE 'x.html'
+      STYLE
+        SYMBOL 'plainline'
+        SIZE 7
+        WIDTH 6
+        OUTLINECOLOR 255 255 0
+      END
+    END
+  END
+  LAYER #ResaltarAmariloConvenios
+    CONNECTIONTYPE POSTGIS
+    INCLUDE 'includes/conexion.map'
+    NAME "SS_MAP_JURI_CONVENIOS"
+    STATUS DEFAULT
+    METADATA
+      'ows_title' 'SS_MAP_JURI_CONVENIOS'
+      'ows_include_items' 'all'
+      'gml_include_items' 'all'
+    END
+    PROJECTION
+		 'init=epsg:32614'
+	  END #PROJECTION
+    VALIDATION
+      "clusuario" "^[0-9A-Za-z]{1,20}$"
+    END
+        TYPE polygon
+    DATA "geometry from (select 	pf.gid, pf.geometry from k_busqueda b join  pol_con pf on pf.gid = b.id_elemento_geografico where b.nb_tabla = 'pol_con' and b.cl_usuario = '%clusuario%') as tmp using unique gid using srid=32614"
+    CLASS
+      TEMPLATE 'x.html'
+      STYLE
+        SYMBOL 'plainline'
+        SIZE 7
+        WIDTH 6
+        OUTLINECOLOR 255 255 0
+      END
+    END
+  END
+  LAYER #ResultarAmarilloCruceros 
+    CONNECTIONTYPE POSTGIS
+    INCLUDE 'includes/conexion.map'
+    NAME "SS_MAP_AGUA_CRUCEROS"
+    STATUS DEFAULT
+    METADATA
+      'ows_title' '"SS_MAP_AGUA_CRUCEROS"'
+      'ows_include_items' 'all'
+      'gml_include_items' 'all'
+    END
+    PROJECTION
+		 'init=epsg:32614'
+	  END #PROJECTION
+    VALIDATION
+      "clusuario" "^[0-9A-Za-z]{1,20}$"
+    END
+    TYPE polygon
+    DATA "geometry from (select mc.gid, mc.geometry from k_busqueda b join cruceros mc on mc.gid = b.id_elemento_geografico where b.nb_tabla = 'cruceros' and b.cl_usuario = '%clusuario%') as tmp using unique gid using srid=32614"
+    CLASS
+      TEMPLATE 'x.html'
+      STYLE
+        SYMBOL 'plainline'
+        SIZE 7
+        WIDTH 6
+        OUTLINECOLOR 255 255 0
+      END
+    END
+  END
+  ## -------------------------------------------Barra de Herramientas---------------------------------------
+  LAYER#GenerarFlujoRutasLecturistas
+    NAME "Flujo lecturistas" 
+    CONNECTIONTYPE POSTGIS
+    STATUS DEFAULT
+    INCLUDE 'includes/conexion.map'
+    METADATA
+      'ows_title' 'Flujo lecturistas'
+      'ows_include_items' 'all'
+      'gml_include_items' 'all'
+    END
+    PROJECTION
+      'init=epsg:32614'
+    END
+    VALIDATION
+      "clusuario" "^[0-9A-Za-z]{1,20}$"
+    END
+    NAME "Flujo lecturistas" 
+    INCLUDE 'includes/conexion.map'
+    DATA "geometry from (select a.gid,a.geometry,a.etiquetar,a.color from vw_tmprutasl a join vw_usuarios u on a.sid = u.id WHERE u.nombre = '%clusuario%')as tmp using unique gid using srid=32614" #%clusuario%
+    STATUS DEFAULT
+    TYPE line
+	  CLASSITEM "color"
+    CLASS
+      EXPRESSION "1"
+      STYLE
+        COLOR 255 0 0
+      END # STYLE
+      STYLE
+        COLOR 255 0 0 
+        GAP -60
+        INITIALGAP 20
+        SIZE 14
+        SYMBOL "flechas"
+      END # STYLE
+    END # CLASS
+    CLASS
+      EXPRESSION "2"
+      STYLE
+        COLOR 0 146 63
+        GAP -60
+        INITIALGAP 20
+        SIZE 14
+        SYMBOL "flechas"
+      END # STYLE
+      STYLE
+        COLOR 0 146 63
+      END # STYLE
+    END # CLASS
+    CLASS
+      EXPRESSION "3"
+      STYLE
+        COLOR 143 84 68
+        GAP -60
+        INITIALGAP 20
+        SIZE 14
+        SYMBOL "flechas"
+      END # STYLE
+      STYLE
+        COLOR 143 84 68
+      END # STYLE
+    END # CLASS
+    CLASS
+      EXPRESSION "4"
+      STYLE
+        COLOR 30 30 30
+        GAP -60
+        INITIALGAP 20
+        SIZE 14
+        SYMBOL "flechas"
+      END # STYLE
+      STYLE
+        COLOR 30 30 30
+      END # STYLE
+    END # CLASS
+    CLASS
+      EXPRESSION "5"
+      STYLE
+        COLOR 0 147 221
+        GAP -60
+        INITIALGAP 20
+        SIZE 14
+        SYMBOL "flechas"
+      END # STYLE
+      STYLE
+        COLOR 0 147 221
+      END # STYLE
+    END # CLASS
+    CLASS
+      EXPRESSION "6"
+      STYLE
+        COLOR 111 68 138
+        GAP -60
+        INITIALGAP 20
+        SIZE 14
+        SYMBOL "flechas"
+      END # STYLE
+      STYLE
+        COLOR 111 68 138
+      END # STYLE
+    END # CLASS
+    CLASS
+      EXPRESSION "7"
+      STYLE
+        COLOR 132 194 37
+        GAP -60
+        INITIALGAP 20
+        SIZE 14
+        SYMBOL "flechas"
+      END # STYLE
+      STYLE
+        COLOR 132 194 37
+      END # STYLE
+    END # CLASS
+    CLASS
+      EXPRESSION "8"
+      STYLE
+        COLOR 150 150 150
+        GAP -60
+        INITIALGAP 20
+        SIZE 14
+        SYMBOL "flechas"
+      END # STYLE
+      STYLE
+        COLOR 150 150 150
+      END # STYLE
+    END # CLASS
+    CLASS
+      EXPRESSION "9"
+      STYLE
+        COLOR 218 37 29
+        GAP -60
+        INITIALGAP 20
+        SIZE 14
+        SYMBOL "flechas"
+      END # STYLE
+      STYLE
+        COLOR 218 37 29
+      END # STYLE
+    END # CLASS
+    CLASS
+      EXPRESSION "10"
+      STYLE
+        COLOR 255 249 116
+        GAP -60
+        INITIALGAP 20
+        SIZE 14
+        SYMBOL "flechas"
+      END # STYLE
+      STYLE
+        COLOR 255 249 116
+      END # STYLE
+    END # CLASS
+  END
+  LAYER#GenerarEtiquetasLecturistas
+    CONNECTIONTYPE POSTGIS
+    METADATA
+      'ows_title' 'etiquetas lecturistas'
+      'ows_include_items' 'all'
+      'gml_include_items' 'all'
+    END
+    VALIDATION
+      "clusuario" "^[0-9A-Za-z]{1,20}$"
+    END
+    PROJECTION
+      'init=epsg:32614'
+    END
+    NAME "etiquetas lecturistas"
+    INCLUDE 'includes/conexion.map'
+    DATA "geometry from (select a.gid,a.geometry,a.etiquetar,a.color from vw_tmprutasl a join vw_usuarios u on a.sid = u.id WHERE u.nombre = '%clusuario%') as tmp using unique gid using srid=32614"
+    STATUS DEFAULT
+    TYPE line
+    LABELITEM "etiquetar"
+    CLASS
+      LABEL
+        TYPE TRUETYPE
+        FONT "arial"
+        SIZE 15
+        COLOR 0 0 0
+        OUTLINECOLOR 254 254 254
+      END
+    END
+  END
+END ## end Map

@@ -1,0 +1,36 @@
+MAP
+    NAME "SS_MAP_GRAL_SECTOR_SUBSECTOR"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_sector_subsector.log"
+    DEBUG 0
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_GRAL_SECTOR_SUBSECTOR"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        INCLUDE 'includes/conexion_gestion_infra.map'
+        DATA "gm_predio from (  select gm_predio,id_predio, cl_sector_subsector_calle from op.mv_gm_predio_cuenta mvpc) as ext using unique id_predio using srid=32614"
+        LABELCACHE on
+        STATUS DEFAULT
+        MAXSCALE 2000
+        TYPE POLYGON
+        LABELITEM "cl_sector_subsector_calle"
+        CLASS
+            NAME "codigo de calle"
+            LABEL
+                ANGLE AUTO
+                SIZE 19
+                COLOR 0 0 0
+                TYPE TRUETYPE
+                FONT ARIAL
+            END #LABEL
+        END #CLASS
+    END #LAYER
+END #MAP

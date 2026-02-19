@@ -1,0 +1,55 @@
+MAP
+    NAME "SS_MAP_AGUA_DETECCION_FUGAS"
+    INCLUDE 'includes/globals.map'
+    NAME 'SS_MAP_AGUA_DETECCION_FUGAS'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_deteccion_redes.log"
+    DEBUG 0
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_AGUA_DETECCION_FUGAS"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        STATUS DEFAULT
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from (select p.gid, st_pointonsurface(p.geometry) as geometry,deteccion_fugas.cuenta,deteccion_fugas.tipo from predios p, mv_predios_cuenta,deteccion_fugas where  mv_predios_cuenta.cuenta=deteccion_fugas.cuenta and p.gid =  mv_predios_cuenta.npredio) as tmp using unique gid using srid=32614"
+        TYPE POINT
+        CLASSITEM 'tipo'
+        CLASS
+            NAME 'Tomas'
+            EXPRESSION '1'
+            STYLE
+                SYMBOL 'puntos'
+                SIZE 10
+                COLOR 0 0 255
+                OUTLINECOLOR 0 0 0
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME 'Tubos'
+            EXPRESSION '2'
+            STYLE
+                SYMBOL 'puntos'
+                SIZE 10
+                COLOR 255 0 0
+                OUTLINECOLOR 0 0 0
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME 'Valvulas'
+            EXPRESSION '3'
+            STYLE
+                SYMBOL 'puntos'
+                SIZE 10
+                COLOR 0 255 0
+                OUTLINECOLOR 0 0 0
+            END #STYLE
+        END #CLASS
+    END #LAYER
+END #MAP

@@ -1,0 +1,28 @@
+MAP
+    NAME "SS_MAP_ORTO_LEON_2024"
+    NAME "tiff_2024"
+    PROJECTION
+        "init=EPSG:32614"
+    END #PROJECTION
+    WEB
+        METADATA
+            INCLUDE '../../common_metadata_sig.map'
+        END #METADATA
+    END #WEB
+    LAYER
+        NAME "SS_MAP_ORTO_LEON_2024"
+        TYPE RASTER
+        DATA "/var/www/html/MapServer/data/SIG/tiff_2024/RASTER_JOIN.tif"
+        STATUS ON
+        METADATA
+            "wms_title" "Ortofoto Leon 2024"
+            'wms_srs' 'EPSG:4326 EPSG:3587'
+            "wms_server_version" "1.1.1"
+            "wms_format" "image/png"
+            "wms_enable_request" "*"
+        END #METADATA
+        PROJECTION
+            "init=EPSG:32614"
+        END #PROJECTION
+    END #LAYER
+END #MAP

@@ -1,0 +1,29 @@
+MAP
+    NAME "SS_MAP_CORT_CUENTAS_CORTADAS"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_cuenta_cortada.log"
+    DEBUG 0
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_CORT_CUENTAS_CORTADAS"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        STATUS DEFAULT
+        INCLUDE 'includes/conexion_gestion_infra.map'
+        DATA "gm_predio from (select gm_predio,id_predio from op.mv_gm_predio_cuenta vwpc where vwpc.cl_estatus_cuenta = 'C') as cr using unique id_predio using srid=32614"
+        TYPE polygon
+        CLASS
+            NAME "Cuenta con estatus de limitación"
+            STYLE
+                COLOR 254 0 0
+            END #STYLE
+        END #CLASS
+    END #LAYER
+END #MAP

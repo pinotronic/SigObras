@@ -1,0 +1,43 @@
+MAP
+    NAME "SS_MAP_LECT_BAJAS_SUSPENDIDADAS"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_bajas_suspendidas.log"
+    DEBUG 0
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_LECT_SUSPENDIDADAS"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        STATUS DEFAULT
+        INCLUDE 'includes/conexion_gestion_infra.map'
+        DATA "gm_predio from (select gm_predio, id_predio, cl_estatus_servicio from op.mv_gm_predio_cuenta  where cl_estatus_servicio = 'S' OR cl_estatus_servicio='B') as pc using unique id_predio using srid=32614" 
+        TYPE polygon
+        CLASS
+            NAME "cuentas suspendidas"
+            EXPRESSION ('[cl_estatus_servicio]'='S')
+            STYLE
+                SYMBOL 'plainline'
+                    SIZE 3
+                    COLOR 0 0 0
+                    OUTLINECOLOR 122 122 122
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "cuenta en baja"
+            EXPRESSION ('[cl_estatus_servicio]'='B')
+            STYLE
+                SYMBOL 'plainline'
+                    SIZE 3
+                    COLOR 0 0 0
+                    OUTLINECOLOR 255 0 0
+            END #STYLE
+        END #CLASS
+    END #LAYER
+END #MAP

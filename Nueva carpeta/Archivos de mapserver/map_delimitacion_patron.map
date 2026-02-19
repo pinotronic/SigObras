@@ -1,0 +1,45 @@
+MAP
+    NAME "SS_MAP_GRAL_DELIMITACION_PATRON"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE 'includes/temp_directory.map'
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END  #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_delimitacion_patron.log"
+    DEBUG 0
+    LAYER
+        PROJECTION
+            'init=epsg:32614'
+        END #PROJECTION
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_GRAL_DELIMITACION_PATRON"
+        METADATA
+            'ows_title' 'Delimitacion_Patron'
+            'ows_include_items' 'all'
+            'gml_include_items' 'all'
+            'wfs_request_method' 'GET'
+        END #METADATA
+        INCLUDE 'includes/conexion.map' 
+ 	    DATA "gm_zona_influencia from mv_cuenta_giro_agua_bloque using unique id_elemento_geografico using srid=32614"
+	    LABELITEM "nb_zona_influencia"
+        # LABELITEM "nombre"
+        STATUS DEFAULT
+        TYPE POLYGON
+        CLASS
+            NAME "Nombre área Delimitación Control"
+            STYLE
+                OUTLINECOLOR 5 5 255
+            END #STYLE
+            LABEL
+                TYPE TRUETYPE
+                FONT 'ARIAL'
+                SIZE 19
+                PARTIALS FALSE
+                COLOR 5 5 255
+                OUTLINECOLOR 254 254 254
+            END #LABEL
+        END #CLASS
+    END #LAYER
+END #MAP

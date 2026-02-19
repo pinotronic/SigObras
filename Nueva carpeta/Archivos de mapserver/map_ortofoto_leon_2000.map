@@ -1,0 +1,29 @@
+MAP
+    NAME "SS_MAP_ORTO_LEON_2000"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_ortofoto_leon_2000.log"
+    DEBUG 0
+    LAYER
+        NAME "SS_MAP_ORTO_LEON_2000"
+        TYPE RASTER
+        TILEINDEX "/media/ortofotos/ecw_2000/reticula_2000.shp"
+        TILEITEM "nombre"
+        STATUS DEFAULT
+        METADATA
+            "wms_title" "Ortofoto León 2000"
+            'wms_srs' 'EPSG:4326 EPSG:3587'
+            "wms_server_version" "1.1.1"
+            "wms_format" "image/png"
+            "wms_enable_request" "*"
+        END #METADATA
+        PROJECTION
+            "init=EPSG:32614"
+        END #PROJECTION
+    END #LAYER
+END #MAP

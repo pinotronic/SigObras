@@ -1,0 +1,44 @@
+MAP
+    NAME "SS_MAP_LECT_MEDIDORES_FUGAS"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_medidores_fugas.log"
+    LAYER
+        PROJECTION
+            'init=epsg:32614'
+        END #PROJECTION
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_LECT_MEDIDORES_FUGAS" 
+        STATUS DEFAULT
+        INCLUDE 'includes/conexion_gestion_infra.map'  
+        DATA "gm_caudalimetro from (select gm_caudalimetro, id_caudalimetro, cl_trabajo_solicitado from op.vw_incidencia_caudalimetro where cl_trabajo_solicitado = 45 ) as c using unique id_caudalimetro using srid=32614"  
+        PROCESSING "CLOSE_CONNECTION=DEFER"  # Reutiliza conexiones para múltiples consultas
+        PROCESSING "POSTGIS_FILTER=YES"      # Filtra geometrías en el lado del servidor     
+        TYPE POINT
+        LABELCACHE OFF
+        CLASSITEM "cl_trabajo_solicitado" 
+        CLASS
+            NAME "FUGA DETECTADA EN INSTALACIONES INTERNAS"
+            EXPRESSION "45"
+            STYLE
+                SYMBOL "puntos"
+                SIZE 10
+                COLOR 255 0 0
+                OUTLINECOLOR 255 0 0
+            END #STYLE
+            LABEL
+                TYPE TRUETYPE
+                FONT "arial"
+                OFFSET 0 12
+                SIZE 10
+                COLOR 255 0 0
+                OUTLINECOLOR 255 0 0
+            END #LABEL
+        END #CLASS
+    END #LAYER
+END #MAP

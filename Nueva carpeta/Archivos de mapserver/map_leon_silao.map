@@ -1,0 +1,99 @@
+MAP
+    NAME "SS_MAP_INFO_MUNICIPIOS"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_leon_silao.log"
+    DEBUG 0
+    LAYER
+        NAME "SS_MAP_INFO_MUNICIPIOS"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        CONNECTIONTYPE POSTGIS
+        INCLUDE 'includes/conexionGeo.map'
+        DATA "geometry from leon_silao using unique gid using srid=32614"
+        STATUS DEFAULT
+        TYPE POLYGON
+        CLASSITEM "gid"
+        CLASS
+            NAME "Leon"
+            EXPRESSION "2"
+            LABEL
+                TEXT "Leon"
+                SIZE 19
+                COLOR 0 0 0
+                TYPE TRUETYPE
+                FONT "ARIAL"
+            END #LABEL
+            STYLE
+                COLOR 125 255 125
+                OUTLINECOLOR 125 255 125
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Romita"
+            EXPRESSION "3"
+            LABEL
+                TEXT "Romita"
+                SIZE 19
+                COLOR 0 0 0
+                TYPE TRUETYPE
+                FONT "ARIAL"
+            END #LABEL
+            STYLE
+                COLOR 255 125 125
+                OUTLINECOLOR 255 125 125
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Sn Francisco"
+            EXPRESSION "4"
+            LABEL
+                TEXT "San Francisco"
+                SIZE 19
+                COLOR 0 0 0
+                TYPE TRUETYPE
+                FONT "ARIAL"
+            END #LABEL
+            STYLE
+                COLOR 125 125 255
+                OUTLINECOLOR 125 125 255
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Silao"
+            EXPRESSION "5"
+            LABEL
+                TEXT "Silao"
+                SIZE 19
+                COLOR 0 0 0
+                TYPE TRUETYPE
+                FONT "ARIAL"
+            END #LABEL
+            STYLE
+                COLOR 255 5 125
+                OUTLINECOLOR 255 5 125
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Purisima"
+            EXPRESSION "1"
+            LABEL
+                TEXT "Purisima del Rincon"
+                SIZE 19
+                COLOR 0 0 0
+                TYPE TRUETYPE
+                FONT "ARIAL"
+            END #LABEL
+            STYLE
+                COLOR 255 125 5
+                OUTLINECOLOR 255 125 5
+            END #STYLE
+        END #CLASS
+    END #LAYER
+END #MAP

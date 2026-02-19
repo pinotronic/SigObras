@@ -1,0 +1,72 @@
+MAP
+    NAME "SS_MAP_HIDR_CUENCAS"
+    INCLUDE 'includes/globals.map' 
+    NAME "Cuencas"
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA 
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_cuencas.log"
+    DEBUG 0
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_HIDR_CUENCAS"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        INCLUDE 'includes/conexionGeo.map'
+        DATA "geometry from cuencas_2019 using unique gid using srid=32614"
+        PROCESSING "CLOSE_CONNECTION=DEFER"  # Reutiliza conexiones para múltiples consultas
+        PROCESSING "POSTGIS_FILTER=YES"      # Filtra geometrías en el lado del servidor
+        STATUS DEFAULT
+        TYPE POLYGON
+        CLASSITEM "no_cuenca"
+        CLASS
+            NAME "1 Río Turbio"
+            EXPRESSION "1"
+            TEXT ([area])
+            STYLE
+                COLOR 125 255 125
+                OUTLINECOLOR 125 255 125
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "2 Río de los lagos"
+            EXPRESSION "2"
+            TEXT ([area])
+            STYLE
+                COLOR 255 231 125
+                OUTLINECOLOR 255 231 125
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "3 Río lerma"
+            EXPRESSION "3"
+            TEXT ([area])
+            STYLE
+                COLOR 125 231 255
+                OUTLINECOLOR 125 231 255
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "4 Río laja"
+            EXPRESSION "4"
+            TEXT ([area])
+            STYLE
+                COLOR 255 255 125
+                OUTLINECOLOR 255 255 125
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "5 Presa del 40"
+            EXPRESSION "5"
+            TEXT ([area])
+            STYLE
+                COLOR 125 255 255
+                OUTLINECOLOR 125 255 255
+            END #STYLE
+        END #CLASS
+    END #LAYER
+END #MAP

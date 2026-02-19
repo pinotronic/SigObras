@@ -1,0 +1,65 @@
+MAP
+    NAME "SS_MAP_LECT_TOMAS_PUBLICAS"
+    INCLUDE 'includes/globals.map'
+    #TRANSPARENT TRUE
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_tomas_publicas.log"
+    DEBUG 5
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_LECT_TOMAS_PUBLICAS"
+        PROJECTION
+            'init=epsg:32614'
+        END #PROJECTION
+        STATUS DEFAULT
+        MAXSCALE 500
+        INCLUDE 'includes/conexion_gestion_infra.map'
+        DATA "gm_predio from (   select vcp.id_predio, vcp.gm_predio, vcp.no_cuenta, vcp.cl_giro  from op.mv_gm_predio_cuenta_point vcp  where vcp.cl_giro in (225, 234,245) and vcp.cl_estatus_servicio = 'A') as pcp using unique id_predio using srid=32614"
+        TYPE POINT
+        LABELITEM "no_cuenta"  
+        LABELCACHE OFF
+        CLASSITEM "cl_giro"
+        CLASS
+            NAME "Tomas Publicas"
+            EXPRESSION '225'
+            LABEL
+                TYPE TRUETYPE
+                FONT "arial"
+                OFFSET 0 12
+                SIZE 19
+                COLOR 0 0 255
+                OUTLINECOLOR 254 254 254
+            END #LABEL
+        END #CLASS
+    END #LAYER
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_LECT_TOMAS_PUBLICAS"
+        PROJECTION
+            'init=epsg:32614'
+        END #PROJECTION
+        MINSCALE 501
+        STATUS DEFAULT
+        INCLUDE 'includes/conexion_gestion_infra.map'
+        DATA "gm_predio from (   select vcp.id_predio, vcp.gm_predio, vcp.no_cuenta, vcp.cl_giro  from op.mv_gm_predio_cuenta_point vcp  where vcp.cl_giro in (225, 234,245) and vcp.cl_estatus_servicio = 'A') as pcp using unique id_predio using srid=32614"
+        TYPE POINT
+        LABELITEM "no_cuenta"  
+        LABELCACHE OFF
+        CLASSITEM "cl_giro"
+        CLASS
+            NAME "Tomas Publicas"
+            EXPRESSION '225'
+            STYLE
+                SYMBOL "includes/symbols/tomapublica.png"
+                SIZE 30
+                COLOR 0 0 255
+                OUTLINECOLOR 0 0 0
+            END#END
+        END #CLASS
+    END #LAYER
+END #MAP

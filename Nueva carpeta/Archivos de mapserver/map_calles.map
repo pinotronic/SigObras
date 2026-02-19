@@ -1,0 +1,36 @@
+MAP
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END# WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_calles.log"
+    DEBUG 0
+    LAYER
+        NAME "SS_MAP_GRAL_CALLES"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        STATUS DEFAULT
+        CONNECTIONTYPE POSTGIS
+        INCLUDE 'includes/conexion.map'
+        TYPE LINE
+        DATA "geometry from calles using unique gid using srid=32614"
+        LABELITEM "nombre"
+        LABELCACHE ON
+        MAXSCALE 8000
+        CLASS
+            NAME "Nombre de Calles"  
+            LABEL
+                ANGLE FOLLOW
+                TYPE TRUETYPE
+                SIZE 13
+                COLOR 000 000 000
+                FONT ARIAL
+                PARTIALS TRUE
+            END #LABEL
+        END #CLASS
+    END #LAYER
+END #MAP

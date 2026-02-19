@@ -1,0 +1,48 @@
+MAP
+	NAME "SS_MAP_LECT_MEDIDORES_9"
+	INCLUDE 'includes/globals.map'
+	WEB
+		INCLUDE "includes/temp_directory.map"
+		METADATA
+			INCLUDE 'includes/common_metadata.map'
+		END #METADATA
+	END	#WEB
+	CONFIG "MS_ERRORFILE" "/srv/mapserver/err_medidores_9.log"
+	DEBUG 0
+	LAYER
+		CONNECTIONTYPE POSTGIS
+		NAME "SS_MAP_LECT_MEDIDORES_9"
+		PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+		STATUS DEFAULT
+		INCLUDE 'includes/conexion.map'
+        PROCESSING "CLOSE_CONNECTION=DEFER"  # Reutiliza conexiones para múltiples consultas
+        PROCESSING "POSTGIS_FILTER=YES"      # Filtra geometrías en el lado del servidor
+	#	DATA "geometry from (select m.gid,st_pointonsurface(m.geometry) as geometry,c.no_cuenta,c.ds_categoria_antiguedad from medidores m,k_medidor_marca c where m.cuenta=c.no_cuenta and c.ds_categoria_antiguedad = 'D') as tmp using unique gid using srid=32614"
+        DATA "geometry from (SELECT m.gid, ST_Centroid(m.geometry) AS geometry, c.no_cuenta,c.ds_categoria_antiguedad FROM medidores m INNER JOIN k_medidor_marca c ON m.cuenta = c.no_cuenta WHERE c.ds_categoria_antiguedad = 'D') as tmp using unique gid using srid=32614"
+        TYPE POINT
+		MINSCALE 100
+		MAXSCALE 20000
+		#LABELCACHE OFF
+		CLASSITEM "ds_categoria_antiguedad"
+		CLASS
+			NAME "MAS DE 9"
+		#	EXPRESSION ('[ds_categoria_antiguedad]'='D')
+			STYLE
+				SYMBOL "puntos"
+				SIZE 10
+				COLOR 255 10 20
+				OUTLINECOLOR 0 0 0
+			END #STYLE
+			LABEL
+				TYPE TRUETYPE
+				FONT "arial"
+				OFFSET 0 12
+				SIZE 10
+				COLOR 0 0 255
+				OUTLINECOLOR 254 254 254
+			END #LABEL
+		END #CLASS
+	END #LAYER
+END #MAP

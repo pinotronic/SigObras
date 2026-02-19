@@ -1,0 +1,78 @@
+MAP
+    NAME 'SS_MAP_AGUA_NODOS'
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_nodos.log"
+    DEBUG 0
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME 'SS_MAP_AGUA_NODOS'
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        STATUS DEFAULT
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from nodos using unique gid using srid=32614"
+        TYPE POINT
+        MINSCALE 1
+        MAXSCALE 20000
+        LABELITEM "presion"
+        LABELCACHE OFF
+        CLASSITEM "tipo"
+        CLASS
+            NAME "Nodos de caudal"
+            EXPRESSION "1"
+            STYLE
+                SYMBOL "puntos"
+                SIZE 12
+                COLOR 254 254 254
+                OUTLINECOLOR 0 0 0
+            END #STYLE
+            LABEL
+                TYPE TRUETYPE
+                FONT "arial"
+                OFFSET 0 12
+                SIZE 10
+                COLOR 0 0 255
+                OUTLINECOLOR 254 254 254
+            END #LABEL
+        END #CLASS
+        CLASS
+            NAME "Reservorios"
+            EXPRESSION "2"
+            STYLE
+                SYMBOL "reservorio"
+                SIZE 16
+            END #STYLE
+            LABEL
+                TYPE TRUETYPE
+                FONT "arial"
+                OFFSET 0 12
+                SIZE 10
+                COLOR 0 0 255
+                OUTLINECOLOR 254 254 254
+            END #LABEL
+        END #CLASS
+        CLASS
+            NAME "Tanques"
+            EXPRESSION "3"
+            STYLE
+                SYMBOL "tanque"
+                SIZE 16
+            END #STYLE
+            LABEL
+                TYPE TRUETYPE
+                FONT "arial"
+                OFFSET 0 12
+                SIZE 10
+                COLOR 0 0 255
+                OUTLINECOLOR 254 254 254
+            END #LABEL
+        END #CLASS
+    END #LAYER
+END #MAP

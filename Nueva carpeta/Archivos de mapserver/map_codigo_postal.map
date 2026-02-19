@@ -1,0 +1,39 @@
+MAP
+    NAME "SS_MAP_GRAL_CODIGOS_POSTALES"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_codigos_postales.log"
+    DEBUG 0
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_GRAL_CODIGOS_POSTALES"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        STATUS DEFAULT
+        INCLUDE 'includes/conexion.map'  
+        DATA "geometry from colonias using unique gid using srid=32614"
+        PROCESSING "CLOSE_CONNECTION=DEFER"  # Reutiliza conexiones para múltiples consultas
+        PROCESSING "POSTGIS_FILTER=YES"      # Filtra geometrías en el lado del servidor
+        STATUS DEFAULT
+        TYPE POLYGON
+        LABELITEM "cod_post"
+        CLASS
+            NAME "Codigos Postales"
+            LABEL
+                TYPE TRUETYPE
+                FONT 'arial'
+                OFFSET 0 22
+                SIZE 17
+                PARTIALS FALSE
+                COLOR 255 0 255
+                OUTLINECOLOR 254 254 254
+            END #LABEL
+        END #CLASS
+    END #LAYER
+END #MAP

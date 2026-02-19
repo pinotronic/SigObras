@@ -1,0 +1,42 @@
+MAP
+    NAME "SS_MAP_PLAN_EMBALSE"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_embalses.log"
+    DEBUG 0
+    LAYER
+        NAME "SS_MAP_PLAN_EMBALSE"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        CONNECTIONTYPE POSTGIS
+        STATUS DEFAULT
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from embalses using unique gid using srid=32614"
+        TYPE POINT
+        LABELITEM "name"
+        LABELCACHE ON
+        CLASS
+            NAME "Embalse"
+            STYLE
+                SYMBOL "square"
+                SIZE 16
+                COLOR 35 37 211
+                OUTLINECOLOR 0 0 0
+            END #STYLE
+            LABEL
+                TYPE TRUETYPE
+                FONT "arial"
+                OFFSET 0 12
+                SIZE 19
+                COLOR 0 0 0
+                OUTLINECOLOR 254 254 254
+            END #LABEL
+        END #CLASS
+    END #LAYER
+END #MAP

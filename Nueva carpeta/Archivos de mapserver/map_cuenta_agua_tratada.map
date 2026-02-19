@@ -1,0 +1,40 @@
+MAP
+    NAME "SS_MAP_TRAT_CUENTAS_TRATADA"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_cuenta_agua_tratada.log"
+    DEBUG 0
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_TRAT_CUENTAS"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        STATUS DEFAULT
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from (select p.gid,p.geometry ,c.no_cuenta from predios p join k_cuentas_agua_tratada c on p.gid=c.id_elemento_geografico) as tmp using unique gid using srid=32614" 
+        TYPE polygon
+        LABELITEM "no_cuenta"
+        LABELCACHE ON
+        CLASS
+            NAME "TUBERIA"
+            STYLE
+                OUTLINECOLOR 0 0 255
+                WIDTH 4.0
+            END #STYLE
+            LABEL
+                TYPE TRUETYPE
+                FONT "arial"
+                OFFSET 0 8
+                SIZE 19
+                COLOR 0 0 255
+                OUTLINECOLOR 254 254 254
+            END #LABEL
+        END #CLASS
+    END #LAYER
+END #MAP

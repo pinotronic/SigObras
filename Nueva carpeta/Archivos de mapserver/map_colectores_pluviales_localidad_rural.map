@@ -1,0 +1,60 @@
+MAP
+    NAME "SS_MAP_DREN_COLECTORES_PLUVIALES_RURAL"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_colectores_pluviales_rural.log"
+    DEBUG 5
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_DREN_COLECTORES_DIAMETRO_RURAL"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        STATUS DEFAULT
+        INCLUDE 'includes/conexion.map' 
+        DATA "geometry from (select cp.gid as gid, cp.diametro as diametro, cp.geometry as geometry from colepluv cp WHERE cp.cl_responsable_mantenimiento=3) as tmp using unique gid using srid=32614"
+        PROCESSING "CLOSE_CONNECTION=DEFER"  # Reutiliza conexiones para múltiples consultas
+        PROCESSING "POSTGIS_FILTER=YES"      # Filtra geometrías en el lado del servidor
+        TYPE line
+        MINSCALE 1
+        MAXSCALE 30000
+        LABELITEM "diametro"
+        CLASS
+            NAME "colectores pluviales y flujo"
+            STYLE
+                SYMBOL 0
+                COLOR 0 140 255
+            END #STYLE
+            LABEL
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 19
+                COLOR 0 140 255
+            END #LABEL
+        END #CLASS
+    END #LAYER
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_DREN_COLECTORES_FLUJO_RURAL"
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from (select cp.gid as gid, cp.diametro as diametro, cp.geometry as geometry from colepluv cp WHERE cp.cl_responsable_mantenimiento=3) as tmp using unique gid using srid=32614"
+        PROCESSING "CLOSE_CONNECTION=DEFER"  # Reutiliza conexiones para múltiples consultas
+        PROCESSING "POSTGIS_FILTER=YES"      # Filtra geometrías en el lado del servidor
+        STATUS DEFAULT
+        TYPE line
+        MINSCALE 1
+        MAXSCALE 15000
+        CLASS
+            STYLE
+                SYMBOL "flechas"
+                SIZE 16
+            END #STYLE
+        END #CLASS
+    END #LAYER
+END #MAP
+

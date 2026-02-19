@@ -1,0 +1,490 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "lastUpdated": "2026-02-17",
+  "description": "Catálogo de actividades para seguimiento de obras de SAPAL",
+  "categories": {
+    "agua": "Agua Potable",
+    "drenaje": "Drenaje Sanitario",
+    "aguaTratada": "Agua Tratada",
+    "mixta": "Obra Mixta"
+  },
+  "activities": [
+    {
+      "id": "cat_marcacion",
+      "code": "MARC-001",
+      "nombre": "Marcar área a reemplazar",
+      "descripcion": "Delimitar y marcar el área donde se realizará la intervención",
+      "tipo": "marcacion",
+      "categoria": ["agua", "drenaje", "mixta"],
+      "orden": 1,
+      "ponderacion": 5,
+      "criticidad": "media",
+      "requisitos": {
+        "geometria_requerida": true,
+        "tipo_geometria": ["Polygon", "LineString"],
+        "min_fotos": 1,
+        "max_fotos": 5,
+        "campos_obligatorios": ["area"],
+        "campos_opcionales": ["perimetro", "longitud", "ancho"],
+        "validaciones": {
+          "area": {
+            "type": "number",
+            "min": 1,
+            "max": 1000,
+            "unit": "m2"
+          }
+        }
+      },
+      "instrucciones": [
+        "Identificar el área exacta de intervención",
+        "Marcar límites con pintura o estacas",
+        "Fotografiar el área marcada desde diferentes ángulos",
+        "Verificar que no haya interferencias (postes, árboles, etc.)"
+      ],
+      "duracion_estimada": 30,
+      "duracion_unidad": "minutos"
+    },
+    {
+      "id": "cat_quitar_concreto",
+      "code": "EXCAV-001",
+      "nombre": "Quitar concreto / corte",
+      "descripcion": "Remoción de pavimento o concreto existente",
+      "tipo": "excavacion",
+      "categoria": ["agua", "drenaje", "mixta"],
+      "orden": 2,
+      "ponderacion": 10,
+      "criticidad": "alta",
+      "requisitos": {
+        "geometria_requerida": false,
+        "min_fotos": 2,
+        "max_fotos": 8,
+        "campos_obligatorios": ["profundidad", "area_cortada"],
+        "campos_opcionales": ["tipo_pavimento", "espesor_pavimento"],
+        "validaciones": {
+          "profundidad": {
+            "type": "number",
+            "min": 0.05,
+            "max": 0.5,
+            "unit": "m"
+          },
+          "area_cortada": {
+            "type": "number",
+            "min": 1,
+            "max": 500,
+            "unit": "m2"
+          }
+        }
+      },
+      "instrucciones": [
+        "Verificar que no hay servicios en conflicto",
+        "Utilizar equipo de protección",
+        "Fotografiar antes del corte",
+        "Realizar corte controlado",
+        "Fotografiar después del corte",
+        "Retirar escombro"
+      ],
+      "duracion_estimada": 180,
+      "duracion_unidad": "minutos",
+      "equipo_requerido": ["cortadora", "pico", "pala", "carretilla"],
+      "personal_minimo": 2
+    },
+    {
+      "id": "cat_descubrir_tuberia",
+      "code": "EXCAV-002",
+      "nombre": "Descubrir tubería",
+      "descripcion": "Excavación hasta localizar la tubería existente",
+      "tipo": "excavacion",
+      "categoria": ["agua", "drenaje", "mixta"],
+      "orden": 3,
+      "ponderacion": 10,
+      "criticidad": "alta",
+      "requisitos": {
+        "geometria_requerida": false,
+        "min_fotos": 2,
+        "max_fotos": 10,
+        "campos_obligatorios": ["profundidad", "diametro_encontrado"],
+        "campos_opcionales": ["material", "estado", "observaciones"],
+        "validaciones": {
+          "profundidad": {
+            "type": "number",
+            "min": 0.4,
+            "max": 5.0,
+            "unit": "m"
+          },
+          "diametro_encontrado": {
+            "type": "number",
+            "enum": [1, 1.5, 2, 2.5, 3, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24, 30, 36],
+            "unit": "pulgadas"
+          }
+        }
+      },
+      "instrucciones": [
+        "Excavar con cuidado para no dañar tubería",
+        "Limpiar tubería para inspección",
+        "Medir profundidad exacta",
+        "Identificar diámetro y material",
+        "Evaluar estado de la tubería",
+        "Fotografiar tubería descubierta"
+      ],
+      "duracion_estimada": 240,
+      "duracion_unidad": "minutos",
+      "equipo_requerido": ["excavadora", "pala", "flexómetro"],
+      "personal_minimo": 3,
+      "precauciones": [
+        "Verificar ausencia de servicios eléctricos",
+        "Apuntalar si profundidad > 1.5m",
+        "Evitar trabajar con lluvia"
+      ]
+    },
+    {
+      "id": "cat_retirar_tuberia",
+      "code": "REMOV-001",
+      "nombre": "Retirar tubería",
+      "descripcion": "Remoción de tubería existente deteriorada",
+      "tipo": "remocion",
+      "categoria": ["agua", "drenaje", "mixta"],
+      "orden": 4,
+      "ponderacion": 15,
+      "criticidad": "alta",
+      "requisitos": {
+        "geometria_requerida": false,
+        "min_fotos": 2,
+        "max_fotos": 8,
+        "campos_obligatorios": ["longitud", "diametro", "material_retirado"],
+        "campos_opcionales": ["peso_estimado", "destino_final"],
+        "validaciones": {
+          "longitud": {
+            "type": "number",
+            "min": 1,
+            "max": 500,
+            "unit": "m"
+          },
+          "diametro": {
+            "type": "number",
+            "enum": [1, 1.5, 2, 2.5, 3, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24, 30, 36],
+            "unit": "pulgadas"
+          }
+        }
+      },
+      "instrucciones": [
+        "Desconectar tubería en puntos de inicio/fin",
+        "Retirar tubería en secciones manejables",
+        "Limpiar área de trabajo",
+        "Disponer material retirado adecuadamente",
+        "Fotografiar tubería retirada"
+      ],
+      "duracion_estimada": 300,
+      "duracion_unidad": "minutos",
+      "equipo_requerido": ["excavadora", "cortadora", "grúa_pequeña"],
+      "personal_minimo": 3
+    },
+    {
+      "id": "cat_compactar_tierra",
+      "code": "COMP-001",
+      "nombre": "Compactar tierra",
+      "descripcion": "Compactación de capas de tierra para base",
+      "tipo": "compactacion",
+      "categoria": ["agua", "drenaje", "mixta"],
+      "orden": 5,
+      "ponderacion": 10,
+      "criticidad": "alta",
+      "requisitos": {
+        "geometria_requerida": false,
+        "min_fotos": 1,
+        "max_fotos": 6,
+        "campos_obligatorios": ["capas", "espesor_por_capa"],
+        "campos_opcionales": ["humedad", "tipo_material"],
+        "validaciones": {
+          "capas": {
+            "type": "integer",
+            "min": 1,
+            "max": 10
+          },
+          "espesor_por_capa": {
+            "type": "number",
+            "min": 0.10,
+            "max": 0.30,
+            "unit": "m"
+          }
+        }
+      },
+      "instrucciones": [
+        "Aplicar capa de material",
+        "Humedecer si es necesario",
+        "Compactar con equipo apropiado",
+        "Verificar compactación",
+        "Repetir por cada capa",
+        "Fotografiar cada capa terminada"
+      ],
+      "duracion_estimada": 180,
+      "duracion_unidad": "minutos",
+      "equipo_requerido": ["compactador", "manguera"],
+      "personal_minimo": 2,
+      "parametros_calidad": {
+        "grado_compactacion": "90% Proctor mínimo"
+      }
+    },
+    {
+      "id": "cat_colocar_tubo",
+      "code": "INST-001",
+      "nombre": "Colocar tubo",
+      "descripcion": "Instalación de tubería nueva",
+      "tipo": "instalacion",
+      "categoria": ["agua", "drenaje", "mixta"],
+      "orden": 6,
+      "ponderacion": 20,
+      "criticidad": "alta",
+      "requisitos": {
+        "geometria_requerida": true,
+        "tipo_geometria": ["LineString"],
+        "min_fotos": 3,
+        "max_fotos": 15,
+        "campos_obligatorios": ["diametro", "material", "longitud", "pendiente"],
+        "campos_opcionales": ["presion_nominal", "tipo_junta", "marca"],
+        "validaciones": {
+          "diametro": {
+            "type": "number",
+            "enum": [1, 1.5, 2, 2.5, 3, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24, 30, 36],
+            "unit": "pulgadas"
+          },
+          "material": {
+            "type": "string",
+            "enum": ["PVC", "PEAD", "Concreto", "Acero", "Fierro Fundido"]
+          },
+          "longitud": {
+            "type": "number",
+            "min": 1,
+            "max": 500,
+            "unit": "m"
+          },
+          "pendiente": {
+            "type": "number",
+            "min": 0,
+            "max": 45,
+            "unit": "grados"
+          }
+        }
+      },
+      "instrucciones": [
+        "Verificar nivel y alineación",
+        "Colocar cama de arena si aplica",
+        "Instalar tubería con pendiente correcta",
+        "Realizar juntas según especificación",
+        "Verificar alineación horizontal y vertical",
+        "Fotografiar instalación completa",
+        "Registrar puntos de conexión"
+      ],
+      "duracion_estimada": 480,
+      "duracion_unidad": "minutos",
+      "equipo_requerido": ["nivel", "cinta métrica", "cortadora"],
+      "personal_minimo": 4,
+      "parametros_calidad": {
+        "desviacion_maxima_alineacion": "5mm por metro",
+        "pendiente_minima_drenaje": "1%"
+      }
+    },
+    {
+      "id": "cat_cubrir_tubo",
+      "code": "RELL-001",
+      "nombre": "Cubrir tubo",
+      "descripcion": "Relleno y protección de tubería instalada",
+      "tipo": "relleno",
+      "categoria": ["agua", "drenaje", "mixta"],
+      "orden": 7,
+      "ponderacion": 10,
+      "criticidad": "media",
+      "requisitos": {
+        "geometria_requerida": false,
+        "min_fotos": 2,
+        "max_fotos": 6,
+        "campos_obligatorios": ["material_relleno", "capas"],
+        "campos_opcionales": ["compactacion", "proteccion_adicional"],
+        "validaciones": {
+          "capas": {
+            "type": "integer",
+            "min": 1,
+            "max": 5
+          }
+        }
+      },
+      "instrucciones": [
+        "Cubrir tubería con material fino primero",
+        "Evitar daños a la tubería",
+        "Compactar por capas",
+        "Verificar que no queden huecos",
+        "Fotografiar progreso del relleno"
+      ],
+      "duracion_estimada": 240,
+      "duracion_unidad": "minutos",
+      "equipo_requerido": ["pala", "compactador_manual"],
+      "personal_minimo": 3
+    },
+    {
+      "id": "cat_colocar_cemento",
+      "code": "PAV-001",
+      "nombre": "Colocar cemento",
+      "descripcion": "Restitución de pavimento con concreto",
+      "tipo": "pavimentacion",
+      "categoria": ["agua", "drenaje", "mixta"],
+      "orden": 8,
+      "ponderacion": 15,
+      "criticidad": "media",
+      "requisitos": {
+        "geometria_requerida": false,
+        "min_fotos": 2,
+        "max_fotos": 8,
+        "campos_obligatorios": ["acabado", "espesor", "area_pavimentada"],
+        "campos_opcionales": ["resistencia", "aditivos"],
+        "validaciones": {
+          "espesor": {
+            "type": "number",
+            "min": 0.10,
+            "max": 0.30,
+            "unit": "m"
+          },
+          "area_pavimentada": {
+            "type": "number",
+            "min": 1,
+            "max": 500,
+            "unit": "m2"
+          },
+          "acabado": {
+            "type": "string",
+            "enum": ["escobillado", "pulido", "estampado", "rustico"]
+          }
+        }
+      },
+      "instrucciones": [
+        "Preparar superficie base",
+        "Colocar malla electrosoldada si aplica",
+        "Vaciar concreto uniformemente",
+        "Nivelar y compactar",
+        "Aplicar acabado especificado",
+        "Curar adecuadamente",
+        "Fotografiar resultado final"
+      ],
+      "duracion_estimada": 360,
+      "duracion_unidad": "minutos",
+      "equipo_requerido": ["mezcladora", "vibrador", "llanas", "nivel"],
+      "personal_minimo": 4,
+      "tiempo_curado": 7,
+      "tiempo_curado_unidad": "días",
+      "parametros_calidad": {
+        "resistencia_minima": "200 kg/cm2 a 28 días"
+      }
+    },
+    {
+      "id": "cat_prueba_hidraulica",
+      "code": "INSP-001",
+      "nombre": "Prueba hidráulica",
+      "descripcion": "Prueba de presión y hermeticidad del sistema",
+      "tipo": "inspeccion",
+      "categoria": ["agua"],
+      "orden": 9,
+      "ponderacion": 10,
+      "criticidad": "alta",
+      "requisitos": {
+        "geometria_requerida": false,
+        "min_fotos": 1,
+        "max_fotos": 5,
+        "campos_obligatorios": ["presion", "resultado", "tiempo_prueba"],
+        "campos_opcionales": ["fugas_detectadas", "reparaciones"],
+        "validaciones": {
+          "presion": {
+            "type": "number",
+            "min": 1,
+            "max": 20,
+            "unit": "kg/cm2"
+          },
+          "resultado": {
+            "type": "string",
+            "enum": ["aprobada", "rechazada"]
+          },
+          "tiempo_prueba": {
+            "type": "number",
+            "min": 30,
+            "max": 240,
+            "unit": "minutos"
+          }
+        }
+      },
+      "instrucciones": [
+        "Cerrar todos los puntos de salida",
+        "Llenar sistema con agua",
+        "Purgar aire del sistema",
+        "Aplicar presión de prueba",
+        "Mantener presión por tiempo especificado",
+        "Inspeccionar toda la línea",
+        "Fotografiar manómetro y sistema",
+        "Documentar resultados"
+      ],
+      "duracion_estimada": 120,
+      "duracion_unidad": "minutos",
+      "equipo_requerido": ["bomba_presion", "manometro"],
+      "personal_minimo": 2,
+      "parametros_calidad": {
+        "caida_presion_maxima": "0.5 kg/cm2 en 2 horas"
+      }
+    },
+    {
+      "id": "cat_limpieza",
+      "code": "FIN-001",
+      "nombre": "Limpieza y entrega",
+      "descripcion": "Limpieza final del sitio y entrega de la obra",
+      "tipo": "finalizacion",
+      "categoria": ["agua", "drenaje", "mixta"],
+      "orden": 10,
+      "ponderacion": 5,
+      "criticidad": "baja",
+      "requisitos": {
+        "geometria_requerida": false,
+        "min_fotos": 2,
+        "max_fotos": 10,
+        "campos_obligatorios": [],
+        "campos_opcionales": ["observaciones", "pendientes_menores"],
+        "validaciones": {}
+      },
+      "instrucciones": [
+        "Retirar todo material sobrante",
+        "Limpiar área de trabajo",
+        "Verificar señalización",
+        "Fotografiar obra terminada",
+        "Elaborar acta de entrega",
+        "Obtener firma de conformidad"
+      ],
+      "duracion_estimada": 120,
+      "duracion_unidad": "minutos",
+      "equipo_requerido": ["escobas", "palas", "carretilla"],
+      "personal_minimo": 2
+    }
+  ],
+  "estados": {
+    "pendiente": {
+      "label": "Pendiente",
+      "color": "#9E9E9E",
+      "icon": "clock"
+    },
+    "en_proceso": {
+      "label": "En Proceso",
+      "color": "#2196F3",
+      "icon": "play"
+    },
+    "completada": {
+      "label": "Completada",
+      "color": "#4CAF50",
+      "icon": "check"
+    },
+    "bloqueada": {
+      "label": "Bloqueada",
+      "color": "#FF9800",
+      "icon": "lock"
+    },
+    "rechazada": {
+      "label": "Rechazada",
+      "color": "#F44336",
+      "icon": "close"
+    }
+  },
+  "notas": "Este catálogo define las actividades estándar para obras de SAPAL. Se puede extender agregando nuevas actividades sin modificar el código."
+}

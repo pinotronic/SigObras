@@ -1,0 +1,34 @@
+MAP
+    NAME "SS_MAP_JURI_CONVENIOS"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_convenios.log"
+    DEBUG 0
+    LAYER
+        NAME "SS_MAP_JURI_CONVENIOS"
+        PROJECTION
+            'init=epsg:32614'
+        END #PROJECTION
+        CONNECTIONTYPE POSTGIS
+        METADATA
+            'ows_title' 'Medidores'
+            'ows_include_items' 'all'
+            'gml_include_items' 'all'
+        END #METADATA
+        STATUS DEFAULT
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from pol_con using unique gid using srid=32614"
+        TYPE polygon
+        CLASS
+            STYLE
+                COLOR 207 52 118
+                OUTLINECOLOR 207 52 118
+            END #STYLE
+        END #CLASS
+    END #LAYER
+END #MAP

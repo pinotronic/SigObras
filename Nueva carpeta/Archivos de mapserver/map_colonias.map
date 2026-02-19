@@ -1,0 +1,44 @@
+MAP
+    INCLUDE 'includes/globals.map' 
+    NAME 'SS_MAP_GRAL_COLONIAS'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_nombres_colonias.log"
+    DEBUG 0
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_GRAL_COLONIAS"
+        METADATA
+            'ows_title' 'Colonias'
+            'ows_include_items' 'all'
+            'gml_include_items' 'all'
+        END #METADATA
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        INCLUDE 'includes/conexion.map'  
+        DATA "geometry from colonias using unique gid using srid=32614"
+        PROCESSING "CLOSE_CONNECTION=DEFER"  # Reutiliza conexiones para múltiples consultas
+        PROCESSING "POSTGIS_FILTER=YES"      # Filtra geometrías en el lado del servidor
+        STATUS DEFAULT
+        TYPE POLYGON
+        LABELCACHE ON
+        LABELITEM "nombre"
+        CLASS
+            NAME "nombres de colonias"
+            LABEL
+                TYPE TRUETYPE
+                FONT 'arial'
+                OFFSET 0 22
+                SIZE 19
+                PARTIALS FALSE
+                COLOR 255 0 255
+                OUTLINECOLOR 254 254 254
+            END #LABEL
+        END #CLASS
+    END #LAYER
+END #MAP

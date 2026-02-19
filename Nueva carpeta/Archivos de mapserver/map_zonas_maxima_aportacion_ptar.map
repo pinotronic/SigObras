@@ -1,0 +1,290 @@
+MAP
+    NAME "SS_MAP_PTAR_ZONA_MAXIMA_APORTACION"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB 
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_zonas_maxima_aportacion_ptar.log"
+    DEBUG 0
+    LAYER
+        NAME "SS_MAP_PTAR_ZONA_MAXIMA_APORTACION"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        CONNECTIONTYPE POSTGIS
+        STATUS DEFAULT
+        INCLUDE 'includes/conexion.map'
+        DATA "gm_zona_maxima_aportacion_planta from l_zonas_maxima_aportacion_ptar using unique id_zonas_aportacion_planta using srid=32614"
+        TYPE POLYGON
+        LABELITEM "nb_zona"
+        CLASS
+            NAME "Ciudad Industrial"
+            EXPRESSION ('[nb_zona]'= 'CIUDAD INDUSTRIAL')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR 149 0 255
+            END #STYLE
+            STYLE
+                WIDTH 2
+                OUTLINECOLOR 230 230 0
+        END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Las Joyas"
+            EXPRESSION ('[nb_zona]'= 'JOYAS')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR 230 230 0
+            END #STYLE
+            STYLE
+                WIDTH 2
+                OUTLINECOLOR 230 230 0
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Los Arcos"
+            EXPRESSION ('[nb_zona]'= 'LOS ARCOS')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR 255 211 127
+            END #STYLE
+            STYLE
+                WIDTH 2
+                OUTLINECOLOR 255 211 127
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Loza de los Padres"
+            EXPRESSION ('[nb_zona]'= 'LOZA DE LOS PADRES')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR 61 87 255
+            END #STYLE
+            STYLE
+                WIDTH 2
+                OUTLINECOLOR 61 87 255
+            END #STYLE
+        END #CLASS
+        # Sección 2
+        CLASS
+            NAME "San Isidro"
+            EXPRESSION ('[nb_zona]'= 'SAN ISIDRO')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR  255 190 232
+            END #STYLE
+            STYLE
+                WIDTH 2
+                OUTLINECOLOR 255 190 232
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Santa Rosa"
+            EXPRESSION ('[nb_zona]'= 'SANTA ROSA')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR  76 230 0
+            END #STYLE
+            STYLE
+                WIDTH 2
+                OUTLINECOLOR 76 230 0
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Villas de San Juan"
+            EXPRESSION ('[nb_zona]'= 'VILLAS')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR  0 197 255
+            END #STYLE
+            STYLE
+                WIDTH 2
+                OUTLINECOLOR 0 197 255
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Avelin"
+            EXPRESSION ('[nb_zona]'= 'AVELIN')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR  253 127 111
+            END #STYLE
+            STYLE
+                OPACITY 75
+                WIDTH 3
+                OUTLINECOLOR 253 127 111
+            END #STYLE
+        END #CLASS
+            CLASS
+            NAME "Héroes de León"
+            EXPRESSION ('[nb_zona]'= 'HEROES')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR  255 255 0
+            END #STYLE
+            STYLE
+                OPACITY 50
+                WIDTH 3
+                OUTLINECOLOR 255 255 0
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Huaracha"
+            EXPRESSION ('[nb_zona]'= 'HUARACHA')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 43
+                COLOR  143 0 255
+            END #STYLE
+            STYLE
+                WIDTH 2
+                OPACITY 50
+                OUTLINECOLOR 194 194 194
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Periodistas de México"
+            EXPRESSION ('[nb_zona]'= 'PERIODISTAS')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR  230 76 0
+            END #STYLE
+            STYLE
+                WIDTH 3
+                OUTLINECOLOR 230 76 0
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Pilba"
+            EXPRESSION ('[nb_zona]'= 'PILBA')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR  0 0 0
+            END #STYLE
+            STYLE
+                OPACITY 50
+                WIDTH 1
+                OUTLINECOLOR 0 0 0
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Sauces"
+            EXPRESSION ('[nb_zona]'= 'SAUCES')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR  237 81 81
+            END #STYLE
+            STYLE
+                WIDTH 3
+                OPACITY 50
+                OUTLINECOLOR 237 81 81
+            END #STYLE
+        END #CLASS
+    END #LAYER
+END #MAP

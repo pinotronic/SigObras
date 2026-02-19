@@ -1,0 +1,37 @@
+MAP
+    NAME "SS_MAP_PLAN_PLANEACION_HIDRICA"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_tuberia_paneacion_hidrica.log"
+    DEBUG 0
+    LAYER
+        NAME "SS_MAP_PLAN_PLANEACION_HIDRICA"
+        PROJECTION
+            'init=epsg:32614'
+        END #PROJECTION
+         METADATA
+             'gml_featureid' 'gid'
+             'gml_include_items' 'all'
+         END #METADATA
+        CONNECTIONTYPE POSTGIS
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from tuberiassec using unique gid using srid=32614"
+        PROCESSING "CLOSE_CONNECTION=DEFER"  # Reutiliza conexiones para múltiples consultas
+        PROCESSING "POSTGIS_FILTER=YES"      # Filtra geometrías en el lado del servidor
+        STATUS DEFAULT
+        TYPE Line
+        CLASS
+            NAME "Tuberias"
+            STYLE
+                SYMBOL 'plainline'
+                size 4
+                COLOR 0 128 200
+            END #STYLE
+        END  #CLASS
+    END #LAYER
+END #MAP

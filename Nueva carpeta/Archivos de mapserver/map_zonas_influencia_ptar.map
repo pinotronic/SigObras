@@ -1,0 +1,402 @@
+MAP
+    NAME "SS_MAP_PTAR_ZONA_INFLUENCIA"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_zonas_influencia_ptar.log"
+    DEBUG 0
+    LAYER
+        NAME "SS_MAP_PTAR_ZONA_INFLUENCIA"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        CONNECTIONTYPE POSTGIS
+        STATUS DEFAULT
+        INCLUDE 'includes/conexion.map'
+        DATA "gm_zona_influencia_planta from l_zonas_influencia_planta_tratamiento using unique id_zona_influencia_planta using srid=32614"
+        TYPE POLYGON
+        LABELITEM "nb_zona"
+        CLASS
+            NAME "Ciudad Industrial"
+            EXPRESSION ('[nb_zona]'='Ciudad Industrial')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR 0 255 197 
+            END #STYLE
+            STYLE
+                WIDTH 4
+                OPACITY 75
+                OUTLINECOLOR 0 255 197 
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Huaracha"
+            EXPRESSION ('[nb_zona]'='Huaracha')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR 222 118 49
+            END #STYLE
+            STYLE
+                WIDTH 4
+                OPACITY 75
+                OUTLINECOLOR 222 118 49 
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Las Joyas"
+            EXPRESSION ('[nb_zona]'='Las Joyas')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR 230 230 0 
+            END #STYLE
+            STYLE
+                WIDTH 4
+                OPACITY 75
+                OUTLINECOLOR 230 230 0 
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Los Arcos"
+            EXPRESSION ('[nb_zona]'='Los Arcos')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR 255 211 127
+            END #STYLE
+            STYLE
+                WIDTH 4
+                OPACITY 75
+                OUTLINECOLOR 255 211 127 
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Loza de los Padres"
+            EXPRESSION ('[nb_zona]'='Loza de los Padres')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR 255 0 197
+            END #STYLE
+            STYLE
+                WIDTH 4
+                OPACITY 75
+                OUTLINECOLOR 255 0 197
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Módulo de Desbaste"
+            EXPRESSION ('[nb_zona]'='Módulo de Desbaste')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR 0 38 115
+            END #STYLE
+            STYLE
+                WIDTH 4
+                OPACITY 75
+                OUTLINECOLOR 0 38 115
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Pilba"
+            EXPRESSION ('[nb_zona]'='Pilba')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR 252 149 149
+            END #STYLE
+            STYLE
+                WIDTH 4
+                OPACITY 75
+                OUTLINECOLOR 252 149 149
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Planta Municipal"
+            EXPRESSION ('[nb_zona]'='Planta Municipal')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR 0 255 198
+            END #STYLE
+            STYLE
+                WIDTH 4
+                OPACITY 75
+                OUTLINECOLOR 0 255 197
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Poniente"
+            EXPRESSION ('[nb_zona]'='Poniente')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR 208 33 83
+            END #STYLE
+            STYLE
+                WIDTH 4
+                OPACITY 75
+                OUTLINECOLOR 208 33 83
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Porta Fontana"
+            EXPRESSION ('[nb_zona]'='Porta Fontana')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR  197 0 255
+            END #STYLE
+            STYLE
+                WIDTH 4
+                OPACITY 75
+                OUTLINECOLOR  197 0 255
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "San Isidro"
+            EXPRESSION ('[nb_zona]'='San Isidro')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR 255 190 232
+            END #STYLE
+            STYLE
+                WIDTH 4
+                OPACITY 75
+                OUTLINECOLOR 255 190 232
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "San José del Resplandor"
+            EXPRESSION ('[nb_zona]'='San José del Resplandor')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR 140 190 252
+            END #STYLE
+            STYLE
+                WIDTH 4
+                OPACITY 75
+                OUTLINECOLOR 140 190 252
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Santa Rosa"
+            EXPRESSION ('[nb_zona]'='Santa Rosa')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR 76 230 0
+            END #STYLE
+            STYLE
+                WIDTH 4
+                OPACITY 75
+                OUTLINECOLOR 0 197 255
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Villas de San Juan"
+            EXPRESSION ('[nb_zona]'='Villas de San Juan')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR 0 197 255
+            END #STYLE
+            STYLE
+                WIDTH 4
+                OPACITY 75
+                OUTLINECOLOR 0 197 255
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Santa Ana del Conde"
+            EXPRESSION ('[nb_zona]'='Santa Ana del Conde')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR 76 0 115
+            END #STYLE
+            STYLE
+                WIDTH 4
+                OPACITY 75
+                OUTLINECOLOR 76 0 115
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Avelin"
+            EXPRESSION ('[nb_zona]'='Avelin')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR 253 127 111
+            END #STYLE
+            STYLE
+                WIDTH 4
+                OPACITY 75
+                OUTLINECOLOR 253 127 111 
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Héroes de León"
+            EXPRESSION ('[nb_zona]'='Heroes de Leon')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR 255 255 0
+            END #STYLE
+            STYLE
+                WIDTH 4
+                OPACITY 75
+                OUTLINECOLOR 255 255 0
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Periodistas"
+            EXPRESSION ('[nb_zona]'='Periodistas')
+            LABEL	
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 13
+                PARTIALS FALSE
+                COLOR 34 110 9
+                OUTLINECOLOR 162 252 151
+            END	
+            STYLE
+                OPACITY 70
+                COLOR 234 76 0
+            END #STYLE
+            STYLE
+                WIDTH 4
+                OPACITY 75
+                OUTLINECOLOR 234 76 0
+            END #STYLE
+        END #CLASS
+    END #LAYER
+END #MAP

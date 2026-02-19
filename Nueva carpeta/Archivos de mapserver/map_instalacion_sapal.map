@@ -1,0 +1,49 @@
+MAP
+    INCLUDE 'includes/globals.map'
+    NAME 'SS_MAP_GRAL_INSTALACIONES'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_instalaciones_sapal.log"
+    DEBUG 0
+    LAYER
+        NAME "SS_MAP_GRAL_INSTALACIONES"
+        STATUS DEFAULT
+        PROJECTION
+            'init=epsg:32614'
+        END
+        METADATA
+            'ows_title' 'Instalaciones de Sapal'
+            'ows_include_items' 'all'
+            'gml_include_items' 'all'
+        END #METADATA
+        CONNECTIONTYPE POSTGIS
+        INCLUDE 'includes/conexion.map'
+        TYPE POINT
+        DATA "geometry from bn_inst_sapal using unique gid using srid=32614"
+        LABELITEM "nompunt"
+        LABELCACHE ON 
+        CLASS
+            NAME "Instalaciones de sapal"
+            #COLOR 0 0 255
+            STYLE
+                SYMBOL 'puntos' #symbol no existente PUNTOS
+                SIZE 8
+                COLOR 0 0 255
+                OUTLINECOLOR 0 0 0
+            END #STYLE
+            LABEL
+                TYPE TRUETYPE
+                FONT 'arial'
+                OFFSET 0 10
+                SIZE 19
+                COLOR 0 0 255
+                #OUTLINECOLOR 254 254 254
+            END
+        END #CLASS
+        TOLERANCE 8
+    END #LAYER
+END #MAP

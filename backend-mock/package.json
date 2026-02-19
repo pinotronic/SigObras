@@ -1,0 +1,33 @@
+{
+  "name": "sigsapal-backend-mock",
+  "version": "0.1.0",
+  "description": "Backend mock para desarrollo de SAPAL Obras Móvil",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": [
+    "express",
+    "mock",
+    "api",
+    "sapal"
+  ],
+  "author": "SAPAL León",
+  "license": "PROPRIETARY",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "helmet": "^7.1.0",
+    "multer": "^1.4.5-lts.1",
+    "proj4": "^2.20.2",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}

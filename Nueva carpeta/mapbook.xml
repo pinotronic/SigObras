@@ -1,0 +1,1202 @@
+<?xml version="1.0"?>
+<mapbook version="3.0">
+<!-- SIG -->
+    <!-- SECCION TODAS LAS CAPAS -->
+    <map-source name="todas_las_capas" title="Todas las capas" type="mapserver">
+        <file>./data/SIG/map_tmptodaslascapas.map</file>
+        <layer name="todas_las_capas" status="on"/>
+        <param name="cross-origin" value="anonymous"/>
+    </map-source>
+    <!-- FIN SECCION TODAS LAS CAPAS -->
+    <!-- 
+    ###########################################################
+    SECCION GENERAL 
+    ########################################################### 
+    -->
+    <!-- capa wfs -->
+    <map-source name="wfsinstalacionessapal" type="mapserver-wfs">
+        <config name="pixel-tolerance" value="2"/>
+        <param name="typename" value="ms:SS_MAP_GRAL_INSTALACIONES"/>
+        <param name="service" value="WFS"/>
+        <file>./data/SIG/map_instalacion_sapal.map</file>      
+        <layer name="SS_MAP_GRAL_INSTALACIONES" selectable="true">
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="instalacionesapal" type="mapserver" up="true" down="true" title="Instalaciones de SAPAL">
+        <file>./data/SIG/map_instalacion_sapal.map</file>
+        <layer name="SS_MAP_GRAL_INSTALACIONES" query-as="wfsinstalacionessapal/SS_MAP_GRAL_INSTALACIONES">
+        </layer>
+    </map-source>
+    <!-- fin capa wfs -->
+    <map-source name="redgeodesicasapal" title="Red Geodesica de SAPAL" default="false"  type="mapserver">
+        <file>./data/SIG/map_red_geodesica.map</file>
+        <layer name="SS_MAP_GRAL_RED_GEODESICA"/>
+    </map-source>
+    <map-source name="limitemunicipal" title="Limite Municipal" default="false" type="mapserver">
+        <file>./data/SIG/map_limite_municipal.map</file>
+        <layer name="SS_MAP_GRAL_LIMITE_MUNICIPAL"/>
+    </map-source>
+    <map-source name="nombrescolonias" title="Nombres de Colonias" default="false" type="mapserver">
+        <file>./data/SIG/map_colonias.map</file>
+        <layer name="SS_MAP_GRAL_COLONIAS">
+        <param name="SCALE" value="1"/>
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <map-source name="codigospostales" title="Codigos Postales" default="false" type="mapserver">
+        <file>./data/SIG/map_codigo_postal.map</file>
+        <layer name="SS_MAP_GRAL_CODIGOS_POSTALES">
+        </layer>
+    </map-source>
+    <!-- capa wfs -->
+    <map-source name="limites_colonias_wfs" type="mapserver-wfs">
+        <config name="pixel-tolerance" value="0"/>
+        <param name="typename" value="ms:SS_MAP_GRAL_LIMITE_COLONIAS"/>
+        <param name="service" value="WFS"/>
+        <file>./data/SIG/map_limite_colonias.map</file>      
+        <layer name="SS_MAP_GRAL_LIMITE_COLONIAS" selectable="true">
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="limitecolonias" type="mapserver" up="true" down="true" title="Limite de Colonias">
+        <file>./data/SIG/map_limite_colonias.map</file>
+        <layer name="SS_MAP_GRAL_LIMITE_COLONIAS" query-as="limites_colonias_wfs/SS_MAP_GRAL_LIMITE_COLONIAS" status="on" />
+    </map-source>
+    <!-- fin capa wfs -->
+    <!-- capa wfs -->
+    <map-source name="wfsdelimitacionpatron" type="mapserver-wfs">
+        <config name="pixel-tolerance" value="0"/>
+        <param name="typename" value="ms:SS_MAP_GRAL_DELIMITACION_PATRON"/>
+        <param name="service" value="WFS"/>
+        <file>./data/SIG/map_delimitacion_patron.map</file>      
+        <layer name="SS_MAP_GRAL_DELIMITACION_PATRON" selectable="true">
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="delimitacionpatron" type="mapserver" up="true" down="true" title="Delimitación Control">
+        <file>./data/SIG/map_delimitacion_patron.map</file>
+        <layer name="SS_MAP_GRAL_DELIMITACION_PATRON" query-as="wfsdelimitacionpatron/SS_MAP_GRAL_DELIMITACION_PATRON" />
+    </map-source>
+    <!-- fin capa wfs -->
+       <map-source name="eficienciafisica" title="Delimitación Patrón Eficiencia Fisica " default="false" type="mapserver">
+        <file>./data/SIG/map_eficiencia_fisica.map</file>
+        <layer name="SS_MAP_GRAL_EFICIENCIA_FISICA"></layer>
+    </map-source>
+    <map-source name="cuentas" title="Cuentas" default="false" type="mapserver">
+        <file>./data/SIG/map_cuentas.map</file>
+        <layer name="SS_MAP_GRAL_CUENTAS"></layer>
+    </map-source>
+    <map-source name="exteriores" title="Exteriores" default="false" type="mapserver">
+        <file>./data/SIG/map_exterior.map</file>
+        <layer name="SS_MAP_GRAL_NUMERO_EXTERIOR">
+        </layer>
+    </map-source>
+    <map-source name="nombrescalles" title="Nombres de Calles" default="false" type="mapserver">
+        <file>./data/SIG/map_calles.map</file>
+        <layer name="SS_MAP_GRAL_CALLES">
+        </layer>
+    </map-source>
+    <map-source name="curvasnivel" title="Curvas de Nivel" default="false" type="mapserver">
+        <file>./data/SIG/map_curvas_municipio.map</file>
+        <layer name="SS_MAP_GRAL_CURVAS_MUNICIPIO">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <map-source name="sentidocalles" title="Sentido de Calles" default="false" type="mapserver">
+        <file>./data/SIG/map_calles_navteq.map</file>
+        <layer name="SS_MAP_GRAL_SENTIDO_CALLES">
+        </layer>
+    </map-source>
+    <map-source name="sectorsubsectorcalle" title="Sector-Subsector-Calle" default="false" type="mapserver">
+        <file>./data/SIG/map_secsubc.map</file>
+        <layer name="SS_MAP_GRAL_SECTOR_SUBSECTOR">
+        </layer>
+    </map-source>
+    <!-- capa wfs -->
+    <map-source name="wfsdelegaciones" type="mapserver-wfs">
+        <config name="pixel-tolerance" value="0"/>
+        <param name="typename" value="ms:SS_MAP_GRAL_DELEGACIONES"/>
+        <param name="service" value="WFS"/>
+        <file>./data/SIG/map_delegaciones.map</file>      
+        <layer name="SS_MAP_GRAL_DELEGACIONES" selectable="true">
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="delegaciones" type="mapserver" title="Delegaciones">
+        <file>./data/SIG/map_delegaciones.map</file>
+        <layer name="SS_MAP_GRAL_DELEGACIONES" query-as="wfsdelegaciones/SS_MAP_GRAL_DELEGACIONES" />
+    </map-source>
+    <!-- fin capa wfs -->
+    <map-source name="tomasclandestinas" title="Tomas Clandestinas" type="mapserver">
+        <file>./data/SIG/map_tomas_clandestinas.map</file>
+        <layer name="SS_MAP_TOMAS_CLANDESTINAS">
+        </layer>
+    </map-source>
+    <map-source name="fiscalizacionecologicarejillas" title="Rejillas" type="mapserver">
+        <file>./data/SIG/map_fiscalizacion_ecologica_rejillas.map</file>
+        <layer name="SS_MAP_INFO_FISCALIZACION_ECOLOGICA_REJILLAS">
+        </layer>
+    </map-source>
+    <map-source name="fiscalizacionecologicaregistro" title="Registro" type="mapserver">
+      <file>./data/SIG/map_fiscalizacion_ecologica_registro.map</file>
+      <layer name="SS_MAP_INFO_FISCALIZACION_ECOLOGICA_REGISTRO">
+      </layer>
+    </map-source>
+    <map-source name="fiscalizacionecologicamedidores" title="Medidores" type="mapserver">
+      <file>./data/SIG/map_fiscalizacion_ecologica_medidor.map</file>
+      <layer name="SS_MAP_INFO_FISCALIZACION_ECOLOGICA_MEDIDOR">
+      </layer>
+    </map-source>
+    <map-source name="fiscalizacionecologicarejillamedidor" title="Rejilla y Medidor" type="mapserver">
+      <file>./data/SIG/map_fiscalizacion_ecologica_rejilla_medidor.map</file>
+      <layer name="SS_MAP_INFO_FISCALIZACION_ECOLOGICA_REJILLA_MEDIDOR">
+      </layer>
+    </map-source>
+
+
+
+
+
+    <!-- 
+    ###########################################################
+    SECCION HIDROLOGIA
+    ########################################################### 
+    -->
+    <map-source name="cuencas" title="Cuencas" type="mapserver">
+        <file>./data/SIG/map_cuencas.map</file>
+        <layer name="SS_MAP_HIDR_CUENCAS">
+        </layer>
+    </map-source>
+    <map-source name="escurrimientos" title="Escurrimientos" type="mapserver">
+        <file>./data/SIG/map_escurrimientos.map</file>
+        <layer name="SS_MAP_HIDR_ESCURRIMIENTOS">
+        </layer>
+    </map-source>
+    <map-source name="zonasfederalescuerposagua" title="Zonas Federales" type="mapserver">
+        <file>./data/SIG/map_zonas_federales_cuerpos_agua.map</file>
+        <layer name="SS_MAP_HIDRO_ZONAS_FEDERALES">
+        </layer>
+    </map-source>
+    <!-- 
+    ###########################################################
+    SECCION LECTURAS
+    ########################################################### 
+    -->
+    <map-source name="suspendidosbajas" title="Suspendidas y Bajas" default="false" type="mapserver">
+        <file>./data/SIG/map_bajasysuspendidas.map</file>
+        <layer name="SS_MAP_LECT_BAJAS_SUSPENDIDADAS">
+        </layer>
+    </map-source>
+    <map-source name="aguatratada" title="Agua Tratada" default="false" type="mapserver">
+        <file>./data/SIG/map_agua_tratada.map</file>
+        <layer name="SS_MAP_LECT_AGUA_TRATADA">
+        </layer>
+    </map-source>
+    <map-source name="prediostratada" title="Predios Tratada" default="false" type="mapserver">
+        <file>./data/SIG/map_predios_tratada.map</file>
+        <layer name="SS_MAP_LECT_PREDIOS_TRATADA" >
+        </layer>
+    </map-source>
+    <map-source name="medidorespatron" title="Medidores Patron" default="false" type="mapserver">
+        <file>./data/SIG/map_medidores_patron.map</file>
+        <layer name="SS_MAP_LECT_MEDIDORES_PATRON">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <map-source name="tomaspublicas" title="Tomas Publicas" default="false" type="mapserver">
+        <file>./data/SIG/map_tomas_publicas.map</file>
+        <layer name="SS_MAP_LECT_TOMAS_PUBLICAS">
+        </layer>
+    </map-source>
+    <map-source name="tomascomunitarias" title="Tomas Comunitarias" default="false" type="mapserver">
+        <file>./data/SIG/map_tomas_comunitarias.map</file>
+        <layer name="SS_MAP_LECT_TOMAS_COMUNITARIAS">
+        </layer>
+    </map-source>
+    <map-source name="bebederos" title="Bebederos" default="false" type="mapserver">
+        <file>./data/SIG/map_tomas_bebederos.map</file>
+        <layer name="SS_MAP_LECT_BEBEDEROS">
+        </layer>
+    </map-source>
+    <!-- capa wfs -->
+    <map-source name="wfsmedidores" type="mapserver-wfs">
+        <config name="pixel-tolerance" value="5"/>
+        <param name="typename" value="ms:SS_MAP_LECT_MEDIDORES"/>
+        <param name="service" value="WFS"/>
+        <file>./data/SIG/map_medidores.map</file>      
+        <layer name="SS_MAP_LECT_MEDIDORES" selectable="true">
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="medidores" type="mapserver" title="Medidores">
+        <file>./data/SIG/map_medidores.map</file>
+        <layer name="SS_MAP_LECT_MEDIDORES" query-as="wfsmedidores/SS_MAP_LECT_MEDIDORES" />
+    </map-source>
+    <!-- fin capa wfs -->
+    <map-source name="antiguedadmenor3" title="Antigüedad Menor a 3" default="false" type="mapserver">
+        <file>./data/SIG/map_medidores_antigue.map</file>
+        <layer name="SS_MAP_LECT_MEDIDORES_3">
+        </layer>
+    </map-source>
+    <map-source name="antiguedad3a6" title="Antiguedad 3 a 6 " default="false" type="mapserver">
+        <file>./data/SIG/map_medidores_3_6.map</file>
+        <layer name="SS_MAP_LECT_MEDIDORES_3_6">
+        </layer>
+    </map-source>
+    <map-source name="antiguedad6a9" title="Antiguedad 7 a 9 " default="false" type="mapserver">
+        <file>./data/SIG/map_medidores_6_9.map</file>
+        <layer name="SS_MAP_LECT_MEDIDORES_6_9">
+        </layer>
+    </map-source>
+        <map-source name="antiguedad9" title="Antiguedad mayor a 9 " default="false" type="mapserver">
+        <file>./data/SIG/map_medidores_9.map</file>
+        <layer name="SS_MAP_LECT_MEDIDORES_9">
+        </layer>
+    </map-source>
+    <map-source name="sarromedidores" title="Sarro Medidores" default="false" type="mapserver">
+        <file>./data/SIG/map_medidores_sarro.map</file>
+        <layer name="SS_MAP_LECT_MEDIDORES_SARRO">
+        </layer>
+    </map-source>
+    <map-source name="fugamedidores" title="Fuga Instalaciones Internas" default="false" type="mapserver">
+        <file>./data/SIG/map_medidores_fugas.map</file>
+        <layer name="SS_MAP_LECT_MEDIDORES_FUGAS">
+        </layer>
+    </map-source>
+    <map-source name="carpetas" title="Carpetas" default="false" type="mapserver">
+        <file>./data/SIG/map_carpetas.map</file>
+        <layer name="SS_MAP_LECT_CARPETAS">
+        </layer>
+    </map-source>
+    <!-- 
+    ###########################################################
+    SECCION AGUA TRATADA 
+    ########################################################### 
+    -->
+    <map-source name="tuberiaaguatratada" title="Tuberia de Agua Tratada" default="false" type="mapserver">
+        <file>./data/SIG/map_tuberia_agua_tratada.map</file>
+        <layer name="SS_MAP_TRAT_TUBERIA_TRATADA">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <map-source name="valvulasaguatratada" title="Válvulas de Agua Tratada" default="false" type="mapserver">
+        <file>./data/SIG/map_valvula_agua_tratada.map</file>
+        <layer name="SS_MAP_TRAT_VALVULAS_TRATADA">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <map-source name="cuentasaguatratada" title="Cuentas de Agua Tratada" default="false" type="mapserver">
+        <file>./data/SIG/map_cuenta_agua_tratada.map</file>
+        <layer name="SS_MAP_TRAT_CUENTAS_TRATADA">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <map-source name="sectoresaguatratada" title="Sectores de Agua Tratada" default="false" type="mapserver">
+        <file>./data/SIG/map_sector_agua_tratada.map</file>
+        <layer name="SS_MAP_TRAT_SECTORES_TRATADA">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <map-source name="aguatratadamedidoressector" title="Agua Tratada Medidores Sector" default="false" type="mapserver">
+        <file>./data/SIG/map_agua_tratada_medidor_sector.map</file>
+        <layer name="SS_MAP_TRAT_MEDIDORES_TRATADA">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <!-- 
+    ###########################################################
+    SECCION RADIOFRECUENCIA
+    ########################################################### 
+    -->
+    <map-source name="antenasrf" title="Antenas de R.F." default="false" type="mapserver">
+        <file>./data/SIG/map_medidores_rf_antenas2.map</file>
+        <layer name="SS_MAP_RFRE_ANTENAS_RF">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <map-source name="medidoresrf" title="Medidores de R.F." default="false" type="mapserver">
+        <file>./data/SIG/map_medidores_rf.map</file>
+        <layer name="SS_MAP_RFRE_MEDIDORES_RF">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <!-- 
+    ###########################################################
+    SECCION DRENAJE 
+    ########################################################### 
+    -->
+    <map-source name="zonazalcantarillado" title="Zonas de Alcantarillado" default="false" type="mapserver">
+        <file>./data/SIG/map_zonas_alcantarillado.map</file>
+        <layer name="SS_MAP_DREN_ZONAS_ALCANTARILLADO">
+        </layer>
+    </map-source>
+    <map-source name="rehabilitaciones2018" title="Rehabilitaciones 2018" default="false" type="mapserver">
+        <file>./data/SIG/map_rehabilitaciones_2018.map</file>
+        <layer name="SS_MAP_DREN_REHAB_2018">
+        </layer>
+    </map-source>
+    <map-source name="rehabilitaciones2019" title="Rehabilitaciones 2019" default="false" type="mapserver">
+        <file>./data/SIG/map_rehabilitaciones_2019.map</file>
+        <layer name="SS_MAP_DREN_REHAB_2019">
+        </layer>
+    </map-source>
+    <!-- CAPA WFS -->
+    <map-source name="wfsrehabilitaciones" type="mapserver-wfs">
+        <param name="typename" value="ms:SS_MAP_DREN_REHABILITACIONES"/>
+        <param name="service" value="WFS"/>
+        <file>./data/SIG/map_rehabilitaciones.map</file>      
+        <layer name="SS_MAP_DREN_REHABILITACIONES" selectable="true">
+            <template name="identify" auto="true"/>
+        </layer>
+    </map-source>
+    <map-source name="rehabilitaciones" type="mapserver" default="false" title="Rehabilitaciones">
+        <file>./data/SIG/map_rehabilitaciones.map</file>
+        <layer name="SS_MAP_DREN_REHABILITACIONES" query-as="wfsrehabilitaciones/SS_MAP_DREN_REHABILITACIONES" />
+    </map-source>
+    <!-- FIN CAPA WFS -->
+    <map-source name="colectorespluviales" title="Colectores Pluviales" default="false" type="mapserver">
+        <file>./data/SIG/map_colectores_pluviales.map</file>
+        <layer name="SS_MAP_DREN_COLECTORES_PLUVIALES">
+        </layer>
+    </map-source>
+    <!-- CAPA WFS -->
+    <map-source name="wfspozosdrenaje" type="mapserver-wfs">
+        <config name="pixel-tolerance" value="5"/>
+        <param name="typename" value="ms:SS_MAP_DREN_POZOS_DRENAJE"/>
+        <param name="service" value="WFS"/>
+        <file>./data/SIG/map_pozo_drenaje.map</file>      
+        <layer name="SS_MAP_DREN_POZOS_DRENAJE" selectable="true">
+            <template name="identify" auto="true"/>
+        </layer>
+    </map-source>
+    <map-source name="pozos_drenaje" type="mapserver" default="false" title="Pozos">
+        <file>./data/SIG/map_pozo_drenaje.map</file>
+        <layer name="SS_MAP_DREN_POZOS_DRENAJE" query-as="wfspozosdrenaje/SS_MAP_DREN_POZOS_DRENAJE" />
+    </map-source>
+    <!-- FIN CAPA WFS -->
+    <map-source name="tuberiadrenaje" title="Tuberia de Drenaje" default="false" type="mapserver">
+        <file>./data/SIG/map_tuberia_drenaje.map</file>
+        <layer name="SS_MAP_DREN_TUBERIA_DRENAJE">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <map-source name="pozospluviales" title="Pozos Pluviales" default="false" type="mapserver">
+        <file>./data/SIG/map_pozos_pluvial.map</file>
+        <layer name="SS_MAP_DREN_POZOS_PLUVIAL">
+        </layer>
+    </map-source>
+    <map-source name="rejillascatastro" title="Rejillas Catastro" default="false" type="mapserver">
+        <file>./data/SIG/map_rejilla_catastro.map</file>
+        <layer name="SS_MAP_DREN_REJILLAS_CATASTRO">
+        </layer>
+    </map-source>
+    <map-source name="capacitaciondrenaje" title="Captación de Drenaje" default="false" type="mapserver">
+        <file>./data/SIG/map_captacion_drenaje.map</file>
+        <layer name="SS_MAP_DREN_CAPTACION_DRENAJE">
+        </layer>
+    </map-source>
+    <map-source name="drenajesectores" title="Drenaje de Sectores" default="false" type="mapserver">
+        <file>./data/SIG/map_drenaje_sectores.map</file>
+        <layer name="SS_MAP_DREN_DRENAJE_SECTORES">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+        <map-source name="drenajemedidoresector" title="Drenaje Medidores Sector" default="false" type="mapserver">
+        <file>./data/SIG/map_drenaje_medidores_sector.map</file>
+        <layer name="SS_MAP_DREN_DRENAJE_MEDIDORES_SEC">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <!-- 
+    ###########################################################
+    SECCION AGUA
+    ########################################################### 
+    -->
+    <map-source name="zonasredes" title="Zonas de Redes" default="false" type="mapserver">
+        <file>./data/SIG/map_zonas_redes.map</file>
+        <layer name="SS_MAP_AGUA_ZONAS_REDES">
+        </layer>
+    </map-source>
+    <map-source name="deteccionfugas" title="Detección de Fugas" default="false" type="mapserver">
+        <file>./data/SIG/map_deteccion_fugas.map</file>
+        <layer name="SS_MAP_AGUA_DETECCION_FUGAS">
+        </layer>
+    </map-source>
+    <map-source name="puntosllenadospipas" title="Puntos de Llenado de Pipas" default="false" type="mapserver">
+        <file>./data/SIG/map_pipas_llenado.map</file>
+        <layer name="SS_MAP_AGUA_LLENADO_PIPAS">
+        </layer>
+    </map-source>
+    <map-source name="tuberiagua" title="Tuberia de Agua" default="false" type="mapserver">
+        <file>./data/SIG/map_tuberia_agua.map</file>
+        <layer name="SS_MAP_AGUA_TUBERIA_AGUA">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <map-source name="valvulas" title="Válvulas" default="false" type="mapserver">
+        <file>./data/SIG/map_valvulas_agua.map</file>
+        <layer name="SS_MAP_AGUA_VALVULAS_AGUA">
+        </layer>
+    </map-source>
+    <map-source name="nodos" title="Nodos" default="false" type="mapserver">
+        <file>./data/SIG/map_nodos.map</file>
+        <layer name="SS_MAP_AGUA_NODOS">
+        </layer>
+    </map-source>
+    <map-source name="links" title="Links" default="false" type="mapserver">
+        <file>./data/SIG/map_links.map</file>
+        <layer name="SS_MAP_AGUA_LINKS">
+        </layer>
+    </map-source>
+    <map-source name="presas" title="Presas" default="true" type="mapserver">
+        <file>./data/SIG/map_riosypresas.map</file>
+        <layer name="SS_MAP_AGUA_PRESAS_RIOS" status="on">
+        <param name="SCALE" value="1"/>
+        </layer>
+    </map-source>
+    <map-source name="rios" title="Rios" default="false" type="mapserver">
+        <file>./data/SIG/map_rios.map</file>
+        <layer name="SS_MAP_AGUA_RIOS" >
+        </layer>
+    </map-source>
+    <map-source name="zonasencharcamiento" title="Zonas de Encharcamiento" default="false" opacity="30" type="mapserver">
+        <file>./data/SIG/map_zona_encharcamiento.map</file>
+        <layer name="SS_MAP_AGUA_ZONAS_ENCHARCAMIENTO">
+        </layer>
+    </map-source>
+    <!-- capa wfs -->
+    <map-source name="wfscruceros" type="mapserver-wfs">
+        <config name="pixel-tolerance" value="5"/>
+        <param name="typename" value="ms:SS_MAP_AGUA_CRUCEROS"/>
+        <param name="service" value="WFS"/>
+        <file>./data/SIG/map_cruceros.map</file>      
+        <layer name="SS_MAP_AGUA_CRUCEROS" selectable="true">
+            <template name="identify" auto="true"/>
+        </layer>
+    </map-source>
+    <!--<map-source name="cruceros" type="mapserver" default="false" title="Cruceros">
+        <file>./data/SIG/map_cruceros.map</file>
+        <layer name="SS_MAP_AGUA_CRUCEROS" query-as="wfscruceros/SS_MAP_AGUA_CRUCEROS" />
+    </map-source>-->
+    <!-- fin capa wfs -->
+    <!-- 
+    ###########################################################
+    SECCION MACROCIRCUITOS
+    ########################################################### 
+    -->
+    <map-source name="zonasinghca" title="Zonas de Ing. Hca." default="false" type="mapserver">
+        <file>./data/SIG/map_zonas_ing_hidraulica.map</file>
+        <layer name="SS_MAP_MCIR_ZONAS_HIDRAULICA">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <map-source name="medidoressectores" title="Medidores de Sectores" default="false" type="mapserver">
+        <file>./data/SIG/map_medidores_sectores.map</file>
+        <layer name="SS_MAP_MCIR_MEDIDORES_SECTORES">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <map-source name="puntoscriticos" title="Puntos Críticos" default="false" type="mapserver">
+        <file>./data/SIG/map_puntos_criticos.map</file>
+        <layer name="SS_MAP_MCIR_PUNTOS_CRITICOS">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <map-source name="lineasconduccion" title="Lineas de Conducción" default="false" type="mapserver">
+        <file>./data/SIG/map_lineas_conduccion.map</file>
+        <layer name="SS_MAP_MCIR_LINEAS_CONDUCCION">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <!--CAPA WFS-->
+    <map-source name="wfssectores" type="mapserver-wfs">
+        <config name="pixel-tolerance" value="0"/>
+        <param name="typename" value="ms:SS_MAP_MCIR_SUBCIRCUITOS_AGUA"/>
+        <param name="service" value="WFS"/>
+        <file>./data/SIG/map_subcircuitos_agua.map</file>      
+        <layer name="SS_MAP_MCIR_SUBCIRCUITOS_AGUA" selectable="true" >
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="sectores" title="Sectores" default="false" type="mapserver">
+        <file>./data/SIG/map_subcircuitos_agua.map</file>
+        <layer name="SS_MAP_MCIR_SUBCIRCUITOS_AGUA" query-as="wfssectores/SS_MAP_MCIR_SUBCIRCUITOS_AGUA" />
+    </map-source>
+    <!--FIN CAPA WFS-->
+    <map-source name="eficiendames" title="Eficiencia del Mes" default="false" opacity="70" type="mapserver">
+        <file>./data/SIG/map_sector_eficiencia_mes.map</file>
+        <layer name="SS_MAP_MCIR_EFICIENCIA_MES">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <map-source name="eficiendiadia" title="Eficiencia del Dia" default="false" opacity="70" type="mapserver">
+        <file>./data/SIG/map_sector_eficiencia_dia.map</file>
+        <layer name="SS_MAP_MCIR_EFICIENCIA_DIA">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <!--CAPA WFS-->
+    <map-source name="wfsmacrocircuitos" type="mapserver-wfs">
+        <config name="pixel-tolerance" value="0"/>
+        <param name="typename" value="ms:SS_MAP_MCIR_MACROCIRCUITOS_GENERAL"/>
+        <param name="service" value="WFS"/>
+        <file>./data/SIG/map_macrocircuitos.map</file>      
+        <layer name="SS_MAP_MCIR_MACROCIRCUITOS_GENERAL" selectable="true" >
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="macrocircuitosgeneral" title="Macrocircuitos General" default="false" type="mapserver">
+        <file>./data/SIG/map_macrocircuitos.map</file>
+        <layer name="SS_MAP_MCIR_MACROCIRCUITOS_GENERAL" query-as="wfsmacrocircuitos/SS_MAP_MCIR_MACROCIRCUITOS_GENERAL" />
+    </map-source>
+    <!--FIN CAPA WFS-->
+    <!--CAPA WFS-->
+    <map-source name="wfsmacrocircuitosbateria" type="mapserver-wfs">
+        <config name="pixel-tolerance" value="0"/>
+        <param name="typename" value="ms:SS_MAP_MCIR_MACROCIRCUITOS_BATERIA"/>
+        <param name="service" value="WFS"/>
+        <file>./data/SIG/map_macrocircuitos_bateria.map</file>      
+        <layer name="SS_MAP_MCIR_MACROCIRCUITOS_BATERIA" selectable="true" >
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="macrocircuitosbateria" title="Macrocircuitos por Bateria" default="false" type="mapserver">
+        <file>./data/SIG/map_macrocircuitos_bateria.map</file>
+        <layer name="SS_MAP_MCIR_MACROCIRCUITOS_BATERIA" query-as="wfsmacrocircuitosbateria/SS_MAP_MCIR_MACROCIRCUITOS_BATERIA" />
+    </map-source>
+    <!--FIN CAPA WFS-->
+    <map-source name="macrocircuitossubsectores" title="Subsectores" default="false" type="mapserver">
+        <file>./data/SIG/map_subsectores.map</file>
+        <layer name="SS_MAP_MCIR_SUBSECTORES">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <map-source name="macrocircuitosvalvulassubsector" title="Valvulas Subsector" default="false" type="mapserver">
+        <file>./data/SIG/map_valvulas_subsector.map</file>
+        <layer name="SS_MAP_MCIR_VALVSUBSECTOR">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <!-- 
+    ###########################################################
+    SECCION INTERVENCION POR SARRO
+    ########################################################### 
+    -->
+    <map-source name="intervencionesporsarro" title="Intervencion por Sarro" default="false" type="mapserver">
+        <file>./data/SIG/map_intervencion_sarro.map</file>
+        <layer name="SS_MAP_SARR_INTERVENCION_SARRO">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <!-- 
+    ###########################################################
+    SECCION CORTES Y RECONEXIONES
+    ########################################################### 
+    -->
+    <map-source name="prospectosreconexion" title="Prospectos para Reconexión" default="false" type="mapserver">
+        <file>./data/SIG/map_prospectos_reconexion.map</file>
+        <layer name="SS_MAP_CORT_PROSPECTOS_RECONEXION">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <map-source name="prospectoscortes" title="Prospectos para Limitación" default="false" type="mapserver">
+        <file>./data/SIG/map_prospectos_corte.map</file>
+        <layer name="SS_MAP_CORT_PROSPECTOS_CORTES">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <map-source name="cuentasparametroscortecortadas" title="Ctas. con Parámetros para Limitación y Limitadas" default="false" type="mapserver">
+        <file>./data/SIG/map_cuenta_cortada.map</file>
+        <layer name="SS_MAP_CORT_CUENTAS_CORTADAS">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <!-- 
+    ###########################################################
+    SECCION JURUDICO, CONSTRUCCION, CONVENIO, FACTIBILIDAD
+    ########################################################### 
+    -->
+    <!--capa wfs-->
+    <map-source name="wfsprediosjuridico" type="mapserver-wfs">
+        <config name="pixel-tolerance" value="0"/>
+        <param name="typename" value="ms:SS_MAP_JURI_PREDIOS_IRREGULARES"/>
+        <param name="service" value="WFS"/>
+        <file>./data/SIG/map_predios_irregulares.map</file>      
+        <layer name="SS_MAP_JURI_PREDIOS_IRREGULARES" selectable="true" >
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="prediosjuridico" title="Predios Juridico" default="false" type="mapserver">
+        <file>./data/SIG/map_predios_irregulares.map</file>
+        <layer name="SS_MAP_JURI_PREDIOS_IRREGULARES" query-as="wfsprediosjuridico/SS_MAP_JURI_PREDIOS_IRREGULARES" />
+    </map-source>
+    <!-- fin capa wfs-->
+    <map-source name="construcciones" title="Construcciones" type="mapserver">
+        <file>./data/SIG/map_construcciones.map</file>
+        <layer name="SS_MAP_JURI_CONSTRUCCIONES">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <!--capa wfs-->
+    <map-source name="wfsconveniossapal" type="mapserver-wfs">
+        <config name="pixel-tolerance" value="0"/>
+        <param name="typename" value="ms:SS_MAP_JURI_CONVENIOS"/>
+        <param name="service" value="WFS"/>
+        <file>./data/SIG/map_convenios_estra.map</file>      
+        <layer name="SS_MAP_JURI_CONVENIOS" selectable="true" >
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="conveniossapal" title="Convenios de SAPAL" default="false" type="mapserver">
+        <file>./data/SIG/map_convenios_estra.map</file>
+        <layer name="SS_MAP_JURI_CONVENIOS" query-as="wfsconveniossapal/SS_MAP_JURI_CONVENIOS" />
+    </map-source>
+    <!-- fin capa wfs -->
+    <!--capa wfs-->
+    <map-source name="wfsfactibilidadessapal" type="mapserver-wfs">
+        <config name="pixel-tolerance" value="0"/>
+        <param name="typename" value="ms:SS_MAP_JURI_FACTIBILIDADES"/>
+        <param name="service" value="WFS"/>
+        <file>./data/SIG/map_factibilidad_estra.map</file>      
+        <layer name="SS_MAP_JURI_FACTIBILIDADES" selectable="true" >
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="factibilidadessapal" title="Factibilidades de SAPAL" default="false" type="mapserver">
+        <file>./data/SIG/map_factibilidad_estra.map</file>
+        <layer name="SS_MAP_JURI_FACTIBILIDADES" query-as="wfsfactibilidadessapal/SS_MAP_JURI_FACTIBILIDADES" />
+    </map-source>
+    <!-- fin capa wfs -->
+    <!-- 
+    ###########################################################
+    SECCION CONDOMINIOS
+    ########################################################### 
+    -->
+    <map-source name="poligonoscondominios" title="Condominios" default="false" type="mapserver">
+        <file>./data/SIG/map_condominios.map</file>
+        <layer name="SS_MAP_COND_CONDOMINIOS">
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="tuberiaaguacondominios" title="Tuberia agua Condominios" default="false" type="mapserver">
+        <file>./data/SIG/map_tuberia_agua_condominios.map</file>
+        <layer name="SS_MAP_COND_TUBERIA_CONDOMINIOS">
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="tuberiadrenajecondominios" title="Tuberia Drenaje Condominios" default="false" type="mapserver">
+        <file>./data/SIG/map_tuberia_drenaje_condominios.map</file>
+        <layer name="SS_MAP_COND_DRENAJE_CONDOMINIOS">
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <!-- 
+    ###########################################################
+    SECCION PLANEACION HIDRICA
+    ########################################################### 
+    -->
+    <!-- capa wfs -->
+    <map-source name="wfstuberias" type="mapserver-wfs">
+        <config name="pixel-tolerance" value="5"/>
+        <param name="typename" value="ms:SS_MAP_PLAN_PLANEACION_HIDRICA"/>
+        <param name="service" value="WFS"/>
+        <file>./data/SIG/map_tuberia_planeacion_hidrica.map</file>      
+        <layer name="SS_MAP_PLAN_PLANEACION_HIDRICA" selectable="true" >
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="tuberias" type="mapserver" up="true" down="true" title="Tuberias">
+        <file>./data/SIG/map_tuberia_planeacion_hidrica.map</file>
+        <layer name="SS_MAP_PLAN_PLANEACION_HIDRICA" query-as="wfstuberias/SS_MAP_PLAN_PLANEACION_HIDRICA" />
+    </map-source>
+    <!-- fin capa wfs -->
+    <map-source name="pozos" title="POZOS" default="false" type="mapserver">
+        <file>./data/SIG/map_embalses.map</file> 
+        <layer name="SS_MAP_PLAN_EMBALSE">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <map-source name="tanques" title="TANQUES" default="false" type="mapserver">
+        <file>./data/SIG/map_tanques.map</file>
+        <layer name="SS_MAP_PLAN_TANQUES">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <!-- 
+    ###########################################################
+    SECCION PTARS
+    ########################################################### 
+    -->
+    <map-source name="ptarmunicipal" title="Municipales" default="false" type="mapserver">
+        <file>./data/SIG/map_ptar_municipal.map</file>
+        <layer name="SS_MAP_PTAR_MUNICIPAL">
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="ptarsapal" title="SAPAL" default="false" type="mapserver">
+        <file>./data/SIG/map_ptar_sapal.map</file>
+        <layer name="SS_MAP_PTAR_SAPAL">
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="zonasinflunciaptar" title="Zonas Influencia" default="false" type="mapserver">
+        <file>./data/SIG/map_zonas_influencia_ptar.map</file>
+        <layer name="SS_MAP_PTAR_ZONA_INFLUENCIA">
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>  
+    <map-source name="zonasmaximaaportacion" title="Zonas Maxima Aportación" default="false" type="mapserver">
+        <file>./data/SIG/map_zonas_maxima_aportacion_ptar.map</file>
+        <layer name="SS_MAP_PTAR_ZONA_MAXIMA_APORTACION">
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <!-- 
+    ###########################################################
+    SECCION GESTION RURAL
+    ########################################################### 
+    -->
+    <map-source name="ruralpozos" title="Pozos Rural no Incorporados" default="false" type="mapserver">
+        <file>./data/SIG/map_pozos_rural.map</file>
+        <layer name="SS_MAP_RURAL_POZOS">
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="localidadrural" title="Localidad Rural Incorporada" default="false" type="mapserver">
+        <file>./data/SIG/map_localidad_rural.map</file>
+        <layer name="SS_MAP_RURAL_LOCALIDAD">
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="localidadruralnoincorporada" title="Localidad Rural no Incorporada" default="false" type="mapserver">
+        <file>./data/SIG/map_localidad_rural_no_incorporada.map</file>
+        <layer name="SS_MAP_RURAL_LOCALIDAD_NO_INCORPORADA">
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="tuberiaagualocalidadrural" title="Tub. Agua Localidad Rural" default="false" type="mapserver">
+        <file>./data/SIG/map_tuberia_agua_localidad_rural.map</file>
+        <layer name="SS_MAP_TUBERIA_RURAL">
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="tuberiadrenajelocalidadrural" title="Tub. Drenaje Localidad Rural" default="false" type="mapserver">
+        <file>./data/SIG/map_tuberia_drenaje_localidad_rural.map</file>
+        <layer name="SS_MAP_DRENAJE_RURAL">
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="tuberiaaguatratadalocalidadrural" title="Tub. Agua Trat. Localidad Rural" default="false" type="mapserver">
+        <file>./data/SIG/map_tuberia_agua_tratada_localidad_rural.map</file>
+        <layer name="SS_MAP_TRAT_TUBERIA_TRATADA_RURAL">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+     <map-source name="colectorespluvialesrural" title="Tub. Dren. Pluv. Localidad Rural" default="false" type="mapserver">
+        <file>./data/SIG/map_colectores_pluviales_localidad_rural.map</file>
+        <layer name="SS_MAP_DREN_COLECTORES_PLUVIALES_RURAL">
+        </layer>
+    </map-source>
+       <map-source name="coberturapipas" title="Loc. Rural Cobertura Agua en Pipas" default="false" type="mapserver">
+        <file>./data/SIG/map_localidad_rural_cobertura_pipas.map</file>
+        <layer name="SS_MAP_RURAL_LOCALIDAD_COBERTURA_PIPAS">
+        </layer>
+    </map-source>
+    <map-source name="brechaejidal" title="Brecha Ejidal" default="false" type="mapserver">
+        <file>./data/SIG/map_brecha_ejidal.map</file>
+        <layer name="SS_MAP_RURAL_BRECHA_EJIDAL">
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="nucleoagrario" title="Nucleos Agrarios" default="false" type="mapserver">
+        <file>./data/SIG/map_nucleo_agrario.map</file>
+        <layer name="SS_MAP_RURAL_NUCLEO_AGRARIO">
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="liberacionesbrechas" title="Liberación de Afectaciones" default="false" type="mapserver">
+        <file>./data/SIG/map_liberaciones_brechas.map</file>
+        <layer name="SS_MAP_RURAL_LIBERACIONES_BRECHAS">
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="zonainfluenciapozorural" title="Área de Influencia Pozos" default="false" type="mapserver">
+        <file>./data/SIG/map_zona_influencia_pozo_rural.map</file>
+        <layer name="SS_MAP_RURAL_ZONA_INFLUENCIA_POZO">
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <!-- 
+    ###########################################################
+    SECCION INFORMACION SAPAL
+    ########################################################### 
+    -->
+    <map-source name="prediostarifa5" title="Predios Tarifa 5" default="false" type="mapserver">
+        <file>./data/SIG/map_predio_tarifa_5.map</file>
+        <layer name="SS_MAP_INFO_TARIFA_5">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <map-source name="prediostarifaci" title="Predios Tarifa C. e I." default="false" type="mapserver">
+        <file>./data/SIG/map_predio_tarifa_ci.map</file>
+        <layer name="SS_MAP_INFO_TARIFA_CI">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <!-- capa wfs -->
+    <map-source name="wfspredios" type="mapserver-wfs" srcProj="EPSG:32614">
+        <config name="pixel-tolerance" value="0"/>
+        <param name="typename" value="ms:SS_MAP_INFO_PREDIOS"/>
+        <param name="service" value="WFS"/>
+        <file>./data/SIG/map_predios.map</file>      
+        <layer name="SS_MAP_INFO_PREDIOS" selectable="true">
+            <param name="SCALE" value="1"/>
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="Predios" type="mapserver" up="true" down="true" title="Predios">
+        <file>./data/SIG/map_predios.map</file>
+        <layer name="SS_MAP_INFO_PREDIOS" query-as="wfspredios/SS_MAP_INFO_PREDIOS" status="on"/>
+        <param name="SCALE" value="1"/>
+    </map-source>
+    <!-- fin capa wfs -->
+    <!-- capa wfs -->
+    <map-source name="wfsderechos" type="mapserver-wfs">
+        <config name="pixel-tolerance" value="0"/>
+        <param name="typename" value="ms:SS_MAP_INFO_CUENTAS_DERECHOS"/>
+        <param name="service" value="WFS"/>
+        <file>./data/SIG/map_cuentas_derechos.map</file>      
+        <layer name="CuentaDerechos" selectable="true" >
+            <template name="identify" auto="true" />
+        </layer>
+    </map-source>
+    <map-source name="CuentasDerechos" type="mapserver" up="true" down="true" title="Derechos">
+        <file>./data/SIG/map_cuentas_derechos.map</file>
+        <layer name="SS_MAP_INFO_CUENTAS_DERECHOS" query-as="wfsderechos/CuentaDerechos" />
+    </map-source>
+    <!-- fin capa wfs -->
+    <map-source name="manzanas" title="Manzanas" default="false" type="mapserver">
+        <file>./data/SIG/map_manzanas.map</file>
+        <layer name="SS_MAP_INFO_MANZANAS">
+            <template name="identify" auto="true" /> 
+            <param name="SCALE" value="1"/>
+        </layer>
+    </map-source>
+    <map-source name="leonsilaoromitasanfrancisco" title="Leon, Silao, Romita, San Francisco" default="false" opacity=".2" type="mapserver">
+        <file>./data/SIG/map_leon_silao.map</file>
+        <layer name="SS_MAP_INFO_MUNICIPIOS">
+            <template name="identify" auto="true" /> 
+        </layer>
+    </map-source>
+    <!-- 
+    ###########################################################
+    SECCION MAPAS BASE
+    ########################################################### 
+    -->
+    <map-source name="openstreetmap" type="xyz">
+        <layer name="osm_mapnik" status="on">
+            <attribution><![CDATA[
+                &copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> Contributors.
+            ]]></attribution>
+        </layer>
+        <url>https://a.tile.openstreetmap.org/{z}/{x}/{y}.png</url>
+        <url>https://b.tile.openstreetmap.org/{z}/{x}/{y}.png</url>
+        <url>https://c.tile.openstreetmap.org/{z}/{x}/{y}.png</url>
+        <param name="cross-origin" value="anonymous"/>
+    </map-source>
+    <!-- <map-source name="ortofotos2024" title="Ortofotos 2024" default="false" type="mapserver" opacity=".5">
+        <file>./data/SIG/map_ortofoto_leon_2024.map</file>
+        <layer name="SS_MAP_ORTO_LEON_2024"/>
+        <param name="REQUEST" value="GetMap"/>
+        <param name="BBOX" value="210368.2499999990104698,2318552.3500000005587935,241389.6499999989755452,2350523.2500000000000000"/>
+        <param name="WIDTH" value="650"/>
+        <param name="HEIGHT" value="480"/>
+        <param name="FORMAT" value="image/png"/>
+        <param name="LAYERS" value="SS_MAP_ORTO_LEON_2024"/>
+        <param name="TRANSPARENT" value="true"/>
+        <param name="STYLES" value="default"/>
+    </map-source> -->
+    <map-source name="ortofotos2017" title="Ortofotos 2017" default="false" type="mapserver" opacity=".5">
+        <file>./data/SIG/map_ortofoto_leon_2017.map</file>
+        <layer name="SS_MAP_ORTO_LEON_2017"/>
+        <param name="REQUEST" value="GetMap"/>
+        <param name="BBOX" value="210368.2499999990104698,2318552.3500000005587935,241389.6499999989755452,2350523.2500000000000000"/>
+        <param name="WIDTH" value="650"/>
+        <param name="HEIGHT" value="480"/>
+        <param name="FORMAT" value="image/jpeg"/>
+        <param name="LAYERS" value="SS_MAP_ORTO_LEON_2017"/>
+        <param name="TRANSPARENT" value="true"/>
+        <param name="STYLES" value="default"/>
+    </map-source>
+    <map-source name="fotossatelite2016" title="Ortofotos 2016" default="false" type="mapserver">
+        <file>./data/SIG/map_ortofoto_leon_2016.map</file>
+        <layer name="SS_MAP_ORTO_LEON_2016"/>
+        <param name="REQUEST" value="GetMap"/>
+        <param name="BBOX" value="210368.2499999990104698,2318552.3500000005587935,241389.6499999989755452,2350523.2500000000000000"/>
+        <param name="WIDTH" value="800"/>
+        <param name="HEIGHT" value="650"/>
+        <param name="FORMAT" value="image/jpeg"/>
+        <param name="LAYERS" value="SS_MAP_ORTO_LEON_2016"/>
+        <param name="TRANSPARENT" value="true"/>
+    </map-source>
+    <map-source name="fotossatelite2013" title="Ortofotos 2013" default="false" type="mapserver">
+        <file>./data/SIG/map_ortofoto_leon_2013.map</file>
+        <layer name="SS_MAP_ORTO_LEON_2013"/>
+        <param name="REQUEST" value="GetMap"/>
+        <param name="BBOX" value="210368.2499999990104698,2318552.3500000005587935,241389.6499999989755452,2350523.2500000000000000"/>
+        <param name="WIDTH" value="800"/>
+        <param name="HEIGHT" value="650"/>
+        <param name="FORMAT" value="image/jpeg"/>
+        <param name="LAYERS" value="SS_MAP_ORTO_LEON_2013"/>
+        <param name="TRANSPARENT" value="true"/>
+    </map-source>
+    <map-source name="ortofotos2011" title="Ortofotos 2011" default="false" type="mapserver">
+        <file>./data/SIG/map_ortofoto_leon_2011.map</file>
+        <layer name="SS_MAP_ORTO_LEON_2011"/>
+        <param name="REQUEST" value="GetMap"/>
+        <param name="BBOX" value="210368.2499999990104698,2318552.3500000005587935,241389.6499999989755452,2350523.2500000000000000"/>
+        <param name="WIDTH" value="800"/>
+        <param name="HEIGHT" value="650"/>
+        <param name="FORMAT" value="image/jpeg"/>
+        <param name="LAYERS" value="SS_MAP_ORTO_LEON_2011"/>
+        <param name="TRANSPARENT" value="true"/>
+    </map-source>
+    <map-source name="ortofotos2009" title="Ortofotos 2009" default="false" type="mapserver">
+        <file>./data/SIG/map_ortofoto_leon_2009.map</file>
+        <layer name="SS_MAP_ORTO_LEON_2009"/>
+        <param name="REQUEST" value="GetMap"/>
+        <param name="BBOX" value="210368.2499999990104698,2318552.3500000005587935,241389.6499999989755452,2350523.2500000000000000"/>
+        <param name="WIDTH" value="800"/>
+        <param name="HEIGHT" value="650"/>
+        <param name="FORMAT" value="image/jpeg"/>
+        <param name="LAYERS" value="SS_MAP_ORTO_LEON_2009"/>
+        <param name="TRANSPARENT" value="true"/>
+    </map-source>
+    <map-source name="ortofotos2003" title="Ortofotos 2003" default="false" type="mapserver">
+        <file>./data/SIG/map_ortofoto_leon_2003.map</file>
+        <layer name="SS_MAP_ORTO_LEON_2003"/>
+        <param name="REQUEST" value="GetMap"/>
+        <param name="BBOX" value="210368.2499999990104698,2318552.3500000005587935,241389.6499999989755452,2350523.2500000000000000"/>
+        <param name="WIDTH" value="800"/>
+        <param name="HEIGHT" value="650"/>
+        <param name="FORMAT" value="image/jpeg"/>
+        <param name="LAYERS" value="SS_MAP_ORTO_LEON_2003"/>
+        <param name="TRANSPARENT" value="true"/>
+    </map-source>
+    <map-source name="ortofotos2000" title="Ortofotos 2000" default="false" type="mapserver">
+        <file>./data/SIG/map_ortofoto_leon_2000.map</file>
+        <layer name="SS_MAP_ORTO_LEON_2000"/>
+        <param name="REQUEST" value="GetMap"/>
+        <param name="BBOX" value="210368.2499999990104698,2318552.3500000005587935,241389.6499999989755452,2350523.2500000000000000"/>
+        <param name="WIDTH" value="800"/>
+        <param name="HEIGHT" value="650"/>
+        <param name="FORMAT" value="image/jpeg"/>
+        <param name="LAYERS" value="SS_MAP_ORTO_LEON_2000"/>
+        <param name="TRANSPARENT" value="true"/>
+    </map-source>
+    <!-- FIN SECCION MAPAS BASE -->
+<!-- FIN SIG -->
+    <!--
+        The catalog defines how the layers will be displayed in the catalog tab.
+    -->
+    <catalog>
+        <!-- Layer for testing international character support.
+        <layer title="Test International Characters" src="international/testing"/>
+        -->
+        <group title="General" expand="true">
+            <layer src="instalacionesapal/SS_MAP_GRAL_INSTALACIONES" fade="true" unfade="true" classNames="inline-tools"/> 
+            <layer src="redgeodesicasapal/SS_MAP_GRAL_RED_GEODESICA" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="limitemunicipal/SS_MAP_GRAL_LIMITE_MUNICIPAL" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="nombrescolonias/SS_MAP_GRAL_COLONIAS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="codigospostales/SS_MAP_GRAL_CODIGOS_POSTALES" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="limitecolonias/SS_MAP_GRAL_LIMITE_COLONIAS" fade="true" unfade="true" classNames="inline-tools"/><!--capa wfs-->
+            <layer src="delimitacionpatron/SS_MAP_GRAL_DELIMITACION_PATRON" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="eficienciafisica/SS_MAP_GRAL_EFICIENCIA_FISICA" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="cuentas/SS_MAP_GRAL_CUENTAS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="exteriores/SS_MAP_GRAL_NUMERO_EXTERIOR" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="nombrescalles/SS_MAP_GRAL_CALLES" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="curvasnivel/SS_MAP_GRAL_CURVAS_MUNICIPIO" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="sentidocalles/SS_MAP_GRAL_SENTIDO_CALLES" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="sectorsubsectorcalle/SS_MAP_GRAL_SECTOR_SUBSECTOR" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="delegaciones/SS_MAP_GRAL_DELEGACIONES" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="tomasclandestinas/SS_MAP_TOMAS_CLANDESTINAS" fade="true" unfade="true" classNames="inline-tools"/>
+        </group>
+        <group title="Fiscalización Ecologica" expand="true">
+            <layer src="fiscalizacionecologicarejillas/SS_MAP_INFO_FISCALIZACION_ECOLOGICA_REJILLAS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="fiscalizacionecologicaregistro/SS_MAP_INFO_FISCALIZACION_ECOLOGICA_REGISTRO" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="fiscalizacionecologicamedidores/SS_MAP_INFO_FISCALIZACION_ECOLOGICA_MEDIDOR" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="fiscalizacionecologicarejillamedidor/SS_MAP_INFO_FISCALIZACION_ECOLOGICA_REJILLA_MEDIDOR" fade="true" unfade="true" classNames="inline-tools"/>   
+        </group>
+        <group title="Hidrología" expand="true">
+            <layer src="cuencas/SS_MAP_HIDR_CUENCAS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="escurrimientos/SS_MAP_HIDR_ESCURRIMIENTOS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="zonasfederalescuerposagua/SS_MAP_HIDRO_ZONAS_FEDERALES" fade="true" unfade="true" classNames="inline-tools"/>
+        </group>
+        <group title="Lecturas" expand="true">
+            <layer src="suspendidosbajas/SS_MAP_LECT_BAJAS_SUSPENDIDADAS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="aguatratada/SS_MAP_LECT_AGUA_TRATADA" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="prediostratada/SS_MAP_LECT_PREDIOS_TRATADA" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="medidorespatron/SS_MAP_LECT_MEDIDORES_PATRON" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="tomaspublicas/SS_MAP_LECT_TOMAS_PUBLICAS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="tomascomunitarias/SS_MAP_LECT_TOMAS_COMUNITARIAS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="bebederos/SS_MAP_LECT_BEBEDEROS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="medidores/SS_MAP_LECT_MEDIDORES" fade="true" unfade="true" classNames="inline-tools"/>
+            <group  title="Antiguedad medidores" expand="true">
+                <layer src="antiguedadmenor3/SS_MAP_LECT_MEDIDORES_3" fade="true" unfade="true" classNames="inline-tools"/>
+                <layer src="antiguedad3a6/SS_MAP_LECT_MEDIDORES_3_6" fade="true" unfade="true" classNames="inline-tools"/>
+                <layer src="antiguedad6a9/SS_MAP_LECT_MEDIDORES_6_9" fade="true" unfade="true" classNames="inline-tools"/>
+                <layer src="antiguedad9/SS_MAP_LECT_MEDIDORES_9" fade="true" unfade="true" classNames="inline-tools"/>
+            </group>
+            <layer src="sarromedidores/SS_MAP_LECT_MEDIDORES_SARRO" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="fugamedidores/SS_MAP_LECT_MEDIDORES_FUGAS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="carpetas/SS_MAP_LECT_CARPETAS" fade="true" unfade="true" classNames="inline-tools"/>
+        </group>
+        <group title="Agua Tratada" expand="true">
+            <layer src="tuberiaaguatratada/SS_MAP_TRAT_TUBERIA_TRATADA" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="valvulasaguatratada/SS_MAP_TRAT_VALVULAS_TRATADA" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="cuentasaguatratada/SS_MAP_TRAT_CUENTAS_TRATADA" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="sectoresaguatratada/SS_MAP_TRAT_SECTORES_TRATADA" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="aguatratadamedidoressector/SS_MAP_TRAT_MEDIDORES_TRATADA" fade="true" unfade="true" classNames="inline-tools"/>
+        </group>
+        <group title="Radio Frecuencia" expand="true">
+            <layer src="antenasrf/SS_MAP_RFRE_ANTENAS_RF" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="medidoresrf/SS_MAP_RFRE_MEDIDORES_RF" fade="true" unfade="true" classNames="inline-tools"/>
+        </group>
+        <group title="Drenaje" expand="true">
+            <layer src="zonazalcantarillado/SS_MAP_DREN_ZONAS_ALCANTARILLADO" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="rehabilitaciones2018/SS_MAP_DREN_REHAB_2018" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="rehabilitaciones2019/SS_MAP_DREN_REHAB_2019" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="rehabilitaciones/SS_MAP_DREN_REHABILITACIONES" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="colectorespluviales/SS_MAP_DREN_COLECTORES_PLUVIALES" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="pozos_drenaje/SS_MAP_DREN_POZOS_DRENAJE" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="tuberiadrenaje/SS_MAP_DREN_TUBERIA_DRENAJE" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="pozospluviales/SS_MAP_DREN_POZOS_PLUVIAL" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="rejillascatastro/SS_MAP_DREN_REJILLAS_CATASTRO" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="capacitaciondrenaje/SS_MAP_DREN_CAPTACION_DRENAJE" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="drenajesectores/SS_MAP_DREN_DRENAJE_SECTORES" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="drenajemedidoresector/SS_MAP_DREN_DRENAJE_MEDIDORES_SEC" fade="true" unfade="true" classNames="inline-tools"/>
+        </group>
+        <group title="Agua" expand="true">
+            <layer src="zonasredes/SS_MAP_AGUA_ZONAS_REDES" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="deteccionfugas/SS_MAP_AGUA_DETECCION_FUGAS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="puntosllenadospipas/SS_MAP_AGUA_LLENADO_PIPAS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="tuberiagua/SS_MAP_AGUA_TUBERIA_AGUA"  fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="valvulas/SS_MAP_AGUA_VALVULAS_AGUA" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="nodos/SS_MAP_AGUA_NODOS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="links/SS_MAP_AGUA_LINKS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="presas/SS_MAP_AGUA_PRESAS_RIOS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="rios/SS_MAP_AGUA_RIOS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="zonasencharcamiento/SS_MAP_AGUA_ZONAS_ENCHARCAMIENTO" fade="true" unfade="true" classNames="inline-tools"/>
+        </group>
+        <group title="Macrocircuitos" expand="true">
+            <layer src="zonasinghca/SS_MAP_MCIR_ZONAS_HIDRAULICA" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="macrocircuitosbateria/SS_MAP_MCIR_MACROCIRCUITOS_BATERIA" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="macrocircuitosgeneral/SS_MAP_MCIR_MACROCIRCUITOS_GENERAL" fade="true" unfade="true" classNames="inline-tools"/>            
+            <layer src="sectores/SS_MAP_MCIR_SUBCIRCUITOS_AGUA" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="eficiendames/SS_MAP_MCIR_EFICIENCIA_MES" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="eficiendiadia/SS_MAP_MCIR_EFICIENCIA_DIA" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="medidoressectores/SS_MAP_MCIR_MEDIDORES_SECTORES" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="macrocircuitossubsectores/SS_MAP_MCIR_SUBSECTORES" fade="true" unfade="true" classNames="inline-tools"/>         
+            <layer src="macrocircuitosvalvulassubsector/SS_MAP_MCIR_VALVSUBSECTOR" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="puntoscriticos/SS_MAP_MCIR_PUNTOS_CRITICOS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="lineasconduccion/SS_MAP_MCIR_LINEAS_CONDUCCION" fade="true" unfade="true" classNames="inline-tools"/>               
+        </group>
+        <group title="Intervenciones por Sarro" expand="true">
+            <layer src="intervencionesporsarro/SS_MAP_SARR_INTERVENCION_SARRO" fade="true" unfade="true" classNames="inline-tools"/>
+        </group>
+        <group title="Limitaciones y reconexiones" expand="true">
+            <layer src="prospectosreconexion/SS_MAP_CORT_PROSPECTOS_RECONEXION" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="prospectoscortes/SS_MAP_CORT_PROSPECTOS_CORTES" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="cuentasparametroscortecortadas/SS_MAP_CORT_CUENTAS_CORTADAS" fade="true" unfade="true" classNames="inline-tools"/>
+        </group>
+        <group title="Juridico, Construcción, Convenio, Factibilidad" expand="true">
+            <layer src="prediosjuridico/SS_MAP_JURI_PREDIOS_IRREGULARES" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="construcciones/SS_MAP_JURI_CONSTRUCCIONES" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="conveniossapal/SS_MAP_JURI_CONVENIOS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="factibilidadessapal/SS_MAP_JURI_FACTIBILIDADES" fade="true" unfade="true" classNames="inline-tools"/>
+        </group>    
+        <group title="Condominios" expand="true">
+            <layer src="poligonoscondominios/SS_MAP_COND_CONDOMINIOS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="tuberiaaguacondominios/SS_MAP_COND_TUBERIA_CONDOMINIOS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="tuberiadrenajecondominios/SS_MAP_COND_DRENAJE_CONDOMINIOS" fade="true" unfade="true" classNames="inline-tools"/>
+        </group> 
+        <group title="Planeación Hídrica" expand="true">
+            <layer src="tuberias/SS_MAP_PLAN_PLANEACION_HIDRICA" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="pozos/SS_MAP_PLAN_EMBALSE" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="tanques/SS_MAP_PLAN_TANQUES" fade="true" unfade="true" classNames="inline-tools"/>
+        </group>
+        <group title="PTAR's" expand="true">
+            <group  title="Ubicaciones" expand="true">
+                <layer src="ptarsapal/SS_MAP_PTAR_SAPAL" fade="true" unfade="true" classNames="inline-tools"/>
+            </group>
+            <group  title="Zonas Influencia" expand="true">
+                <layer src="zonasinflunciaptar/SS_MAP_PTAR_ZONA_INFLUENCIA" fade="true" unfade="true" classNames="inline-tools"/>
+                <layer src="zonasmaximaaportacion/SS_MAP_PTAR_ZONA_MAXIMA_APORTACION" fade="true" unfade="true" classNames="inline-tools"/>
+            </group>
+        </group>
+        <group title="Gestion Rural" expand="true">
+            <layer src="ruralpozos/SS_MAP_RURAL_POZOS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="localidadrural/SS_MAP_RURAL_LOCALIDAD" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="localidadruralnoincorporada/SS_MAP_RURAL_LOCALIDAD_NO_INCORPORADA" fade="true" unfade="true" classNames="inline-tools"/>
+            <group  title="Infraestructura Localidad Rural No Incorporada" expand="true">
+            <layer src="tuberiaagualocalidadrural/SS_MAP_TUBERIA_RURAL" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="tuberiadrenajelocalidadrural/SS_MAP_DRENAJE_RURAL" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="tuberiaaguatratadalocalidadrural/SS_MAP_TRAT_TUBERIA_TRATADA_RURAL" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="colectorespluvialesrural/SS_MAP_DREN_COLECTORES_PLUVIALES_RURAL" fade="true" unfade="true" classNames="inline-tools"/>
+        </group>
+            <layer src="coberturapipas/SS_MAP_RURAL_LOCALIDAD_COBERTURA_PIPAS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="brechaejidal/SS_MAP_RURAL_BRECHA_EJIDAL" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="nucleoagrario/SS_MAP_RURAL_NUCLEO_AGRARIO" fade="true" unfade="true" classNames="inline-tools"/>   
+            <layer src="liberacionesbrechas/SS_MAP_RURAL_LIBERACIONES_BRECHAS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="zonainfluenciapozorural/SS_MAP_RURAL_ZONA_INFLUENCIA_POZO" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="ptarmunicipal/SS_MAP_PTAR_MUNICIPAL" fade="true" unfade="true" classNames="inline-tools"/>   
+        </group>
+        <group title="Información SAPAL" expand="true">
+            <layer src="prediostarifa5/SS_MAP_INFO_TARIFA_5" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="prediostarifaci/SS_MAP_INFO_TARIFA_CI" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer title="Predios" src="Predios/SS_MAP_INFO_PREDIOS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="CuentasDerechos/SS_MAP_INFO_CUENTAS_DERECHOS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="manzanas/SS_MAP_INFO_MANZANAS" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="leonsilaoromitasanfrancisco/SS_MAP_INFO_MUNICIPIOS" fade="true" unfade="true" classNames="inline-tools"/>
+        </group>
+        <!-- FIN DEL SIG -->
+        <group title="Mapas Base" expand="true" multiple="false">
+            <layer title="Sin mapa base" src="blank/blank" status="on" />
+            <layer title="Open Street Map" src="openstreetmap/osm_mapnik" legend="false" fade="true" unfade="true" classNames="inline-tools" />
+            <!-- <layer src="ortofotos_maxar/Maxar:Imagery" show-legend="false" legend="false" fade="true" unfade="true" classNames="inline-tools"/> -->
+            <!-- <layer src="ortofotos2024/SS_MAP_ORTO_LEON_2024" show-legend="false" legend="false" fade="true" unfade="true" classNames="inline-tools"/> -->
+            <layer src="ortofotos2017/SS_MAP_ORTO_LEON_2017" show-legend="false" legend="false" fade="true" unfade="true" classNames="inline-tools"/> 
+            <layer src="fotossatelite2016/SS_MAP_ORTO_LEON_2016" show-legend="false" legend="false" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="fotossatelite2013/SS_MAP_ORTO_LEON_2013" show-legend="false" legend="false" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="ortofotos2011/SS_MAP_ORTO_LEON_2011" show-legend="false" legend="false" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="ortofotos2009/SS_MAP_ORTO_LEON_2009" show-legend="false" legend="false" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="ortofotos2003/SS_MAP_ORTO_LEON_2003" show-legend="false" legend="false" fade="true" unfade="true" classNames="inline-tools"/>
+            <layer src="ortofotos2000/SS_MAP_ORTO_LEON_2000" show-legend="false" legend="false" fade="true" unfade="true" classNames="inline-tools"/>
+        </group>
+        <group title="Capas dinámicas (no apagar)" expand="false">
+            <layer src="todas_las_capas/todas_las_capas"/>
+        </group>
+    </catalog>
+    <!--
+        The toolbar defines which services are referneces in the toolbar
+    -->
+    <toolbar>
+        <tool name="fullextent" type="action" tip="Vista Completa"/>
+        <tool name="reload" type="action" title="Restablecer"/>
+        <tool name="identify" type="service" tip="Identificar elemento geográfico"/>
+        <tool name="clear" type="action" tip="Limpiar selección"/>
+        <tool name="measure" type="service" tip="Medir Longitud"/>
+        <tool name="poligono" type="service" tip="Trazar Polígono"/>
+        <tool name="imprimir" type="action" tip="Imprimir Mapa"/>
+        <tool name="estadi" type="action" tip="Estadísticas"/>
+        <tool name="ruta" type="action" tip="Ruta de lecturistas"/>
+        <tool name="trazar" type="service" tip="Trazar Ruta"/>
+        <tool name="multicuentas" type="action" tip="Multicuentas"/>
+        <tool name="acercar" type="service" tip="Acercar por coordenadas"/>
+        <tool name="VistaDeCalle" type="service" tip="Vista de la calle"/>
+        <tool name="actualizarcap" type="action" tip="Actualizar capas"/>
+        <tool name="capasdina" type="action" tip="Capas dinamicas"/>
+        <tool name="cerrar" type="action" tip="Cerrar sesión"/>
+    </toolbar>
+</mapbook>

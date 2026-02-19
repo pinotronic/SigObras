@@ -1,0 +1,38 @@
+MAP
+    NAME "SS_MAP_TRAT_SECTORES_TRATADA"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_sector_agua_tratada.log"
+    DEBUG 0
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_TRAT_SECTORES"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        STATUS DEFAULT
+        INCLUDE 'includes/conexion.map'
+        DATA "gm_sector from l_sector_hidraulico using unique id_sector_hidraulico using srid=32614"
+        TYPE POLYGON
+        LABELITEM "nb_sector_hidraulico"
+        CLASS
+            NAME "Nombre sector"
+            LABEL
+                TYPE TRUETYPE
+                FONT "arial"
+                SIZE 19
+                PARTIALS FALSE
+                COLOR 000 000 000
+            END	#LABEL
+            STYLE
+                WIDTH 8
+                OUTLINECOLOR 170 0 255
+            END
+        END #CLASS
+    END #LAYER
+END #MAP

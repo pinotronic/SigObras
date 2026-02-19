@@ -1,0 +1,134 @@
+MAP
+    NAME "SS_MAP_MCIR_LINEAS_CONDUCCION"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+        END #WEB
+        CONFIG "MS_ERRORFILE" "/srv/mapserver/err_lineas_consuccion.log"
+        DEBUG 0
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_MCIR_LINEAS_CONDUCCION"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from lineas_conduccion using unique gid using srid=32614"
+        PROCESSING "CLOSE_CONNECTION=DEFER"  # Reutiliza conexiones para múltiples consultas
+        PROCESSING "POSTGIS_FILTER=YES"      # Filtra geometrías en el lado del servidor
+        STATUS DEFAULT
+        CLASSITEM "nombre"
+        TYPE LINE
+        CLASS
+            NAME "MURALLA"
+            EXPRESSION "MURALLA"
+            STYLE
+                COLOR 0 0 0
+                WIDTH 4.0
+            END #STYLE
+            STYLE
+                COLOR 0 255 0
+                WIDTH 3.0
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "MURALLA 2"
+            EXPRESSION "MURALLA 2"
+            STYLE
+                COLOR 0 0 0
+                WIDTH 4.0
+            END #STYLE
+            STYLE
+                COLOR 0 105 42
+                WIDTH 3.0
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "ORIENTE"
+            EXPRESSION "ORIENTE"
+            STYLE
+                COLOR 0 0 0
+                WIDTH 4.0
+            END #STYLE
+            STYLE
+                COLOR 0 0 255
+                WIDTH 3.0
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "PONIENTE"
+            EXPRESSION "PONIENTE"
+            STYLE
+                COLOR 0 0 0
+                WIDTH 4.0
+            END #STYLE
+            STYLE
+                COLOR 0 147 221
+                WIDTH 3.0
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "PONIENTE2"
+            EXPRESSION "PONIENTE2"
+            STYLE
+                COLOR 0 0 0
+                WIDTH 4.0
+            END #STYLE
+            STYLE
+                COLOR 145 216 247
+                WIDTH 3.0
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "POTABILIZADORA"
+            EXPRESSION "POTABILIZADORA"
+            STYLE
+                COLOR 0 0 0
+                WIDTH 4.0
+            END #STYLE
+            STYLE
+                COLOR 255 94 126
+                WIDTH 3.0
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "SAUCILLO"
+            EXPRESSION "SAUCILLO"
+            STYLE
+                COLOR 0 0 0
+                WIDTH 4.0
+            END #STYLE
+            STYLE
+                COLOR 255 185 94
+                WIDTH 3.0
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "SUR"
+            EXPRESSION "SUR"
+            STYLE
+                COLOR 0 0 0
+                WIDTH 4.0
+            END #STYLE
+            STYLE
+                COLOR 221 255 207
+                WIDTH 3.0
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "TURBIO"
+            EXPRESSION "TURBIO"
+            STYLE
+                COLOR 0 0 0
+                WIDTH 4.0
+            END #STYLE
+            STYLE
+                COLOR 255 0 0
+                WIDTH 3.0
+            END #STYLE
+        END #CLASS
+    END #LAYER
+END #MAP

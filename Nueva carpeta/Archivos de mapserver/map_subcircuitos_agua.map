@@ -1,0 +1,206 @@
+MAP
+    NAME "SS_MAP_MCIR_SUBCIRCUITOS_AGUA"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_subcircuitos_agua.log"
+    DEBUG 0
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_MCIR_SUBCIRCUITOS_AGUA"
+        METADATA
+            'ows_title' 'Subcircuitos'
+            'ows_include_items' 'all'
+            'gml_include_items' 'all'
+        END #METADATA
+        PROJECTION
+            'init=epsg:32614'
+        END #PROJECTION
+        INCLUDE 'includes/conexion.map'
+        DATA "geometry from subcircuitos using unique gid using srid=32614"
+        STATUS DEFAULT
+        TYPE POLYGON
+        LABELITEM "nombre"
+        CLASSITEM "etapa"
+        CLASS
+            NAME "1.1 Proyecto Ing. Hca."
+            EXPRESSION "1.1"
+            STYLE
+                SYMBOL 'plainline'
+                SIZE 3
+                OUTLINECOLOR 255 0 0
+            END #STYLE
+            LABEL
+                SIZE 19
+                COLOR 0 0 0
+                OUTLINECOLOR 254 254 254
+                TYPE TRUETYPE
+                FONT ARIAL
+            END #LABEL
+        END #CLASS
+        CLASS
+            NAME "2.1 Ejecucion Redes"
+            EXPRESSION "2.1"
+            STYLE
+                SYMBOL 'plainline'
+                SIZE 3
+                OUTLINECOLOR 100 100 100
+            END #STYLE
+            LABEL
+                SIZE 19
+                COLOR 0 0 0
+                OUTLINECOLOR 254 254 254
+                TYPE TRUETYPE
+                FONT ARIAL
+            END #LABEL
+        END #CLASS
+        CLASS
+            NAME "2.2 Desarrollo medidor pendiente"
+            EXPRESSION "2.2"     
+            STYLE
+                SYMBOL 'plainline'
+                SIZE 3
+                OUTLINECOLOR 100 100 100
+            END #STYLE
+            LABEL
+                SIZE 19
+                COLOR 0 0 0
+                OUTLINECOLOR 254 254 254
+                TYPE TRUETYPE
+                FONT ARIAL
+            END #LABEL
+        END #CLASS
+        CLASS
+            NAME "2.3 Caja valvulas en construccion"
+            EXPRESSION "2.3"
+            STYLE
+                SYMBOL 'plainline'
+                SIZE 3
+                OUTLINECOLOR 100 100 100
+            END #STYLE
+            LABEL
+                SIZE 19
+                COLOR 0 0 0
+                OUTLINECOLOR 254 254 254
+                TYPE TRUETYPE
+                FONT ARIAL
+            END #LABEL
+        END #CLASS
+        CLASS
+            NAME "2.4 Proteccion metalica en construccion"
+            EXPRESSION "2.4"
+            STYLE
+                SYMBOL 'plainline'
+                SIZE 3
+                OUTLINECOLOR 100 100 100
+            END #STYLE
+            LABEL
+                SIZE 19
+                COLOR 0 0 0
+                OUTLINECOLOR 254 254 254
+                TYPE TRUETYPE
+                FONT ARIAL
+            END #LABEL
+        END #CLASS
+        CLASS
+            NAME "2.5 Desarrollo medidor diferente a 4 pulgs."
+            EXPRESSION "2.5"
+            STYLE
+                SYMBOL 'plainline'
+                SIZE 3
+                OUTLINECOLOR 100 100 100
+            END #STYLE
+            LABEL
+                SIZE 19
+                COLOR 0 0 0
+                OUTLINECOLOR 254 254 254
+                TYPE TRUETYPE
+                FONT ARIAL
+            END #LABEL
+        END #CLASS
+        CLASS
+            NAME "3.1 Medidor compatible con sofrel"
+            EXPRESSION "3.1"
+            STYLE
+                SYMBOL 'plainline'
+                SIZE 3
+                OUTLINECOLOR 7 105 30
+            END #STYLE
+            LABEL
+                SIZE 19
+                COLOR 0 0 0
+                OUTLINECOLOR 254 254 254
+                TYPE TRUETYPE
+                FONT ARIAL
+            END #LABEL
+        END #CLASS
+        CLASS
+            NAME "3.2 Medidor no compatible o diferente diametro"
+            EXPRESSION "3.2"
+            STYLE
+                SYMBOL 'plainline'
+                SIZE 3
+                OUTLINECOLOR 7 105 30
+            END #STYLE
+            LABEL
+                SIZE 19
+                COLOR 0 0 0
+                OUTLINECOLOR 254 254 254
+                TYPE TRUETYPE
+                FONT ARIAL
+            END #LABEL
+        END #CLASS
+        CLASS
+            NAME "4.1 Automatizado sofrel"
+            EXPRESSION "4.1"
+            STYLE
+                SYMBOL 'plainline'
+                SIZE 3
+                OUTLINECOLOR 105 0 88
+            END #STYLE
+            LABEL
+                SIZE 19
+                COLOR 0 0 0
+                OUTLINECOLOR 254 254 254
+                TYPE TRUETYPE
+                FONT ARIAL
+            END #LABEL
+        END #CLASS
+        CLASS
+            NAME "4.2 Automatizado Macro y/o pozo"
+            EXPRESSION "4.2"
+            STYLE
+                SYMBOL 'plainline'
+                SIZE 3
+                OUTLINECOLOR 105 0 88
+            END #STYLE    
+            LABEL
+                SIZE 19
+                COLOR 0 0 0
+                OUTLINECOLOR 254 254 254
+                TYPE TRUETYPE
+                FONT ARIAL
+            END #LABEL
+        END #CLASS
+        CLASS
+            NAME "4.3 Automatizado Badger"
+            EXPRESSION "4.3"
+            STYLE
+                SYMBOL 'plainline'
+                SIZE 3
+                OUTLINECOLOR 105 0 88
+            END #STYLE
+            LABEL
+                SIZE 19
+                COLOR 0 0 0
+                OUTLINECOLOR 254 254 254
+                TYPE TRUETYPE
+                FONT ARIAL
+            END #LABEL
+        END #CLASS
+    END #LAYER
+END #MAP

@@ -1,0 +1,39 @@
+MAP
+    NAME "SS_MAP_COND_CONDOMINIOS"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_condominios.log"
+    DEBUG 0
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_COND_CONDOMINIOS"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        STATUS DEFAULT
+        INCLUDE 'includes/conexion.map'
+        DATA "gm_condominio from l_condominios using unique id_condominio using srid=32614"
+        TYPE POLYGON
+        LABELCACHE ON
+        LABELITEM "nb_desarrollo"
+        CLASS
+            NAME "Nombre Condominio"
+                LABEL
+                    TYPE TRUETYPE
+                    FONT "arial"
+                    SIZE 19
+                    PARTIALS FALSE
+                    COLOR 6 6 6
+                END #LABEL
+                STYLE
+                    WIDTH 6
+                    OUTLINECOLOR 190 013 004
+                END #STYLE
+        END #CLASS
+    END #LAYER
+END #MAP

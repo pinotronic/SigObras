@@ -1,0 +1,40 @@
+MAP
+    NAME "SS_MAP_INFO_TARIFA_CI"
+    INCLUDE 'includes/globals.map'
+    WEB
+        INCLUDE "includes/temp_directory.map"
+        METADATA
+            INCLUDE 'includes/common_metadata.map'
+        END #METADATA
+    END #WEB
+    CONFIG "MS_ERRORFILE" "/srv/mapserver/err_predio_tarifa_ci.log"
+    DEBUG 0
+    LAYER
+        CONNECTIONTYPE POSTGIS
+        NAME "SS_MAP_INFO_TARIFA_CI"
+        PROJECTION
+			'init=epsg:32614'
+		END #PROJECTION
+        STATUS DEFAULT
+        INCLUDE 'includes/conexion_gestion_infra.map'
+        DATA "gm_predio from ( select vgpc.gm_predio, vgpc.id_predio, vgpc.cl_tarifa from op.mv_gm_predio_cuenta vgpc where vgpc.cl_tarifa in ('5','6')) as p using unique id_predio using srid=32614" 
+        TYPE polygon
+        CLASSITEM "cl_tarifa"
+        CLASS
+            NAME "Industriales"
+            EXPRESSION "6"
+            STYLE
+                COLOR 120 0 120
+                OUTLINECOLOR 0 140 50
+            END #STYLE
+        END #CLASS
+        CLASS
+            NAME "Comercial"
+            EXPRESSION "5"
+            STYLE
+                COLOR 169 223 191
+                OUTLINECOLOR 0 140 50
+            END #STYLE
+        END #CLASS
+    END #LAYER
+END #MAP
