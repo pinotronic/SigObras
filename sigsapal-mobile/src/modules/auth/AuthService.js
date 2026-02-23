@@ -394,9 +394,23 @@ class AuthService {
       return {};
     }
 
-    return {
+    const headers = {
       'Authorization': `Bearer ${this.token}`
     };
+
+    // En modo external, el backend-mock guarda sesiones en memoria; si se reinicia,
+    // puede necesitar el username para reconstruir req.user sin perder trazabilidad.
+    const username = this.currentUser?.username;
+    if (username) {
+      headers['X-Username'] = String(username);
+    }
+
+    const pGid = this.currentUser?.pGid || this.currentUser?.gid || this.currentUser?.pgId;
+    if (pGid !== undefined && pGid !== null && String(pGid) !== '') {
+      headers['X-Pgid'] = String(pGid);
+    }
+
+    return headers;
   }
 }
 
