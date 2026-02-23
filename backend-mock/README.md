@@ -158,6 +158,20 @@ Basadas en el flujo de cambio de tubería:
 # Puerto del servidor
 PORT=3001
 
+# Autenticación
+# - external: valida contra wsautenticador (dev) y devuelve token real para MapServer
+# - mock: valida contra usuarios locales (admin/admin, etc.)
+AUTH_MODE=external
+
+# Si se requiere token real para mapas, recomienda desactivar fallback a mock
+AUTH_FALLBACK_TO_MOCK=false
+
+# (Opcional) URL del autenticador externo
+AUTH_URL=https://dev.wsautenticador.sapal.gob.mx/api/autenticador/fObtenerToken/
+
+# (Solo desarrollo) permitir TLS no confiable si hay certificado corporativo/proxy
+AUTH_ALLOW_INSECURE_TLS=true
+
 # URL del MapServer real (opcional)
 MAPSERVER_URL=https://wsorquestador.sapal.gob.mx/...
 

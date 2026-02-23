@@ -103,6 +103,10 @@ Otros usuarios disponibles:
 
 Si el login es exitoso, serás redirigido a la pantalla Home.
 
+> Nota: Para que los mapas carguen contra MapServer, se requiere token real (dev) del autenticador,
+> así que el backend debe correr con `AUTH_MODE=external`.
+> En `AUTH_MODE=mock` el login puede funcionar con usuarios locales, pero el token mock no sirve para MapServer.
+
 ---
 
 ## Solución de Problemas

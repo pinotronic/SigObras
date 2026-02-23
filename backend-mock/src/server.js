@@ -2,6 +2,9 @@
  * Servidor Express Mock para desarrollo de SAPAL Obras Móvil
  */
 
+// Cargar variables desde backend-mock/.env si existe
+import 'dotenv/config';
+
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -15,6 +18,7 @@ import activitiesRoutes from './routes/activities.routes.js';
 import evidenceRoutes from './routes/evidence.routes.js';
 import syncRoutes from './routes/sync.routes.js';
 import mapsRoutes from './routes/maps.routes.js';
+import linesRoutes from './routes/lines.routes.js';
 
 // Configuración
 const PORT = process.env.PORT || 3001;
@@ -51,7 +55,10 @@ app.get('/health', (req, res) => {
     status: 'ok',
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
-    environment: 'mock'
+    environment: 'mock',
+    authMode: (process.env.AUTH_MODE || 'mock').toLowerCase(),
+    authUrl: process.env.AUTH_URL || null,
+    mapServerUrl: process.env.MAPSERVER_URL || null
   });
 });
 
@@ -62,6 +69,7 @@ app.use('/api/activities', activitiesRoutes);
 app.use('/api/evidence', evidenceRoutes);
 app.use('/api/sync', syncRoutes);
 app.use('/api/maps', mapsRoutes);
+app.use('/api/lines', linesRoutes);
 
 // Ruta raíz
 app.get('/', (req, res) => {
