@@ -104,6 +104,11 @@ export default class LoginScene extends Phaser.Scene {
             placeholder="Ingresa tu contraseña"
             autocomplete="current-password"
           />
+
+          <label style="display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 14px; color: #666; cursor: pointer; user-select: none;">
+            <input type="checkbox" id="toggle-password" style="margin: 0;">
+            Mostrar contraseña
+          </label>
         </div>
 
         <!-- Botón de login -->
@@ -145,6 +150,7 @@ export default class LoginScene extends Phaser.Scene {
     const ssoLoginBtn = formContainer.getChildByID('sso-login-btn');
     const usernameInput = formContainer.getChildByID('username');
     const passwordInput = formContainer.getChildByID('password');
+    const togglePassword = formContainer.getChildByID('toggle-password');
 
     // Click en botón
     loginBtn.addEventListener('click', () => this.handleLogin(formContainer));
@@ -158,6 +164,21 @@ export default class LoginScene extends Phaser.Scene {
     passwordInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') this.handleLogin(formContainer);
     });
+
+    // Mostrar / ocultar contraseña
+    if (togglePassword) {
+      togglePassword.addEventListener('change', () => {
+        passwordInput.type = togglePassword.checked ? 'text' : 'password';
+        passwordInput.focus();
+        // Mantener el cursor al final (útil en algunos navegadores móviles)
+        try {
+          const len = passwordInput.value.length;
+          passwordInput.setSelectionRange(len, len);
+        } catch {
+          // Ignorar si el navegador no permite setSelectionRange aquí
+        }
+      });
+    }
 
     // Focus en username al inicio
     setTimeout(() => usernameInput.focus(), 100);

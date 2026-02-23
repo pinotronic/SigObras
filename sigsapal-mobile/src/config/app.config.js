@@ -7,6 +7,33 @@
 const isDevelopment = import.meta.env.DEV;
 const isProduction = import.meta.env.PROD;
 
+function resolveDevHostUrl(urlString) {
+  // En móvil, si abres Vite por IP (ej. http://192.168.x.x:3000),
+  // `localhost` en VITE_API_BASE_URL apunta al teléfono, no a tu PC.
+  // Si el URL configurado usa localhost/127.0.0.1, lo reescribimos al host actual.
+  if (!isDevelopment) return urlString;
+
+  const currentHostname = globalThis?.location?.hostname;
+  if (!currentHostname) return urlString;
+  if (currentHostname === 'localhost' || currentHostname === '127.0.0.1') return urlString;
+
+  try {
+    const url = new URL(urlString);
+    if (url.hostname === 'localhost' || url.hostname === '127.0.0.1') {
+      url.hostname = currentHostname;
+      return url.toString().replace(/\/$/, '');
+    }
+  } catch {
+    // Si no es un URL absoluto válido, no lo tocamos
+  }
+
+  return urlString;
+}
+
+const rawApiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001/api';
+const rawMapServerUrl = import.meta.env.VITE_MAPSERVER_URL ||
+  'https://wsorquestador.sapal.gob.mx/api/exWSOrquestadorGeografico/FObtenerDatosMapServerData';
+
 export const APP_CONFIG = {
   // Información de la app
   app: {
@@ -18,11 +45,10 @@ export const APP_CONFIG = {
   // Configuración de API
   api: {
     // URL base del backend (mock en desarrollo, real en producción)
-    baseUrl: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001/api',
+    baseUrl: resolveDevHostUrl(rawApiBaseUrl),
 
     // MapServer (usar proxy en desarrollo para evitar CORS)
-    mapServerUrl: import.meta.env.VITE_MAPSERVER_URL ||
-                  'https://wsorquestador.sapal.gob.mx/api/exWSOrquestadorGeografico/FObtenerDatosMapServerData',
+    mapServerUrl: resolveDevHostUrl(rawMapServerUrl),
 
     // Timeout en milisegundos
     timeout: 30000,
