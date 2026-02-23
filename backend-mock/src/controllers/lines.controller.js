@@ -5,8 +5,61 @@
  */
 
 import { v4 as uuidv4 } from 'uuid';
+import path from 'node:path';
+import { appendFile, mkdir } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
 import { addMockLine, listMockLines } from '../data/lines.data.js';
 import { insertLine, isLinesDbEnabled, listLines } from '../models/lines.repository.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+// backend-mock/src/controllers -> backend-mock
+const backendRootDir = path.resolve(__dirname, '..', '..');
+
+function shouldLogLinesToFile() {
+  const raw = process.env.LINES_LOG_TO_FILE;
+  if (raw === undefined || raw === null || raw === '') {
+    // Requisito: registrar para observación de forma temporal por defecto.
+    return true;
+  }
+  return String(raw).toLowerCase() === 'true' || String(raw) === '1';
+}
+
+function resolveLinesLogFilePath() {
+  const configured = process.env.LINES_LOG_FILE;
+  if (configured) {
+    return path.isAbsolute(configured)
+      ? configured
+      : path.resolve(backendRootDir, configured);
+  }
+
+  // Por defecto: backend-mock/data/lines-temp.txt
+  return path.resolve(backendRootDir, 'data', 'lines-temp.txt');
+}
+
+async function logLineToFile({ id, createdBy, geometry, properties, storage }) {
+  if (!shouldLogLinesToFile()) return;
+
+  const filePath = resolveLinesLogFilePath();
+  const dir = path.dirname(filePath);
+
+  const entry = {
+    timestamp: new Date().toISOString(),
+    id,
+    createdBy,
+    storage,
+    geometry,
+    properties: properties || {}
+  };
+
+  try {
+    await mkdir(dir, { recursive: true });
+    await appendFile(filePath, `${JSON.stringify(entry)}\n`, { encoding: 'utf8' });
+  } catch (error) {
+    // No romper el guardado principal si el log temporal falla.
+    console.warn('[LinesController] No se pudo escribir lines log file:', error?.message || error);
+  }
+}
 
 function toFeature(row) {
   const geometry = row.geojson;
@@ -63,6 +116,15 @@ export const linesController = {
 
       if (isLinesDbEnabled()) {
         const row = await insertLine({ id, createdBy, geometry, properties });
+
+        await logLineToFile({
+          id: row.id,
+          createdBy: row.created_by,
+          geometry: row.geojson,
+          properties: row.properties,
+          storage: 'postgres'
+        });
+
         return res.status(201).json({
           success: true,
           feature: toFeature(row),
@@ -79,6 +141,14 @@ export const linesController = {
       };
 
       addMockLine(mockRecord);
+
+      await logLineToFile({
+        id: mockRecord.id,
+        createdBy: mockRecord.created_by,
+        geometry: mockRecord.geojson,
+        properties: mockRecord.properties,
+        storage: 'memory'
+      });
 
       return res.status(201).json({
         success: true,

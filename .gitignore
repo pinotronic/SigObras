@@ -47,3 +47,6 @@
 # Carpetas locales
 **/Nueva carpeta/
 **/nueva carpeta/
+
+# Logs temporales
+backend-mock/data/lines-temp.txt

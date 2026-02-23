@@ -177,6 +177,12 @@ MAPSERVER_URL=https://wsorquestador.sapal.gob.mx/...
 
 # Entorno
 NODE_ENV=development
+
+# (Opcional) Trazado de líneas: log temporal a archivo .txt (JSONL)
+# En development se habilita por defecto.
+# Cada línea guardada agrega un renglón JSON con timestamp, usuario, storage y geometry.
+LINES_LOG_TO_FILE=true
+LINES_LOG_FILE=./data/lines-temp.txt
 ```
 
 ## Estructura del Código
