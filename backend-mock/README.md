@@ -183,6 +183,9 @@ NODE_ENV=development
 # Cada línea guardada agrega un renglón JSON con timestamp, usuario, storage y geometry.
 LINES_LOG_TO_FILE=true
 LINES_LOG_FILE=./data/lines-temp.txt
+
+# (Opcional) Incluir token en el log, enmascarado (preview + sha256)
+LINES_LOG_INCLUDE_TOKEN=true
 ```
 
 ## Estructura del Código

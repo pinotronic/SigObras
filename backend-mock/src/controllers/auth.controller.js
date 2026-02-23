@@ -220,15 +220,19 @@ function authenticateWithMock(username, password) {
 
   const { token, expiresAt } = generateToken(mockUser.id);
 
-  // Guardar sesión
+  const { password: _, ...userData } = mockUser;
+
+  // Guardar sesión (incluye userData para no depender de mockUsers al validar)
   activeSessions.set(token, {
     userId: mockUser.id,
     username: mockUser.username,
     createdAt: Date.now(),
-    expiresAt
+    expiresAt,
+    user: {
+      ...userData,
+      source: 'mock'
+    }
   });
-
-  const { password: _, ...userData } = mockUser;
 
   return {
     token,
@@ -379,12 +383,13 @@ async function login(req, res) {
     const userId = mockUser?.id || `ext_${String(username).toLowerCase()}`;
     const expiresAt = Date.now() + (8 * 60 * 60 * 1000);
 
-    // Guardar sesión
+    // Guardar sesión (incluye userData para validar token sin BD)
     activeSessions.set(token, {
       userId,
       username,
       createdAt: Date.now(),
-      expiresAt
+      expiresAt,
+      user: null
     });
 
     const externalGid = extractExternalGid(externalPayload);
@@ -399,6 +404,13 @@ async function login(req, res) {
       source: 'wsautenticador',
       ...(externalGid ? { pGid: externalGid } : {})
     };
+
+    // Actualizar userData en la sesión
+    const session = activeSessions.get(token);
+    if (session) {
+      session.user = userData;
+      activeSessions.set(token, session);
+    }
 
     console.log(`[Auth] Login externo exitoso: ${username}`);
 
@@ -572,10 +584,17 @@ function validateToken(token) {
     return null;
   }
 
-  // Buscar usuario
-  const user = mockUsers.find(u => u.id === session.userId);
+  // Preferir el userData guardado en sesión (external o mock)
+  if (session.user && typeof session.user === 'object') {
+    return session.user;
+  }
 
-  return user || null;
+  // Fallback: buscar usuario mock si existe
+  const user = mockUsers.find(u => u.id === session.userId);
+  if (!user) return null;
+
+  const { password: _, ...userData } = user;
+  return userData;
 }
 
 export const authController = {

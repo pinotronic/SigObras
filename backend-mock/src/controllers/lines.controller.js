@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import path from 'node:path';
 import { appendFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
+import crypto from 'node:crypto';
 import { addMockLine, listMockLines } from '../data/lines.data.js';
 import { insertLine, isLinesDbEnabled, listLines } from '../models/lines.repository.js';
 
@@ -37,7 +38,28 @@ function resolveLinesLogFilePath() {
   return path.resolve(backendRootDir, 'data', 'lines-temp.txt');
 }
 
-async function logLineToFile({ id, createdBy, geometry, properties, storage }) {
+function shouldIncludeTokenInLog() {
+  const raw = process.env.LINES_LOG_INCLUDE_TOKEN;
+  if (raw === undefined || raw === null || raw === '') {
+    return true; // requisito: observar/validar entradas en desarrollo
+  }
+  return String(raw).toLowerCase() === 'true' || String(raw) === '1';
+}
+
+function maskToken(token) {
+  if (!token) return null;
+  const t = String(token);
+  const start = t.slice(0, 6);
+  const end = t.slice(-6);
+  const hash = crypto.createHash('sha256').update(t).digest('hex');
+  return {
+    length: t.length,
+    preview: `${start}…${end}`,
+    sha256: hash
+  };
+}
+
+async function logLineToFile({ id, createdBy, geometry, properties, storage, token }) {
   if (!shouldLogLinesToFile()) return;
 
   const filePath = resolveLinesLogFilePath();
@@ -48,6 +70,7 @@ async function logLineToFile({ id, createdBy, geometry, properties, storage }) {
     id,
     createdBy,
     storage,
+    ...(shouldIncludeTokenInLog() ? { token: maskToken(token) } : {}),
     geometry,
     properties: properties || {}
   };
@@ -122,7 +145,8 @@ export const linesController = {
           createdBy: row.created_by,
           geometry: row.geojson,
           properties: row.properties,
-          storage: 'postgres'
+          storage: 'postgres',
+          token: req.token
         });
 
         return res.status(201).json({
@@ -147,7 +171,8 @@ export const linesController = {
         createdBy: mockRecord.created_by,
         geometry: mockRecord.geojson,
         properties: mockRecord.properties,
-        storage: 'memory'
+        storage: 'memory',
+        token: req.token
       });
 
       return res.status(201).json({
