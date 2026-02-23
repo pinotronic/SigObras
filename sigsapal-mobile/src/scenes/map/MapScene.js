@@ -324,7 +324,12 @@ export default class MapScene extends Phaser.Scene {
       console.error('[MapScene] Error guardando línea:', error);
       btnSave.textContent = '💾 Guardar línea';
       this.updateSaveButtonState();
-      this.setHint(error.message || 'No se pudo guardar la línea');
+      const msg = error?.message || 'No se pudo guardar la línea';
+      if (msg === 'Failed to fetch') {
+        this.setHint(`No se pudo conectar al backend (${APP_CONFIG.api.baseUrl}). Revisa que el backend esté encendido y que la URL no apunte a localhost en el teléfono.`);
+      } else {
+        this.setHint(msg);
+      }
     }
   }
 

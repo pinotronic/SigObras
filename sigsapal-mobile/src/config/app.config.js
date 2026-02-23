@@ -31,8 +31,13 @@ function resolveDevHostUrl(urlString) {
 }
 
 const rawApiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001/api';
+
+// En desarrollo se usa el proxy del backend para evitar CORS y para que el token/mapfile_root viaje.
+// En producción se puede apuntar al servicio real.
 const rawMapServerUrl = import.meta.env.VITE_MAPSERVER_URL ||
-  'https://wsorquestador.sapal.gob.mx/api/exWSOrquestadorGeografico/FObtenerDatosMapServerData';
+  (isDevelopment
+    ? 'http://localhost:3001/api/maps/proxy'
+    : 'https://wsorquestador.sapal.gob.mx/api/exWSOrquestadorGeografico/FObtenerDatosMapServerData');
 
 export const APP_CONFIG = {
   // Información de la app
@@ -263,9 +268,9 @@ export const APP_CONFIG = {
 
 // Configuración específica por ambiente
 if (isDevelopment) {
-  // Usar backend mock local
-  APP_CONFIG.api.baseUrl = 'http://localhost:3001/api';
-  APP_CONFIG.api.mapServerUrl = 'http://localhost:3001/api/maps/proxy';
+  // No forzar localhost: si abres la app por IP en móvil, se reescribe al hostname actual.
+  APP_CONFIG.api.baseUrl = resolveDevHostUrl(rawApiBaseUrl);
+  APP_CONFIG.api.mapServerUrl = resolveDevHostUrl(rawMapServerUrl);
 }
 
 // Definiciones de proyecciones para Proj4
