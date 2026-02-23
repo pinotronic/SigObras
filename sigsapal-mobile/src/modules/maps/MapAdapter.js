@@ -214,9 +214,41 @@ class MapAdapter {
       markerIcon = new L.Icon.Default();
     }
 
+    // Si el marcador ya existe, lo reutilizamos para no dejar duplicados en el mapa.
+    const existingMarker = this.markers[id];
+    if (existingMarker) {
+      existingMarker.setLatLng(markerCoords);
+
+      if (options.title !== undefined) {
+        try {
+          existingMarker.options.title = options.title || '';
+        } catch {
+          // ignore
+        }
+      }
+
+      // Habilitar/deshabilitar drag según options.draggable
+      if (options.draggable !== undefined && existingMarker.dragging) {
+        if (options.draggable) {
+          existingMarker.dragging.enable();
+        } else {
+          existingMarker.dragging.disable();
+        }
+      }
+
+      if (options.popup !== undefined) {
+        if (options.popup) {
+          existingMarker.bindPopup(options.popup);
+        }
+      }
+
+      return existingMarker;
+    }
+
     const marker = L.marker(markerCoords, {
       title: options.title || '',
-      icon: markerIcon
+      icon: markerIcon,
+      draggable: Boolean(options.draggable)
     });
 
     if (options.popup) {

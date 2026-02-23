@@ -142,19 +142,23 @@ export default class MapScene extends Phaser.Scene {
 
       if (this.drawMode === 'start') {
         this.startLatLng = latlng;
-        this.mapAdapter.addMarker('route-start', latlng.lat, latlng.lng, {
+        const startMarker = this.mapAdapter.addMarker('route-start', latlng.lat, latlng.lng, {
           title: 'Inicio',
-          popup: 'Inicio'
+          popup: 'Inicio',
+          draggable: true
         });
+        this.bindDragForMarker(startMarker, 'start');
         this.setHint('Inicio definido. Selecciona Fin y toca el mapa.');
       }
 
       if (this.drawMode === 'end') {
         this.endLatLng = latlng;
-        this.mapAdapter.addMarker('route-end', latlng.lat, latlng.lng, {
+        const endMarker = this.mapAdapter.addMarker('route-end', latlng.lat, latlng.lng, {
           title: 'Fin',
-          popup: 'Fin'
+          popup: 'Fin',
+          draggable: true
         });
+        this.bindDragForMarker(endMarker, 'end');
         this.setHint('Fin definido. Puedes guardar la línea.');
       }
 
@@ -193,6 +197,30 @@ export default class MapScene extends Phaser.Scene {
     });
 
     this.updateSaveButtonState();
+  }
+
+  bindDragForMarker(marker, kind) {
+    if (!marker) return;
+
+    // Evitar enlazar listeners duplicados si el marcador se reusa.
+    const flagKey = kind === 'start' ? '__dragBoundStart' : '__dragBoundEnd';
+    if (marker[flagKey]) return;
+    marker[flagKey] = true;
+
+    const updateFromMarker = () => {
+      const ll = marker.getLatLng();
+      if (kind === 'start') {
+        this.startLatLng = ll;
+      } else {
+        this.endLatLng = ll;
+      }
+
+      this.updateTempLine();
+      this.updateSaveButtonState();
+    };
+
+    marker.on('drag', updateFromMarker);
+    marker.on('dragend', updateFromMarker);
   }
 
   setHint(text) {
