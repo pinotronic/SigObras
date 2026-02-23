@@ -15,6 +15,14 @@ const EXTERNAL_AUTH_URL =
   process.env.AUTH_URL ||
   'https://dev.wsautenticador.sapal.gob.mx/api/autenticador/fObtenerToken/';
 
+const isDev = String(process.env.NODE_ENV || '').toLowerCase() === 'development';
+
+// Si no se configuró CA corporativa y estamos en dev, por defecto permitimos TLS inseguro
+// para evitar bloqueos por certificados corporativos. Se puede desactivar con StrictTls en el launcher.
+if (isDev && !process.env.NODE_EXTRA_CA_CERTS && process.env.AUTH_ALLOW_INSECURE_TLS === undefined) {
+  process.env.AUTH_ALLOW_INSECURE_TLS = 'true';
+}
+
 const ALLOW_INSECURE_TLS = process.env.AUTH_ALLOW_INSECURE_TLS === 'true';
 
 if (ALLOW_INSECURE_TLS) {

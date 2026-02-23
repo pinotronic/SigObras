@@ -4,6 +4,12 @@
 
 import proj4 from 'proj4';
 
+const isDev = String(process.env.NODE_ENV || '').toLowerCase() === 'development';
+
+if (isDev && !process.env.NODE_EXTRA_CA_CERTS && process.env.MAPS_ALLOW_INSECURE_TLS === undefined) {
+  process.env.MAPS_ALLOW_INSECURE_TLS = 'true';
+}
+
 const allowInsecureTlsForMaps = String(process.env.MAPS_ALLOW_INSECURE_TLS || '').toLowerCase() === 'true';
 if (allowInsecureTlsForMaps) {
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';

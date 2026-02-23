@@ -12,6 +12,11 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
+# En este repo se trabaja como entorno de desarrollo por defecto.
+if (-not $env:NODE_ENV) {
+	$env:NODE_ENV = 'development'
+}
+
 function Clear-TlsEnv {
 	# Evita que variables queden "pegadas" en la sesión actual de PowerShell entre ejecuciones.
 	$vars = @(
