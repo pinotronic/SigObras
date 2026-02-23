@@ -11,8 +11,6 @@ function resolveDevHostUrl(urlString) {
   // En móvil, si abres Vite por IP (ej. http://192.168.x.x:3000),
   // `localhost` en VITE_API_BASE_URL apunta al teléfono, no a tu PC.
   // Si el URL configurado usa localhost/127.0.0.1, lo reescribimos al host actual.
-  if (!isDevelopment) return urlString;
-
   const currentHostname = globalThis?.location?.hostname;
   if (!currentHostname) return urlString;
   if (currentHostname === 'localhost' || currentHostname === '127.0.0.1') return urlString;
