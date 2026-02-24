@@ -77,30 +77,92 @@ export default class MapScene extends Phaser.Scene {
       <div id="map-root" style="position: relative; width: ${width}px; height: ${height - 80}px; background: #e0e0e0;">
         <div id="leaflet-map" style="width: 100%; height: 100%; background: #e0e0e0;"></div>
         <div id="map-controls" style="position: absolute; top: 12px; right: 12px; z-index: 1000; width: min(260px, calc(100% - 24px)); background: rgba(255,255,255,0.95); border: 2px solid #0066cc; border-radius: 10px; padding: 12px; box-sizing: border-box; font-family: Arial, sans-serif;">
-          <div style="font-size: 18px; font-weight: bold; color: #0066cc; margin-bottom: 10px;">Capas</div>
-          <label style="display:flex; align-items:center; gap:8px; margin-bottom:8px; color:#333;"><input type="checkbox" data-layer-id="calles" checked> Calles</label>
-          <label style="display:flex; align-items:center; gap:8px; margin-bottom:8px; color:#333;"><input type="checkbox" data-layer-id="predios" checked> Predios</label>
-          <label style="display:flex; align-items:center; gap:8px; margin-bottom:8px; color:#333;"><input type="checkbox" data-layer-id="tuberiasAgua" checked> Tuberías Agua</label>
-          <label style="display:flex; align-items:center; gap:8px; margin-bottom:12px; color:#333;"><input type="checkbox" data-layer-id="tuberiasDrenaje" checked> Tuberías Drenaje</label>
-          <button id="btn-center-map" type="button" style="width:100%; border:none; border-radius:8px; background:#0066cc; color:#fff; padding:10px; font-size:15px; font-weight:600; cursor:pointer;">📍 Centrar</button>
-
-          <div style="height: 1px; background: rgba(0,102,204,0.25); margin: 12px 0;"></div>
-          <div style="font-size: 16px; font-weight: bold; color: #0066cc; margin-bottom: 10px;">Trazado</div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-            <button id="btn-set-start" type="button" style="border:none; border-radius:8px; background:#004999; color:#fff; padding:10px; font-size:14px; font-weight:600; cursor:pointer;">📍 Inicio</button>
-            <button id="btn-set-end" type="button" style="border:none; border-radius:8px; background:#004999; color:#fff; padding:10px; font-size:14px; font-weight:600; cursor:pointer;">🏁 Fin</button>
-            <button id="btn-save-line" type="button" disabled style="grid-column: 1 / span 2; border:none; border-radius:8px; background:#4caf50; color:#fff; padding:10px; font-size:14px; font-weight:700; cursor:not-allowed; opacity:0.7;">💾 Guardar línea</button>
-            <button id="btn-clear-line" type="button" style="grid-column: 1 / span 2; border:2px solid #0066cc; border-radius:8px; background:#fff; color:#0066cc; padding:10px; font-size:14px; font-weight:700; cursor:pointer;">Limpiar</button>
+          <div id="map-controls-header" style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom: 10px;">
+            <div id="map-controls-title" style="font-size: 18px; font-weight: bold; color: #0066cc;">Controles</div>
+            <button id="btn-toggle-map-controls" type="button" aria-label="Plegar o desplegar controles del mapa" aria-expanded="true" aria-controls="map-controls-content" style="border:2px solid #0066cc; border-radius:8px; background:#fff; color:#0066cc; width:40px; height:40px; font-size:20px; font-weight:800; line-height:1; cursor:pointer;">☰</button>
           </div>
 
-          <div id="draw-hint" style="margin-top: 10px; font-size: 12px; color: #666; line-height: 1.2;">
-            Selecciona Inicio o Fin y toca el mapa.
+          <div id="map-controls-content">
+            <div style="font-size: 16px; font-weight: bold; color: #0066cc; margin-bottom: 10px;">Capas</div>
+            <label style="display:flex; align-items:center; gap:8px; margin-bottom:8px; color:#333;"><input type="checkbox" data-layer-id="calles" checked> Calles</label>
+            <label style="display:flex; align-items:center; gap:8px; margin-bottom:8px; color:#333;"><input type="checkbox" data-layer-id="predios" checked> Predios</label>
+            <label style="display:flex; align-items:center; gap:8px; margin-bottom:8px; color:#333;"><input type="checkbox" data-layer-id="tuberiasAgua" checked> Tuberías Agua</label>
+            <label style="display:flex; align-items:center; gap:8px; margin-bottom:12px; color:#333;"><input type="checkbox" data-layer-id="tuberiasDrenaje" checked> Tuberías Drenaje</label>
+            <button id="btn-center-map" type="button" style="width:100%; border:none; border-radius:8px; background:#0066cc; color:#fff; padding:10px; font-size:15px; font-weight:600; cursor:pointer;">📍 Centrar</button>
+
+            <div style="height: 1px; background: rgba(0,102,204,0.25); margin: 12px 0;"></div>
+            <div style="font-size: 16px; font-weight: bold; color: #0066cc; margin-bottom: 10px;">Trazado</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+              <button id="btn-set-start" type="button" style="border:none; border-radius:8px; background:#004999; color:#fff; padding:10px; font-size:14px; font-weight:600; cursor:pointer;">📍 Inicio</button>
+              <button id="btn-set-end" type="button" style="border:none; border-radius:8px; background:#004999; color:#fff; padding:10px; font-size:14px; font-weight:600; cursor:pointer;">🏁 Fin</button>
+              <button id="btn-save-line" type="button" disabled style="grid-column: 1 / span 2; border:none; border-radius:8px; background:#4caf50; color:#fff; padding:10px; font-size:14px; font-weight:700; cursor:not-allowed; opacity:0.7;">💾 Guardar línea</button>
+              <button id="btn-clear-line" type="button" style="grid-column: 1 / span 2; border:2px solid #0066cc; border-radius:8px; background:#fff; color:#0066cc; padding:10px; font-size:14px; font-weight:700; cursor:pointer;">Limpiar</button>
+            </div>
+
+            <div id="draw-hint" style="margin-top: 10px; font-size: 12px; color: #666; line-height: 1.2;">
+              Selecciona Inicio o Fin y toca el mapa.
+            </div>
           </div>
         </div>
       </div>
     `);
 
+    this.ensureMapControlsStyles();
+    this.setupMapControlsToggle();
     this.bindLayerControls();
+  }
+
+  ensureMapControlsStyles() {
+    const styleId = 'map-controls-toggle-styles';
+    if (document.getElementById(styleId)) {
+      return;
+    }
+
+    const style = document.createElement('style');
+    style.id = styleId;
+    style.textContent = `
+      #map-controls.is-collapsed {
+        width: 56px !important;
+        padding: 8px !important;
+      }
+
+      #map-controls.is-collapsed #map-controls-header {
+        margin-bottom: 0 !important;
+        justify-content: center !important;
+      }
+
+      #map-controls.is-collapsed #map-controls-title {
+        display: none !important;
+      }
+
+      #map-controls.is-collapsed #map-controls-content {
+        display: none !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  setupMapControlsToggle() {
+    const root = this.mapContainer?.node;
+    if (!root) return;
+
+    const panel = root.querySelector('#map-controls');
+    const toggleBtn = root.querySelector('#btn-toggle-map-controls');
+    if (!panel || !toggleBtn) return;
+
+    const applyCollapsed = (collapsed) => {
+      panel.classList.toggle('is-collapsed', collapsed);
+      toggleBtn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+    };
+
+    // En pantallas pequeñas, colapsar por defecto para que no cubra el mapa.
+    const shouldCollapseByDefault = window.matchMedia?.('(max-width: 768px)')?.matches;
+    applyCollapsed(Boolean(shouldCollapseByDefault));
+
+    toggleBtn.addEventListener('click', () => {
+      const collapsed = panel.classList.contains('is-collapsed');
+      applyCollapsed(!collapsed);
+    });
   }
 
   initMap() {
